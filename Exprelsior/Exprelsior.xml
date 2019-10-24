@@ -1,0 +1,802 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Exprelsior</name>
+    </assembly>
+    <members>
+        <member name="T:Exprelsior.DynamicQuery.DynamicQueryBuilder">
+            <summary>
+                Provides static methods to dynamically build <see cref="T:System.Linq.Expressions.Expression`1" /> objects for data querying.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.DynamicQueryBuilder.Build``1(System.String)">
+            <summary>
+                Builds an <see cref="T:System.Linq.Expressions.Expression`1" /> from the provided <see cref="T:System.String" /> object representing an query.
+            </summary>
+            <typeparam name="T">
+                The type being queried.
+            </typeparam>
+            <param name="query">
+                The string representing the query.
+            </param>
+            <returns>
+                The <see cref="T:System.Linq.Expressions.Expression`1" /> object representing the query.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.DynamicQueryBuilder.BuildQuery``1(System.String)">
+            <summary>
+                Parses the provided query as <see cref="T:System.String" /> to it's <see cref="T:System.Linq.Expressions.Expression`1" /> equivalent.
+            </summary>
+            <param name="query">
+                The query.
+            </param>
+            <typeparam name="T">
+                The type being queried.
+            </typeparam>
+            <returns>
+                The <see cref="T:System.Linq.Expressions.Expression`1" /> object representing the query.
+            </returns>
+        </member>
+        <member name="T:Exprelsior.DynamicQuery.Parser.QueryParser">
+            <summary>
+                Provides methods to parse the string representation of a query to a object representation.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryElementsRegex">
+            <summary>
+                Regular expression that matches the elements (operator, property and values) of a single query.
+            </summary>
+            <remarks>
+                Explanation:
+                    - Operator part.
+                        - <code>^[A-Za-z]{2,3}(?=(\s*\(\s*))</code>
+                        - Matches the 2 or 3 first characters in the query string that represents the query operator.
+                        - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> name: 'operator'.
+                    - Property part.
+                        - <code>(?&lt;=^[A-Za-z]{2,3}\s*\(\s*)'(?&lt;property&gt;(?!\.).[a-zA-Z][a-zA-Z0-9._]+)(?&lt;!\.)'\s*(?=(,\s*)))</code>
+                        - Matches the name of property that the query targets.
+                        - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> name: 'property'.
+                    - Value part (when single value).
+                        - <code>(?&lt;=(^[a-zA-Z]{2,3}\s*\(\s*\'[a-zA-Z]+\'\s*\,\s*))'(.+?)'\s*(?=\))</code>
+                        - Matches the value of the query when it's a single value (non-array).
+                        - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> name: 'value'.
+                     - Value part (when array of values).
+                        - <code>((?:\[\s*|\G(?!\A))('(.+?)')(?:(?:\s*,\s*(?=[^\]]*?\]))|\s*\]))</code>
+                        - Matches the value of the query when it's a array of values.
+                        - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> name: 'arrayValues'.
+            </remarks>
+        </member>
+        <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryAggregatorRegex">
+            <summary>
+                Regular expression that matches the operators that aggregate queries.
+            </summary>
+            <remarks>
+                - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> number 1.
+            </remarks>
+        </member>
+        <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryKeywords">
+            <summary>
+                The query keywords.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.ParseQuery(System.String)">
+            <summary>
+                Parses the provided <see cref="T:System.String"/> representing an query to a collection of <see cref="T:Exprelsior.DynamicQuery.QueryInfo"/> objects representing the elements of the query.
+            </summary>
+            <param name="query">
+                The <see cref="T:System.String"/> with the query to be parsed.
+            </param>
+            <returns>
+                The collection of query elements.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.ReplaceKeywords(System.Object)">
+            <summary>
+                Replaces the keywords in the query values to their actual values.
+            </summary>
+            <param name="values">
+                The query values to be replaced.
+            </param>
+            <returns>
+                The object containing the values with the replaced keywords.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+                Exception thrown when the provided value object is invalid.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.GetExpressionOperator(System.String)">
+            <summary>
+                Gets the <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator" /> value identified by the provided <see cref="T:System.String" />.
+            </summary>
+            <remarks>
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator" /> is identified by the description set in the
+                <see cref="T:System.ComponentModel.DescriptionAttribute" />.
+            </remarks>
+            <param name="operator">
+                The <see cref="T:System.String" /> representing the operator value.
+            </param>
+            <returns>
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator" /> identified by the provided <see cref="T:System.String" />.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.GetExpressionAggregate(System.String)">
+            <summary>
+                Gets the <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> value identified by the provided <see cref="T:System.String" />.
+            </summary>
+            <remarks>
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> is identified by the description set in the
+                <see cref="T:System.ComponentModel.DescriptionAttribute" />.
+            </remarks>
+            <param name="operator">
+                The <see cref="T:System.String" /> representing the operator value.
+            </param>
+            <returns>
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> identified by the provided <see cref="T:System.String" />.
+            </returns>
+        </member>
+        <member name="T:Exprelsior.DynamicQuery.QueryInfo">
+            <summary>
+                Represents an query.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.DynamicQuery.QueryInfo.#ctor(System.Nullable{Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate},Exprelsior.ExpressionBuilder.Enums.ExpressionOperator,System.String,System.Object)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Exprelsior.DynamicQuery.QueryInfo"/> class.
+            </summary>
+            <param name="aggregate">
+                The aggregate operator.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <param name="propertyName">
+                The property name.
+            </param>
+            <param name="value">
+                The value to be compared.
+            </param>
+        </member>
+        <member name="P:Exprelsior.DynamicQuery.QueryInfo.Aggregate">
+            <summary>
+                Gets the aggregate operator.
+            </summary>
+        </member>
+        <member name="P:Exprelsior.DynamicQuery.QueryInfo.Operator">
+            <summary>
+                Gets the comparison operator.
+            </summary>
+        </member>
+        <member name="P:Exprelsior.DynamicQuery.QueryInfo.PropertyName">
+            <summary>
+                Gets the property name.
+            </summary>
+        </member>
+        <member name="P:Exprelsior.DynamicQuery.QueryInfo.Value">
+            <summary>
+                Gets the value.
+            </summary>
+        </member>
+        <member name="T:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator">
+            <summary>
+                Expression comparison operators.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.Equal">
+            <summary>
+                The equality comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.NotEqual">
+            <summary>
+                The inequality comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.LessThan">
+            <summary>
+                The "less than" numeric comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.LessThanOrEqual">
+            <summary>
+                The "less than or equal" numeric comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.GreaterThan">
+            <summary>
+                The "greater than" numeric comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.GreaterThanOrEqual">
+            <summary>
+                The "greater than or equal" numeric comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.Contains">
+            <summary>
+                The "contains" comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.ContainsOnValue">
+            <summary>
+                The "contains" comparison applied on the value of an expression.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.StartsWith">
+            <summary>
+                The "starts with" comparison.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator.EndsWith">
+            <summary>
+                The "ends with" comparison.
+            </summary>
+        </member>
+        <member name="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate">
+            <summary>
+                Expression aggregate operators.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate.And">
+            <summary>
+                The "and" aggregate.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate.Or">
+            <summary>
+                The "or" aggregate.
+            </summary>
+        </member>
+        <member name="T:Exprelsior.ExpressionBuilder.ExpressionBuilder">
+            <summary>
+                Provides static methods to create <see cref="T:System.Linq.Expressions.Expression" /> instances.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateAccessorExpression``2(System.String)">
+            <summary>
+                Creates a lambda expression that represents an accessor to a property from an object of type
+                <typeparamref name="T" />.
+            </summary>
+            <param name="propertyNameOrPath">
+                The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
+            </param>
+            <typeparam name="T">
+                The type that contains the property to be accessed.
+            </typeparam>
+            <typeparam name="TResult">
+                The type of the accessed property used as the delegate return type.
+            </typeparam>
+            <returns>
+                The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the property accessor.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryExpression``1(System.String,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Creates a binary lambda expression that compares the value of an property from an object of
+                type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+            </summary>
+            <typeparam name="T">
+                The type that contains the property to be compared.
+            </typeparam>
+            <param name="propertyNameOrPath">
+                The name or the path to access the property to be compared composed of simple dot-separated property access
+                expressions.
+            </param>
+            <param name="value">
+                The value to compare the property.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <returns>The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the binary operation.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryExpression``1(System.Reflection.PropertyInfo,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Creates a binary lambda expression that compares the value of an property from an object of
+                type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+            </summary>
+            <typeparam name="T">
+                The type that contains the property to be compared.
+            </typeparam>
+            <param name="propertyInfo">
+                The metadata of the property to be compared.
+            </param>
+            <param name="value">
+                The value to compare the property.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <returns>The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the binary operation.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.BuildAccessor``1(System.String)">
+            <summary>
+                Creates a <see cref="T:System.Linq.Expressions.MemberExpression" /> that represents accessing a property from an object of type
+                <typeparamref name="T" />.
+            </summary>
+            <param name="propertyNameOrPath">
+                The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
+            </param>
+            <typeparam name="T">
+                The type that contains the property to be accessed.
+            </typeparam>
+            <returns>
+                The <see cref="T:System.Linq.Expressions.ParameterExpression" /> representing a parameter of the type that contains
+                the accessed property and the <see cref="T:System.Linq.Expressions.MemberExpression" /> representing the accessor to the property.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.BuildBinaryExpression``1(System.String,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Creates a binary lambda expression that compares the value of an property from an object of
+                type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+            </summary>
+            <typeparam name="T">
+                The type with the property to be compared.
+            </typeparam>
+            <param name="propertyNameOrPath">
+                The name or the path to access the property to be compared composed of simple dot-separated property access
+                expressions.
+            </param>
+            <param name="value">
+                The value to compare the property.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <returns>The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the binary operation.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.BuildBinaryExpressionParameters(System.Linq.Expressions.Expression,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Creates the <see cref="T:System.Linq.Expressions.Expression" /> parameters that can be used to build <see cref="T:System.Linq.Expressions.BinaryExpression" /> objects.
+            </summary>
+            <param name="property">
+                The expression representing the property accessor.
+            </param>
+            <param name="value">
+                The value to compare the property.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <returns>
+                The expression parameters to build <see cref="T:System.Linq.Expressions.BinaryExpression" /> objects.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParameters(System.Type,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions.
+            </summary>
+            <param name="propertyType">
+                The property type accessed by the expression.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForCollection(System.Type,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for collection type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForDateTime(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.DateTime" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForChar(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.Char" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForBoolean(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.Boolean" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForGuid(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.Guid" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForNumeric(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for numeric type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForObject(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.Object" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForString(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.String" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="T:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder">
+            <summary>
+                Provides static methods to build predefined method call expressions.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildGenericCollectionContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '
+                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0)" />' method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The expression representing the call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildGenericStringCollectionContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '
+                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method. <br />
+                An <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> that performs an case-insensitive ordinal string comparison is passed as
+                argument to the method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildIListContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '<see cref="M:System.Collections.IList.Contains(System.Object)" />' method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The expression representing the call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildStringContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '<see cref="M:System.String.Contains(System.String)" />' method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildStringEndsWithMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '<see cref="M:System.String.EndsWith(System.String)" />' method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The expression representing the call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildStringStartsWithMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
+            <summary>
+                Builds an method call expression that represents a call to the '<see cref="M:System.String.StartsWith(System.String)" />' method.
+            </summary>
+            <param name="property">The expression representing the instance for the instance method call.</param>
+            <param name="value">The expression representing the value to be passed as the method argument.</param>
+            <returns>The expression representing the call to the method.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildEnumerableSequenceEqualMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Boolean)">
+            <summary>
+                Builds an method call expression that represents a call to the '
+                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method.
+            </summary>
+            <param name="property">
+                The expression representing the instance for the instance method call.
+            </param>
+            <param name="value">
+                The expression representing the value to be passed as the method argument.
+            </param>
+            <param name="negate">
+                Informs whether the comparison should be negated (not equal).
+            </param>
+            <returns>
+                The call to the method.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildEnumerableContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Collections.IEqualityComparer)">
+            <summary>
+                Builds an method call expression that represents a call to the '
+                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method.
+            </summary>
+            <param name="property">
+                The expression representing the instance for the instance method call.
+            </param>
+            <param name="value">
+                The expression representing the value to be passed as the method argument.
+            </param>
+            <param name="equalityComparer">
+                The equality comparer to be used by the method.
+            </param>
+            <returns>
+                The call to the method.
+            </returns>
+        </member>
+        <member name="T:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser">
+            <summary>
+                Provides static methods for generating expression accessors and constants with parsed/converted object values to match the corresponding accessed property type.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.BuildAccessorAndValue(System.Linq.Expressions.Expression,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Builds the property accessor and converted value constant according to the specified comparison operator.
+            </summary>
+            <param name="property">
+                The expression representing the property accessor.
+            </param>
+            <param name="value">
+                The value to be compared.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <returns>
+                The property accessor expression and parsed value constant expression.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseCollectionValues(System.Object,System.Type,System.Type)">
+            <summary>
+                Parses the values of an collection of objects to match the type of the provided property.
+            </summary>
+            <param name="value">
+                The collection of values to be parsed.
+            </param>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="propertyAbsoluteType">
+                The absolute underlying property type (if it's a null value type, gets the underlying type).
+            </param>
+            <returns>
+                The parsed collection of objects.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ConvertToBoolean(System.Object)">
+            <summary>
+                Converts the string representation of a true or false value to it's <see cref="T:System.Boolean" /> equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <returns>
+                The <see cref="T:System.Boolean" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ConvertCollectionToBoolean(System.Object,System.Boolean)">
+            <summary>
+                Converts an collection of objects representing a true or false value to it's <see cref="T:System.Boolean" /> equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="isNullable">
+                Indicates whether the <see cref="T:System.Boolean" /> type can be null.
+            </param>
+            <returns>
+                The object representing the converted collection.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseObjectToNumber(System.Object,System.Type)">
+            <summary>
+                Converts the string representation of a number to it's numeric equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <param name="propertyType">
+                The numeric type that the value must be parsed to.
+            </param>
+            <returns>
+                The <see cref="T:System.Object" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseObjectCollectionToNumber(System.Object,System.Type)">
+            <summary>
+                Converts an collection of objects representing a number to it's numeric equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="propertyType">
+                The numeric type that the collection elements must be parsed to.
+            </param>
+            <returns>
+                The <see cref="T:System.Object" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringToDateTime(System.Object)">
+            <summary>
+                Converts the string representation of a date and time to it's <see cref="T:System.DateTime" /> equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <returns>
+                The <see cref="T:System.DateTime" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringCollectionToDateTime(System.Object,System.Boolean)">
+            <summary>
+                Converts an collection of strings representing a date and time to it's <see cref="T:System.DateTime" /> equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="isNullable">
+                Indicates whether the <see cref="T:System.DateTime" /> type can be null.
+            </param>
+            <returns>
+                The object representing the converted collection.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringToGuid(System.Object)">
+            <summary>
+                Converts the string representation of a globally unique identifier to it's <see cref="T:System.Guid" /> equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <returns>
+                The <see cref="T:System.Object" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringCollectionToGuid(System.Object,System.Boolean)">
+            <summary>
+                Converts an collection of strings representing globally unique identifiers to it's <see cref="T:System.Guid" /> equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="isNullable">
+                Indicates whether the <see cref="T:System.DateTime" /> type can be null.
+            </param>
+            <returns>
+                The object representing the converted collection.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringToChar(System.Object)">
+            <summary>
+                Converts the string representation of a globally unique identifier to it's <see cref="T:System.Char" /> equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <returns>
+                The <see cref="T:System.Object" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringCollectionToChar(System.Object,System.Boolean)">
+            <summary>
+                Converts an collection of strings representing globally unique identifiers to it's <see cref="T:System.Guid" /> equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="isNullable">
+                Indicates whether the <see cref="T:System.DateTime" /> type can be null.
+            </param>
+            <returns>
+                The object representing the converted collection.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+    </members>
+</doc>

@@ -35,12 +35,14 @@
 
             HydraFaker = new Faker<Hydra>()
                 .StrictMode(true)
+
                 //// Strings
                 .RuleFor(t => t.FirstName, f => f.Name.FirstName())
                 .RuleFor(t => t.LastName, f => f.Name.LastName())
                 .RuleFor(t => t.FullName, (f, p) => string.Concat(p.FirstName, " ", p.LastName))
                 .RuleFor(t => t.StringArray, f => f.Random.WordsArray(10))
                 .RuleFor(t => t.StringCollection, f => f.Random.WordsArray(10).ToList())
+
                 //// Chars
                 .RuleFor(t => t.Char, f => f.Random.Char())
                 .RuleFor(t => t.NullableChar, f => f.Random.Char().OrNull(f))
@@ -48,6 +50,7 @@
                 .RuleFor(t => t.NullableCharArray, f => f.Random.Chars(count: 20).Select(t => t.OrNull(f)).ToArray())
                 .RuleFor(t => t.CharCollection, f => f.Random.Chars(count: 20).ToList())
                 .RuleFor(t => t.NullableCharCollection, f => f.Random.Chars(count: 20).Select(t => t.OrNull(f)).ToList())
+
                 //// Integers
                 .RuleFor(t => t.Integer, f => f.Random.Int())
                 .RuleFor(t => t.NullableInteger, f => f.Random.Int().OrNull(f))
@@ -55,6 +58,7 @@
                 .RuleFor(t => t.NullableIntegerArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t.OrNull(f)).ToArray())
                 .RuleFor(t => t.IntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).ToList())
                 .RuleFor(t => t.NullableIntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t.OrNull(f)).ToList())
+
                 //// Floats
                 .RuleFor(t => t.Float, f => (float)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableFloat, f => ((float)f.Random.Int() / 3).OrNull(f))
@@ -62,6 +66,7 @@
                 .RuleFor(t => t.NullableFloatArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3f).OrNull(f)).ToArray())
                 .RuleFor(t => t.FloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3f).ToList())
                 .RuleFor(t => t.NullableFloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3f).OrNull(f)).ToList())
+
                 //// Doubles
                 .RuleFor(t => t.Double, f => (double)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableDouble, f => ((double)f.Random.Int() / 3).OrNull(f))
@@ -69,6 +74,7 @@
                 .RuleFor(t => t.NullableDoubleArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3d).OrNull(f)).ToArray())
                 .RuleFor(t => t.DoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3d).ToList())
                 .RuleFor(t => t.NullableDoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3d).OrNull(f)).ToList())
+
                 //// Decimals
                 .RuleFor(t => t.Decimal, f => (decimal)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableDecimal, f => ((decimal)f.Random.Int() / 3).OrNull(f))
@@ -76,6 +82,7 @@
                 .RuleFor(t => t.NullableDecimalArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3m).OrNull(f)).ToArray())
                 .RuleFor(t => t.DecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3m).ToList())
                 .RuleFor(t => t.NullableDecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3m).OrNull(f)).ToList())
+
                 //// DateTimes
                 .RuleFor(t => t.DateTime, f => f.Date.Past())
                 .RuleFor(t => t.NullableDateTime, f => f.Date.Future().OrNull(f))
@@ -83,6 +90,7 @@
                 .RuleFor(t => t.NullableDateTimeArray, f => GetRandomItems(f.Date.Soon().Range(f.Date.Soon().AddMonths(2))).Select(t => t.OrNull(f)).ToArray())
                 .RuleFor(t => t.DateTimeCollection, f => GetRandomItems(f.Date.Soon().Range(f.Date.Soon().AddMonths(2))).ToList())
                 .RuleFor(t => t.NullableDateTimeCollection, f => GetRandomItems(f.Date.Soon().Range(f.Date.Soon().AddMonths(2))).Select(t => t.OrNull(f)).ToList())
+
                 //// GUIDs
                 .RuleFor(t => t.Guid, f => f.Random.Guid())
                 .RuleFor(t => t.NullableGuid, f => f.Random.Guid().OrNull(f))
@@ -90,6 +98,7 @@
                 .RuleFor(t => t.NullableGuidArray, f => GetRandomItems(Enumerable.Range(1, 50).Select(t => f.Random.Guid().OrNull(f))).ToArray())
                 .RuleFor(t => t.GuidCollection, f => GetRandomItems(Enumerable.Range(1, 50).Select(t => f.Random.Guid())).ToList())
                 .RuleFor(t => t.NullableGuidCollection, f => GetRandomItems(Enumerable.Range(1, 50).Select(t => f.Random.Guid().OrNull(f))).ToList())
+
                 //// Booleans
                 .RuleFor(t => t.Boolean, f => f.Random.Bool())
                 .RuleFor(t => t.NullableBoolean, f => f.Random.Bool().OrNull(f))

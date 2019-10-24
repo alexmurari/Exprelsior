@@ -1,0 +1,414 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Exprelsior.Shared</name>
+    </assembly>
+    <members>
+        <member name="T:Exprelsior.Shared.Extensions.EnumExtensions">
+            <summary>
+                Provides extension methods to the <see cref="T:System.Enum" /> type.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.EnumExtensions.GetDescription(System.Enum)">
+            <summary>
+                Gets the description of the enumeration defined in the <see cref="T:System.ComponentModel.DescriptionAttribute" />.
+            </summary>
+            <param name="value">
+                The value representing the enumeration to get the description from.
+            </param>
+            <returns>
+                The enumeration description.
+            </returns>
+        </member>
+        <member name="T:Exprelsior.Shared.Extensions.ExpressionExtensions">
+            <summary>
+                Provides extension methods to the <see cref="T:System.Linq.Expressions.Expression" /> class.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+                Joins two binary lambda expressions using the 'And' conditional operator.
+            </summary>
+            <typeparam name="T">
+                The type of the predicate.
+            </typeparam>
+            <param name="left">
+                The left <see cref="T:System.Linq.Expressions.Expression`1" />.
+            </param>
+            <param name="right">
+                The right <see cref="T:System.Linq.Expressions.Expression`1" />.
+            </param>
+            <returns>
+                The resulting <see cref="T:System.Linq.Expressions.Expression`1" /> object that contains the joined
+                <see cref="T:System.Linq.Expressions.Expression`1" /> objects.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+                Joins two binary lambda expressions using the 'Or' conditional operator.
+            </summary>
+            <typeparam name="T">
+                The type of the predicate.
+            </typeparam>
+            <param name="left">
+                The first <see cref="T:System.Linq.Expressions.Expression`1" />.
+            </param>
+            <param name="right">
+                The second <see cref="T:System.Linq.Expressions.Expression`1" />.
+            </param>
+            <returns>
+                The resulting <see cref="T:System.Linq.Expressions.Expression`1" /> object that contains the joined
+                <see cref="T:System.Linq.Expressions.Expression`1" /> objects.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.AsPath(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+                Converts the property accessor lambda expression to a textual representation of it's path. <br />
+                The textual representation consists of the properties that the expression access flattened and separated by a dot
+                character (".").
+            </summary>
+            <param name="expression">The property selector expression.</param>
+            <returns>The extracted textual representation of the expression's path.</returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.TryParsePath(System.Linq.Expressions.Expression,System.String@)">
+            <summary>
+                Recursively parses an expression tree representing a property accessor to extract a textual representation of it's
+                path. <br />
+                The textual representation consists of the properties accessed by the expression tree flattened and separated by a
+                dot character (".").
+            </summary>
+            <param name="expression">The expression tree to parse.</param>
+            <param name="path">The extracted textual representation of the expression's path.</param>
+            <returns>True if the parse operation succeeds; otherwise, false.</returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.RemoveConvertOperations(System.Linq.Expressions.Expression)">
+            <summary>
+                Removes all casts or conversion operations from the nodes of the provided <see cref="T:System.Linq.Expressions.Expression" />.
+                Used to prevent type boxing when manipulating expression trees.
+            </summary>
+            <param name="expression">The expression to remove the conversion operations.</param>
+            <returns>The expression without conversion or cast operations.</returns>
+        </member>
+        <member name="T:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor">
+            <summary>
+                Visitor that rebinds the parameters of the visited <see cref="T:System.Linq.Expressions.Expression" />.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor._newParameter">
+            <summary>
+                The new <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor._oldParameter">
+            <summary>
+                The old <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor.#ctor(System.Linq.Expressions.ParameterExpression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor" /> class.
+            </summary>
+            <param name="oldParameter">
+                The old expression parameter.
+            </param>
+            <param name="newParameter">
+                The new expression parameter.
+            </param>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+                Visits the <see cref="T:System.Linq.Expressions.ParameterExpression" />.
+            </summary>
+            <param name="node">The expression to visit.</param>
+            <returns>The modified expression, if it or any sub-expression was modified; otherwise, returns the original expression.</returns>
+        </member>
+        <member name="T:Exprelsior.Shared.Extensions.GenericExtensions">
+            <summary>
+                Extensions for generic types.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.GenericExtensions.CheckIfDefault``1(``0)">
+            <summary>
+                Checks if the provided value is the default value for the type.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <typeparam name="T">
+                The type of the value being checked.
+            </typeparam>
+            <returns>
+                The <see cref="T:System.Boolean" />.
+                True if default; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.GenericExtensions.CheckIfNull``1(``0)">
+            <summary>
+                Checks if the provided value is null.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <typeparam name="T">
+                The type of the value being checked.
+            </typeparam>
+            <returns>
+                True if null; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.GenericExtensions.ThrowIfDefault``1(``0,System.String)">
+            <summary>
+                Throws an exception if the provided value is the default value for the type, otherwise returns the value.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <param name="paramName">
+                The name of the parameter being checked.
+            </param>
+            <typeparam name="T">
+                The type of the value being checked.
+            </typeparam>
+            <returns>
+                The value being checked.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception when the value is the default value for the type.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.GenericExtensions.ThrowIfNull``1(``0,System.String)">
+            <summary>
+                Throws an exception if the provided value is null, otherwise returns the value.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <param name="paramName">
+                The name of the parameter being checked.
+            </param>
+            <typeparam name="T">
+                The type of the value being checked.
+            </typeparam>
+            <returns>
+                The value being checked.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                The exception when the value is null.
+            </exception>
+        </member>
+        <member name="T:Exprelsior.Shared.Extensions.StringExtensions">
+            <summary>
+                Extensions for <see cref="T:System.String" /> class.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.StringExtensions.ThrowIfNullOrEmpty(System.String,System.String)">
+            <summary>
+                Throws an exception if the provided <see cref="T:System.String" /> is null or empty, otherwise returns the value.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <param name="argName">
+                The name of the argument to be checked.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                The exception if the string is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The exception if the string is empty.
+            </exception>
+            <returns>
+                The value of the argument.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.StringExtensions.ThrowIfNullOrWhitespace(System.String,System.String)">
+            <summary>
+                Throws an exception if the provided <see cref="T:System.String" /> is null, empty or only consists of whitespaces, otherwise
+                returns the value.
+            </summary>
+            <param name="value">
+                The value to be checked.
+            </param>
+            <param name="argName">
+                The name of the argument to be checked.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                The exception if the string is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The exception if the string is empty or only consists of whitespaces.
+            </exception>
+            <returns>
+                The value of the argument.
+            </returns>
+        </member>
+        <member name="T:Exprelsior.Shared.Extensions.TypeExtensions">
+            <summary>
+                Provides extensions for the <see cref="T:System.Type" /> type.
+            </summary>
+        </member>
+        <member name="F:Exprelsior.Shared.Extensions.TypeExtensions.NumericTypes">
+            <summary>
+            The numeric types.
+            </summary>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsCollection(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a collection type.
+            </summary>
+            <remarks>
+                Although <see cref="T:System.String" /> implements <see cref="T:System.Collections.Generic.IEnumerable`1" />, it is not considered a collection type by
+                this method.
+            </remarks>
+            <param name="type">The type to be checked.</param>
+            <returns>True if it is a collection type; otherwise, false.</returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsDateTime(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.DateTime" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.DateTime" /> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsGenericCollection(System.Type,System.Boolean)">
+            <summary>
+                Returns a value indicating whether the provided type is a generic collection type.
+            </summary>
+            <remarks>
+                Although <see cref="T:System.String" /> implements <see cref="T:System.Collections.Generic.IEnumerable`1" />, it is not considered a generic collection type by this method.
+            </remarks>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <param name="includeArrays">
+                Informs whether <see cref="T:System.Array"/> objects should be considered generic collection types by this method.
+            </param>
+            <returns>
+                True if the type is a generic collection; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsGenericCollection(System.Type,System.Type,System.Boolean)">
+            <summary>
+                Returns a value indicating whether the provided type is a generic collection and the generic type parameter is the
+                same as the provided type.
+            </summary>
+            <remarks>
+                Although <see cref="T:System.String" /> implements <see cref="T:System.Collections.Generic.IEnumerable`1" />, it is not considered a collection type by this method.
+            </remarks>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <param name="genericTypeArgument">
+                The generic type argument of the collection.
+            </param>
+            <param name="includeArrays">
+                Informs whether <see cref="T:System.Array"/> objects should be considered generic collection types by this method.
+            </param>
+            <returns>
+                True if the type is a generic collection of the provided generic type argument; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsGenericCollection(System.Type,System.Type[],System.Boolean)">
+            <summary>
+                Returns a value indicating whether the provided type is a generic collection and the generic type parameter is included in he specified type list.
+            </summary>
+            <remarks>
+                Although <see cref="T:System.String" /> implements <see cref="T:System.Collections.Generic.IEnumerable`1" />, it is not considered a collection type by
+                this method.
+            </remarks>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <param name="genericTypeArguments">
+                The collection of generic type arguments of the collection.
+            </param>
+            <param name="includeArrays">
+                Informs whether <see cref="T:System.Array"/> objects should be considered generic collection types by this method.
+            </param>
+            <returns>
+                True if the type is a generic collection of the provided generic type argument; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsNonGenericIList(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a non-generic <see cref="T:System.Collections.IList" /> implementation.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a non-generic <see cref="T:System.Collections.IList" />; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsNumeric(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a numeric type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a numeric type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsString(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.String" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.String"/> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsChar(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.Char" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.Char" /> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsBoolean(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.Boolean" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.Boolean" /> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsGuid(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.Guid" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.Guid" /> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsNullableType(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.Nullable`1" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.Nullable`1" /> type; otherwise, false.
+            </returns>
+        </member>
+    </members>
+</doc>

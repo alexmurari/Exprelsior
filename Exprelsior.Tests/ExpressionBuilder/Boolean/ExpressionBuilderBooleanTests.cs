@@ -3,7 +3,6 @@
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.Tests.ExpressionBuilder;
     using Exprelsior.Tests.ExpressionBuilder.Boolean.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
