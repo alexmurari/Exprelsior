@@ -119,4 +119,4 @@ The resulting expression is:
 
 ## Licence
 
-[MIT License (MIT)](./LICENSE.md)
+[MIT License (MIT)](./LICENSE)
