@@ -3,11 +3,13 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
 
     /// <summary>
     ///     Provides extensions for the <see cref="Type" /> type.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class TypeExtensions
     {
         /// <summary>

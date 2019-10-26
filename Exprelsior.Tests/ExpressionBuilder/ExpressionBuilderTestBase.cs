@@ -1,12 +1,14 @@
 ﻿namespace Exprelsior.Tests.ExpressionBuilder
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Exprelsior.Tests.Utilities;
     using Xunit.Abstractions;
 
     /// <summary>
     ///     Base class for expression builder unit tests.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public abstract class ExpressionBuilderTestBase
     {
         /// <summary>

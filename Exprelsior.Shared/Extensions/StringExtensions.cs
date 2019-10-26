@@ -1,10 +1,12 @@
 ﻿namespace Exprelsior.Shared.Extensions
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     Extensions for <see cref="string" /> class.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class StringExtensions
     {
         /// <summary>

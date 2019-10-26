@@ -2,10 +2,12 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     Provides extension methods to the <see cref="Enum" /> type.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class EnumExtensions
     {
         /// <summary>

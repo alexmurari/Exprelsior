@@ -1,12 +1,14 @@
 ﻿namespace Exprelsior.Shared.Extensions
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Linq.Expressions;
 
     /// <summary>
     ///     Provides extension methods to the <see cref="Expression" /> class.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class ExpressionExtensions
     {
         /// <summary>

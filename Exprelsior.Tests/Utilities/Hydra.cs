@@ -2,10 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     Cut off one property, and two more shall take it's place.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Hydra
     {
         //// Strings

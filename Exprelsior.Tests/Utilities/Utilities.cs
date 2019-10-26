@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Bogus;
     using Bogus.Extensions;
@@ -9,6 +10,7 @@
     /// <summary>
     ///     Utilities for unit testing.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     internal static class Utilities
     {
         /// <summary>
