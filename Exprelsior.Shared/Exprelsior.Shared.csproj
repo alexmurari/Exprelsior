@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Shared functions library for Exprelsior, a cross-platform .NET Standard library that dynamically generates lambda expressions from pure text. Exprelsior!</Description>
     <Product>Exprelsior</Product>
     <Authors>Alexandre Murari Junior (alexmurari)</Authors>
+    <Version>1.0.0-beta.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

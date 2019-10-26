@@ -81,7 +81,7 @@
             for (var i = 0; i < operations.Length; i++)
             {
                 var aggregate = i > 0 ? aggregates[i - 1] : null;
-                var operation = QueryElementsRegex.Matches(operations[i]).Select(t => t.Groups).ToArray();
+                var operation = QueryElementsRegex.Matches(operations[i]).Cast<Match>().Select(t => t.Groups).ToArray();
 
                 var queryOperator = GetExpressionOperator(operation.Select(t => t["operator"].Value).FirstOrDefault(t => !string.IsNullOrWhiteSpace(t)));
                 var property = operation.Select(t => t["property"].Value).FirstOrDefault(t => !string.IsNullOrWhiteSpace(t));

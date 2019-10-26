@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exprelsior", "Exprelsior\Exprelsior.csproj", "{879F140C-DA2B-4FC6-AFA0-01EDFB76D07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exprelsior", "Exprelsior\Exprelsior.csproj", "{879F140C-DA2B-4FC6-AFA0-01EDFB76D07C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exprelsior.Shared", "Exprelsior.Shared\Exprelsior.Shared.csproj", "{C1C0E550-E551-4B8D-9BA1-FB6D87ABE957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exprelsior.Shared", "Exprelsior.Shared\Exprelsior.Shared.csproj", "{C1C0E550-E551-4B8D-9BA1-FB6D87ABE957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exprelsior.Tests", "Exprelsior.Tests\Exprelsior.Tests.csproj", "{3133953A-15F1-46DC-8A97-292C4ACA7F1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exprelsior.Tests", "Exprelsior.Tests\Exprelsior.Tests.csproj", "{3133953A-15F1-46DC-8A97-292C4ACA7F1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,16 +33,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {539836AB-D3C2-42B8-B448-21D28B0C1F26}
-	EndGlobalSection
-	GlobalSection(AutomaticVersions) = postSolution
-		UpdateAssemblyVersion = True
-		UpdateAssemblyFileVersion = True
-		UpdateAssemblyInfoVersion = True
-		AssemblyVersionSettings = None.None.None.None
-		AssemblyFileVersionSettings = None.None.None.None
-		AssemblyInfoVersionSettings = None.None.None.None
-		UpdatePackageVersion = False
-		AssemblyInfoVersionType = SettingsVersion
-		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal
