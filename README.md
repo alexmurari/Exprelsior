@@ -22,45 +22,54 @@ directly parsed to an strongly typed lambda expression.
 
 ## Let's start with some examples
 
-* #### The Expression Builder
+* #### The class
 
     ```csharp
     public class Foo
     {
         public string Name { get; set; }
     }
+    ```
     
-    public IEnumerable<Foo> GetFoos()
-    {
-        Expression<Func<Foo,bool>> expression = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "John", ExpressionOperator.StartsWith);
-        List<Foo> FooList = new List<Foo>(); // Assume list is populated.
+* #### The goal
 
-        // The generated expression is t => t.Name.StartsWith("John")
-        
-        return FooList.Where(expression.Compile());
-    }
+    Build this expression:
+
+```csharp
+    Expression<Func<Foo, bool>> exp = t => t.Name.StartsWith("John");
+```
+
+* #### Using the *ExpressionBuilder.CreateBinary<T>* method:
+
+    ```csharp
+        var exp = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "John", ExpressionOperator.StartsWith);
+        // result: t => t.Name.StartsWith("John")
     ```
 
-* #### The Dynamic Query
+* #### Using the *ExpressionBuilder.CreateBinaryFromQuery<T>* method:
   
 ```csharp
-    public class Foo
-    {
-        public string Name { get; set; }
-    }
-
-    public IEnumerable<Foo> GetFoos()
-    {
         string query = "sw('Name', 'John')";
-        Expression<Func<Foo,bool>> expression = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
-
-        List<Foo> FooList = new List<Foo>(); // Assume list is populated.
-
-        // The generated expression is t => t.Name.StartsWith("John")
-        
-        return FooList.Where(expression.Compile());
-    }
+        var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
+        // result: t => t.Name.StartsWith("John")
 ```
+
+* #### Full example
+
+```csharp
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] string query)
+        {
+            // query is "sw('Name', 'John')" (without double quotes)
+            var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
+            
+            var result = await FooRepository.GetAsync(exp);
+            
+            return result;
+        }
+```
+
+That query could be anything! Any property from "Foo" class with any value (see supported types and operators below).
 
 ## Explaining the query syntax
 
@@ -87,8 +96,8 @@ The resulting expression is:
 
 > cov('Name', ['Stan Lee', 'Kevin Feige', 'Robert Downey Jr.'])
 
-The resulting expression is: 
-> t => value(System.String[]).Contains(t.Name, value(System.OrdinalIgnoreCaseComparer))
+The resulting expression is *something like*: 
+> t => stringArray.Contains(t.Name, OrdinalIgnoreCaseComparer)
 
 #### The query operators
 
@@ -134,8 +143,8 @@ Exprelsior supports accesing properties in lower levels of an object using the d
 
 > eq('DateOfBirth.Date', '1922-12-28')
 
-The resulting expression is: 
-> t => (t.DateOfBirth.Date == 1922/12/28 00:00:00)
+The resulting expression is *something like*: 
+> t => (t.DateOfBirth.Date == 1922-12-28 00:00:00) // Format may vary depending on localization
 
 #### Representing null values
 
@@ -151,10 +160,10 @@ Just remember that null values can only be used with nullable properties.
 #### I want to join multiple queries together!
 *Got that covered!*
 
-> eq('Name', 'Stan Lee')+OR+gte('Age', '85')
+> eq('Name', 'Stan Lee')+AND+gte('Age', '85')
 
-The resulting expression is: 
-> (t => t.Name == "Stan Lee" OrElse t.Age >= 85)
+The resulting expression is *something like*: 
+> (t => t.Name == "Stan Lee" && t.Age >= 85)
 
 The same result can be achieved with the ``` CreateBinary ``` method.
 
