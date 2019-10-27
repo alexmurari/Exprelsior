@@ -1,9 +1,9 @@
-﻿namespace Exprelsior.ExpressionBuilder.Decimal
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Decimal
 {
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.Decimal.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.Decimal.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;

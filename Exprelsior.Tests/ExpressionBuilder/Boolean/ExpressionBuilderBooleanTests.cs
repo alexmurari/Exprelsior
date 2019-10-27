@@ -1,9 +1,9 @@
-﻿namespace Exprelsior.ExpressionBuilder.Boolean
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Boolean
 {
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.Boolean.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.Boolean.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;

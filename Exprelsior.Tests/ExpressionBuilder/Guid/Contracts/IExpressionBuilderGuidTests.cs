@@ -1,4 +1,4 @@
-﻿namespace Exprelsior.ExpressionBuilder.Guid.Contracts
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Guid.Contracts
 {
     using System;
     using Xunit;

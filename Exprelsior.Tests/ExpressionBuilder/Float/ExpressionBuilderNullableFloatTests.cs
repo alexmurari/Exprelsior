@@ -1,10 +1,10 @@
-﻿namespace Exprelsior.ExpressionBuilder.Float
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Float
 {
     using System;
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.Float.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.Float.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;

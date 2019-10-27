@@ -1,9 +1,9 @@
-﻿namespace Exprelsior.ExpressionBuilder.Integer
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Integer
 {
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.Integer.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.Integer.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;

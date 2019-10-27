@@ -1,4 +1,4 @@
-﻿namespace Exprelsior.ExpressionBuilder.Decimal.Contracts
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Decimal.Contracts
 {
     using Xunit;
 

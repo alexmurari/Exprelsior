@@ -1,10 +1,10 @@
-﻿namespace Exprelsior.ExpressionBuilder.Guid
+﻿namespace Exprelsior.Tests.ExpressionBuilder.Guid
 {
     using System;
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.Guid.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.Guid.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;

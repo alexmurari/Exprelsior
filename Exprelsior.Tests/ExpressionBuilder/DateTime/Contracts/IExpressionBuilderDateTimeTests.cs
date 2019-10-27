@@ -1,4 +1,4 @@
-﻿namespace Exprelsior.ExpressionBuilder.DateTime.Contracts
+﻿namespace Exprelsior.Tests.ExpressionBuilder.DateTime.Contracts
 {
     using System;
     using Xunit;

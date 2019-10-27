@@ -1,10 +1,10 @@
-﻿namespace Exprelsior.ExpressionBuilder.DateTime
+﻿namespace Exprelsior.Tests.ExpressionBuilder.DateTime
 {
     using System;
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.ExpressionBuilder.DateTime.Contracts;
+    using Exprelsior.Tests.ExpressionBuilder.DateTime.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;
