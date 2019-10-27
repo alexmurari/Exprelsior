@@ -1,7 +1,7 @@
 ﻿namespace Exprelsior.Tests.DynamicQuery.Integer
 {
     using System.Linq;
-    using Exprelsior.DynamicQuery;
+    using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
     using Exprelsior.Tests.DynamicQuery.Integer.Contracts;
     using Exprelsior.Tests.Utilities;
@@ -35,7 +35,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.Equal));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.Equal));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -54,7 +54,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.NotEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.NotEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -73,7 +73,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableInteger.HasValue));
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.LessThan));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.LessThan));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -92,7 +92,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableInteger.HasValue));
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.LessThanOrEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.LessThanOrEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -111,7 +111,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableInteger.HasValue));
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.GreaterThan));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.GreaterThan));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -130,7 +130,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableInteger.HasValue));
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.GreaterThanOrEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomHydra.NullableInteger, ExpressionOperator.GreaterThanOrEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -149,7 +149,7 @@
         {
             // Arrange
             var randomIntegers = Utilities.GetRandomItems(HydraArmy.Select(t => t.NullableInteger));
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomIntegers, ExpressionOperator.ContainsOnValue));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableInteger), randomIntegers, ExpressionOperator.ContainsOnValue));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -170,7 +170,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray, ExpressionOperator.Equal));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray, ExpressionOperator.Equal));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -189,7 +189,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray, ExpressionOperator.NotEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray, ExpressionOperator.NotEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -208,7 +208,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray.ToList(), ExpressionOperator.Equal));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray.ToList(), ExpressionOperator.Equal));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -227,7 +227,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray.ToList(), ExpressionOperator.NotEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomHydra.NullableIntegerArray.ToList(), ExpressionOperator.NotEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -246,7 +246,7 @@
         {
             // Arrange
             var randomInteger = Utilities.GetRandomItem(HydraArmy.Select(t => t.NullableIntegerArray)).FirstOrDefault();
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomInteger, ExpressionOperator.Contains));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerArray), randomInteger, ExpressionOperator.Contains));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -265,7 +265,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection, ExpressionOperator.Equal));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection, ExpressionOperator.Equal));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -284,7 +284,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection, ExpressionOperator.NotEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection, ExpressionOperator.NotEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -303,7 +303,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection.ToArray(), ExpressionOperator.Equal));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection.ToArray(), ExpressionOperator.Equal));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -322,7 +322,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection.ToArray(), ExpressionOperator.NotEqual));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomHydra.NullableIntegerCollection.ToArray(), ExpressionOperator.NotEqual));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -341,7 +341,7 @@
         {
             // Arrange
             var randomInteger = Utilities.GetRandomItem(HydraArmy.Select(t => t.NullableIntegerCollection)).FirstOrDefault();
-            var expression = DynamicQueryBuilder.Build<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomInteger, ExpressionOperator.Contains));
+            var expression = ExpressionBuilder.CreateBinaryFromQuery<Hydra>(BuildQueryText(nameof(Hydra.NullableIntegerCollection), randomInteger, ExpressionOperator.Contains));
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();

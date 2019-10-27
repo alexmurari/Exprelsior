@@ -1,4 +1,4 @@
-﻿namespace Exprelsior.Tests.ExpressionBuilder.Boolean.Contracts
+﻿namespace Exprelsior.ExpressionBuilder.Boolean.Contracts
 {
     using Xunit;
 

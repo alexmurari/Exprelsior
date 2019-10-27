@@ -11,25 +11,8 @@
     /// <summary>
     ///     Provides static methods to dynamically build <see cref="Expression{TDelegate}" /> objects for data querying.
     /// </summary>
-    public static class DynamicQueryBuilder
+    internal static class DynamicQueryBuilder
     {
-        /// <summary>
-        ///     Builds an <see cref="Expression{T}" /> from the provided <see cref="string" /> object representing an query.
-        /// </summary>
-        /// <typeparam name="T">
-        ///     The type being queried.
-        /// </typeparam>
-        /// <param name="query">
-        ///     The string representing the query.
-        /// </param>
-        /// <returns>
-        ///     The <see cref="Expression{T}" /> object representing the query.
-        /// </returns>
-        public static Expression<Func<T, bool>> Build<T>(string query)
-        {
-            return BuildQuery<T>(query.ThrowIfNullOrWhitespace(nameof(query)));
-        }
-
         /// <summary>
         ///     Parses the provided query as <see cref="string" /> to it's <see cref="Expression{TDelegate}" /> equivalent.
         /// </summary>
@@ -42,7 +25,7 @@
         /// <returns>
         ///     The <see cref="Expression{T}" /> object representing the query.
         /// </returns>
-        private static Expression<Func<T, bool>> BuildQuery<T>(string query)
+        internal static Expression<Func<T, bool>> BuildQuery<T>(string query)
         {
             var queries = QueryParser.ParseQuery(query).ToArray();
             Expression<Func<T, bool>> expression = null;
@@ -54,10 +37,10 @@
                     switch (queryInfo.Aggregate.Value)
                     {
                         case ExpressionAggregate.And:
-                            expression = ExpressionBuilder.CreateBinaryExpression<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator).And(expression);
+                            expression = ExpressionBuilder.CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator).And(expression);
                             break;
                         case ExpressionAggregate.Or:
-                            expression = ExpressionBuilder.CreateBinaryExpression<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator).Or(expression);
+                            expression = ExpressionBuilder.CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator).Or(expression);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -65,7 +48,7 @@
                 }
                 else
                 {
-                    expression = ExpressionBuilder.CreateBinaryExpression<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator);
+                    expression = ExpressionBuilder.CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator);
                 }
             }
 

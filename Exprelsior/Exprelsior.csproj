@@ -9,6 +9,8 @@
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>alpha-1</VersionSuffix>
     <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">$(VersionSuffix)-dev</VersionSuffix>
+    <PackageIconUrl>https://user-images.githubusercontent.com/11204378/67627094-43b9a480-f82c-11e9-95f3-1ae8cc008631.png</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

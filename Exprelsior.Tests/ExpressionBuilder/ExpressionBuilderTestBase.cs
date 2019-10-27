@@ -1,4 +1,4 @@
-﻿namespace Exprelsior.Tests.ExpressionBuilder
+﻿namespace Exprelsior.ExpressionBuilder
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;

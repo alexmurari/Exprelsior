@@ -1,10 +1,10 @@
-﻿namespace Exprelsior.Tests.ExpressionBuilder.DateTime
+﻿namespace Exprelsior.ExpressionBuilder.DateTime
 {
     using System;
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.Tests.ExpressionBuilder.DateTime.Contracts;
+    using Exprelsior.ExpressionBuilder.DateTime.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;
@@ -36,7 +36,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -55,7 +55,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -74,7 +74,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableDateTime.HasValue));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.LessThan);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.LessThan);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -93,7 +93,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableDateTime.HasValue));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.LessThanOrEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.LessThanOrEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -112,7 +112,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableDateTime.HasValue));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.GreaterThan);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.GreaterThan);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -131,7 +131,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy.Where(t => t.NullableDateTime.HasValue));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.GreaterThanOrEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomHydra.NullableDateTime, ExpressionOperator.GreaterThanOrEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -150,7 +150,7 @@
         {
             // Arrange
             var randomDateTimes = Utilities.GetRandomItems(HydraArmy.Select(t => t.NullableDateTime));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTime), randomDateTimes, ExpressionOperator.ContainsOnValue);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTime), randomDateTimes, ExpressionOperator.ContainsOnValue);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -171,7 +171,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -190,7 +190,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -209,7 +209,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray.ToList(), ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray.ToList(), ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -228,7 +228,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray.ToList(), ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeArray), randomHydra.NullableDateTimeArray.ToList(), ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -247,7 +247,7 @@
         {
             // Arrange
             var randomDateTime = Utilities.GetRandomItem(HydraArmy.Select(t => t.NullableDateTimeArray)).FirstOrDefault();
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeArray), randomDateTime, ExpressionOperator.Contains);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeArray), randomDateTime, ExpressionOperator.Contains);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -266,7 +266,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -285,7 +285,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -304,7 +304,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection.ToArray(), ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection.ToArray(), ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -323,7 +323,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection.ToArray(), ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomHydra.NullableDateTimeCollection.ToArray(), ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -342,7 +342,7 @@
         {
             // Arrange
             var randomDateTime = Utilities.GetRandomItem(HydraArmy.Select(t => t.NullableDateTimeCollection)).FirstOrDefault();
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomDateTime, ExpressionOperator.Contains);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.NullableDateTimeCollection), randomDateTime, ExpressionOperator.Contains);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();

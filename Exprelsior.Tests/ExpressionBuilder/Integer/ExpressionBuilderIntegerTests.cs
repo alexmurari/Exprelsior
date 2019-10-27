@@ -1,9 +1,9 @@
-﻿namespace Exprelsior.Tests.ExpressionBuilder.Integer
+﻿namespace Exprelsior.ExpressionBuilder.Integer
 {
     using System.Linq;
     using Exprelsior.ExpressionBuilder;
     using Exprelsior.ExpressionBuilder.Enums;
-    using Exprelsior.Tests.ExpressionBuilder.Integer.Contracts;
+    using Exprelsior.ExpressionBuilder.Integer.Contracts;
     using Exprelsior.Tests.Utilities;
     using Xunit;
     using Xunit.Abstractions;
@@ -35,7 +35,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -54,7 +54,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -73,7 +73,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.LessThan);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.LessThan);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -92,7 +92,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.LessThanOrEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.LessThanOrEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -111,7 +111,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.GreaterThan);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.GreaterThan);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -130,7 +130,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.GreaterThanOrEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomHydra.Integer, ExpressionOperator.GreaterThanOrEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -149,7 +149,7 @@
         {
             // Arrange
             var randomIntegers = Utilities.GetRandomItems(HydraArmy.Select(t => t.Integer));
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.Integer), randomIntegers, ExpressionOperator.ContainsOnValue);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.Integer), randomIntegers, ExpressionOperator.ContainsOnValue);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -170,7 +170,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -189,7 +189,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -208,7 +208,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray.ToList(), ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray.ToList(), ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -227,7 +227,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray.ToList(), ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerArray), randomHydra.IntegerArray.ToList(), ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -246,7 +246,7 @@
         {
             // Arrange
             var randomInteger = Utilities.GetRandomItem(HydraArmy.Select(t => t.IntegerArray)).FirstOrDefault();
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerArray), randomInteger, ExpressionOperator.Contains);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerArray), randomInteger, ExpressionOperator.Contains);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -265,7 +265,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection, ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection, ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -284,7 +284,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection, ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection, ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -303,7 +303,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection.ToArray(), ExpressionOperator.Equal);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection.ToArray(), ExpressionOperator.Equal);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -322,7 +322,7 @@
         {
             // Arrange
             var randomHydra = Utilities.GetRandomItem(HydraArmy);
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection.ToArray(), ExpressionOperator.NotEqual);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerCollection), randomHydra.IntegerCollection.ToArray(), ExpressionOperator.NotEqual);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();
@@ -341,7 +341,7 @@
         {
             // Arrange
             var randomInteger = Utilities.GetRandomItem(HydraArmy.Select(t => t.IntegerCollection)).FirstOrDefault();
-            var expression = ExpressionBuilder.CreateBinaryExpression<Hydra>(nameof(Hydra.IntegerCollection), randomInteger, ExpressionOperator.Contains);
+            var expression = ExpressionBuilder.CreateBinary<Hydra>(nameof(Hydra.IntegerCollection), randomInteger, ExpressionOperator.Contains);
 
             // Act
             var result = HydraArmy.Where(expression.Compile()).ToList();

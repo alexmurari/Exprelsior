@@ -4,18 +4,18 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using Exprelsior.DynamicQuery;
     using Exprelsior.ExpressionBuilder.Enums;
     using Exprelsior.ExpressionBuilder.Parser;
     using Exprelsior.Shared.Extensions;
 
     /// <summary>
-    ///     Provides static methods to create <see cref="Expression" /> instances.
+    ///     Provides static methods to create <see cref="Expression{TDelegate}" /> instances.
     /// </summary>
     public static class ExpressionBuilder
     {
         /// <summary>
-        ///     Creates a lambda expression that represents an accessor to a property from an object of type
-        ///     <typeparamref name="T" />.
+        ///     Creates a lambda expression that represents an accessor to a property from an object of type <typeparamref name="T" />.
         /// </summary>
         /// <param name="propertyNameOrPath">
         ///     The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
@@ -29,7 +29,7 @@
         /// <returns>
         ///     The built <see cref="Expression{TDelegate}" /> instance representing the property accessor.
         /// </returns>
-        public static Expression<Func<T, TResult>> CreateAccessorExpression<T, TResult>(string propertyNameOrPath)
+        public static Expression<Func<T, TResult>> CreateAccessor<T, TResult>(string propertyNameOrPath)
         {
             propertyNameOrPath.ThrowIfNullOrWhitespace(nameof(propertyNameOrPath));
 
@@ -57,7 +57,7 @@
         ///     The comparison operator.
         /// </param>
         /// <returns>The built <see cref="Expression{TDelegate}" /> instance representing the binary operation.</returns>
-        public static Expression<Func<T, bool>> CreateBinaryExpression<T>(string propertyNameOrPath, object value, ExpressionOperator @operator)
+        public static Expression<Func<T, bool>> CreateBinary<T>(string propertyNameOrPath, object value, ExpressionOperator @operator)
         {
             return BuildBinaryExpression<T>(propertyNameOrPath, value, @operator);
         }
@@ -79,9 +79,26 @@
         ///     The comparison operator.
         /// </param>
         /// <returns>The built <see cref="Expression{TDelegate}" /> instance representing the binary operation.</returns>
-        public static Expression<Func<T, bool>> CreateBinaryExpression<T>(PropertyInfo propertyInfo, object value, ExpressionOperator @operator)
+        public static Expression<Func<T, bool>> CreateBinary<T>(PropertyInfo propertyInfo, object value, ExpressionOperator @operator)
         {
             return BuildBinaryExpression<T>(propertyInfo.Name, value, @operator);
+        }
+
+        /// <summary>
+        ///     Builds an <see cref="Expression{T}" /> from the provided <see cref="string" /> object representing an query.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The type being queried.
+        /// </typeparam>
+        /// <param name="query">
+        ///     The string representing the query.
+        /// </param>
+        /// <returns>
+        ///     The <see cref="Expression{T}" /> object representing the query.
+        /// </returns>
+        public static Expression<Func<T, bool>> CreateBinaryFromQuery<T>(string query)
+        {
+            return DynamicQueryBuilder.BuildQuery<T>(query.ThrowIfNullOrWhitespace(nameof(query)));
         }
 
         /// <summary>
