@@ -12,9 +12,9 @@
 Exprelsior is a .NET Standard library that enables .NET developers to create strongly-typed 
 lambda expressions from pure text using it's own query syntax or from the expression builder method.
 
-It has it's own full text query syntax, that is directly converted to lambda expressions, 
-which means that developers can pass any query string by URI to an API HTTP GET method, for example, 
-and it will be directly parsed to an strongly typed lambda expression.
+The query text is directly converted to lambda expressions, which means that developers 
+can pass any query string by URI to an API HTTP GET method, for example, and it will be 
+directly parsed to an strongly typed lambda expression.
 
 
 ## Let's start with some examples
@@ -29,7 +29,7 @@ and it will be directly parsed to an strongly typed lambda expression.
     
     public IEnumerable<Foo> GetFoos()
     {
-        Expression<Func<Foo,bool>> expression = ExpressionBuilder.CreateBinaryExpression<Foo>(nameof(Foo.Name), "John", ExpressionOperator.StartsWith);
+        Expression<Func<Foo,bool>> expression = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "John", ExpressionOperator.StartsWith);
         List<Foo> FooList = new List<Foo>(); // Assume list is populated.
 
         // The generated expression is t => t.Name.StartsWith("John")
@@ -49,7 +49,7 @@ and it will be directly parsed to an strongly typed lambda expression.
     public IEnumerable<Foo> GetFoos()
     {
         string query = "sw('Name', 'John')";
-        Expression<Func<Foo,bool>> expression = DynamicQueryBuilder.Build<Foo>(query);
+        Expression<Func<Foo,bool>> expression = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
 
         List<Foo> FooList = new List<Foo>(); // Assume list is populated.
 
@@ -71,9 +71,10 @@ The query syntax is straightforward, it consists of three elements:
 
 * The value to compare the property -> "**'Stan Lee'**".
 
-The query is then built by the ``` DynamicQueryBuilder.Build<Foo>(query) ``` method.
+The query is then built by the ``` ExpressionBuilder.CreateBinaryFromQuery<Foo>(query) ``` method.
 
-The resulting expression is: ``` (t => t.Name == "Stan Lee") ```
+The resulting expression is: 
+> (t => t.Name == "Stan Lee")
 
 *Simple, isn't?*
 
@@ -115,7 +116,51 @@ Exprelsior supports accesing properties in lower levels of an object using the d
 > eq('DateOfBirth.Date', '1922-12-28')
 
 The resulting expression is: 
-> t => (t.DateTime.Date == 1922/12/28 00:00:00)
+> t => (t.DateOfBirth.Date == 1922/12/28 00:00:00)
+
+#### Representing null values
+
+Exprelsior supports null values on the query syntax.
+
+> eq('MiddleName', '\$!NULL!\$')
+
+The resulting expression is: 
+> (t => t.MiddleName == null)
+
+Just remember that null values can only be used with nullable properties.
+
+#### I want to join multiple queries together!
+*Got that covered!*
+
+> eq('Name', 'Stan Lee')+OR+gte('Age', '85')
+
+The resulting expression is: 
+> (t => t.Name == "Stan Lee" OrElse t.Age >= 85)
+
+The same result can be achieved with the ``` CreateBinary ``` method.
+
+```csharp
+using Exprelsior.Shared.Extensions;
+
+var exp1 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "Stan", ExpressionOperator.StartsWith);
+var exp2 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Age), 85, ExpressionOperator.GreaterThanOrEqual);
+
+var fullExp = exp1.Or(exp2);
+
+// Use fullExp normally...
+```
+
+##### The aggregate operators
+
+> "**+AND+**" -> "AndAlso" or "&&"
+
+> "**+OR+**" -> "OrElse" or "||"
+
+###### Extension Methods
+  
+> leftExp.And(rightExp);
+
+> leftExp.Or(rightExp);
 
 ## Licence
 
