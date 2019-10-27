@@ -1,10 +1,13 @@
 <div align="center">
     <a href="https://github.com/alexmurari/Exprelsior/">
-    <img alt="MahApps.Metro" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
+    <img alt="Exprelsior" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
   </a>
   <p>
     A .NET Standard library that dynamically create lambda expressions.
   </p>
+  <a href="https://www.nuget.org/packages/Exprelsior">
+    <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=flat-square">
+  </a>
 </div>
 
 ## What is Exprelsior?
