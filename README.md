@@ -112,6 +112,22 @@ The resulting expression is:
 
 > "**EW**" -> "ENDS WITH" or "X => X.EndsWith("Blah")" (strings only)
 
+#### Supported types
+
+> String
+
+> Numeric Types
+
+> DateTime
+
+> Boolean
+
+> Char
+
+> Guid
+
+> Collections of the above types
+
 #### Accessing properties in lower levels
 
 Exprelsior supports accesing properties in lower levels of an object using the dot character (".").
