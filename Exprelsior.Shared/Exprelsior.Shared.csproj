@@ -9,8 +9,13 @@
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>alpha-1</VersionSuffix>
     <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">$(VersionSuffix)-dev</VersionSuffix>
-    <PackageIconUrl>https://user-images.githubusercontent.com/11204378/67627094-43b9a480-f82c-11e9-95f3-1ae8cc008631.png</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <Copyright>Copyright (c) 2019 Alexandre Murari Junior</Copyright>
+    <PackageTags>C# .NET .netstandard</PackageTags>
+    <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -19,6 +24,14 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\icon.png" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

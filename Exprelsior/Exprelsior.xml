@@ -9,20 +9,6 @@
                 Provides static methods to dynamically build <see cref="T:System.Linq.Expressions.Expression`1" /> objects for data querying.
             </summary>
         </member>
-        <member name="M:Exprelsior.DynamicQuery.DynamicQueryBuilder.Build``1(System.String)">
-            <summary>
-                Builds an <see cref="T:System.Linq.Expressions.Expression`1" /> from the provided <see cref="T:System.String" /> object representing an query.
-            </summary>
-            <typeparam name="T">
-                The type being queried.
-            </typeparam>
-            <param name="query">
-                The string representing the query.
-            </param>
-            <returns>
-                The <see cref="T:System.Linq.Expressions.Expression`1" /> object representing the query.
-            </returns>
-        </member>
         <member name="M:Exprelsior.DynamicQuery.DynamicQueryBuilder.BuildQuery``1(System.String)">
             <summary>
                 Parses the provided query as <see cref="T:System.String" /> to it's <see cref="T:System.Linq.Expressions.Expression`1" /> equivalent.
@@ -248,13 +234,12 @@
         </member>
         <member name="T:Exprelsior.ExpressionBuilder.ExpressionBuilder">
             <summary>
-                Provides static methods to create <see cref="T:System.Linq.Expressions.Expression" /> instances.
+                Provides static methods to create <see cref="T:System.Linq.Expressions.Expression`1" /> instances.
             </summary>
         </member>
-        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateAccessorExpression``2(System.String)">
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateAccessor``2(System.String)">
             <summary>
-                Creates a lambda expression that represents an accessor to a property from an object of type
-                <typeparamref name="T" />.
+                Creates a lambda expression that represents an accessor to a property from an object of type <typeparamref name="T" />.
             </summary>
             <param name="propertyNameOrPath">
                 The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
@@ -269,7 +254,7 @@
                 The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the property accessor.
             </returns>
         </member>
-        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryExpression``1(System.String,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinary``1(System.String,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
             <summary>
                 Creates a binary lambda expression that compares the value of an property from an object of
                 type <typeparamref name="T" /> with the provided value using the specified comparison operator.
@@ -289,7 +274,7 @@
             </param>
             <returns>The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the binary operation.</returns>
         </member>
-        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryExpression``1(System.Reflection.PropertyInfo,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinary``1(System.Reflection.PropertyInfo,System.Object,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
             <summary>
                 Creates a binary lambda expression that compares the value of an property from an object of
                 type <typeparamref name="T" /> with the provided value using the specified comparison operator.
@@ -307,6 +292,20 @@
                 The comparison operator.
             </param>
             <returns>The built <see cref="T:System.Linq.Expressions.Expression`1" /> instance representing the binary operation.</returns>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryFromQuery``1(System.String)">
+            <summary>
+                Builds an <see cref="T:System.Linq.Expressions.Expression`1" /> from the provided <see cref="T:System.String" /> object representing an query.
+            </summary>
+            <typeparam name="T">
+                The type being queried.
+            </typeparam>
+            <param name="query">
+                The string representing the query.
+            </param>
+            <returns>
+                The <see cref="T:System.Linq.Expressions.Expression`1" /> object representing the query.
+            </returns>
         </member>
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.BuildAccessor``1(System.String)">
             <summary>
