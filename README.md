@@ -54,7 +54,7 @@ directly parsed to an strongly typed lambda expression.
         // result: t => t.Name.StartsWith("John")
 ```
 
-* #### Full example
+* #### Full example of the query syntax with an HTTP GET API method
 
 ```csharp
         [HttpGet]
@@ -142,9 +142,9 @@ The resulting expression is *something like*:
 
 > Collections of the above types
 
-#### Accessing properties in lower levels
+#### Accessing nested properties
 
-Exprelsior supports accesing properties in lower levels of an object using the dot character (".").
+Exprelsior supports accesing nested properties of an object using the dot character (".").
 
 > eq('DateOfBirth.Date', '1922-12-28')
 
