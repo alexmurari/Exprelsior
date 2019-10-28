@@ -70,6 +70,9 @@ directly parsed to an strongly typed lambda expression.
 ```
 
 That query could be anything! Any property from "Foo" class with any value (see supported types and operators below).
+It's even possible to pass multiple queries in an single call!
+
+> eq('Name', 'John')+or+eq('Name', 'Chadwick')
 
 ## Explaining the query syntax
 
@@ -125,7 +128,7 @@ The resulting expression is *something like*:
 
 > String
 
-> Numeric Types
+> All Numeric Types - Signed and Unsigned
 
 > DateTime
 
@@ -134,6 +137,8 @@ The resulting expression is *something like*:
 > Char
 
 > Guid
+
+> Nullable types of the above value types.
 
 > Collections of the above types
 
