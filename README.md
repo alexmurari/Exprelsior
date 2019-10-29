@@ -8,6 +8,9 @@
   <a href="https://www.nuget.org/packages/Exprelsior">
     <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=flat-square">
   </a>
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
+    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=flat-square">
+  </a>
 </div>
 
 ## What is Exprelsior?
