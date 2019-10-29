@@ -172,7 +172,7 @@
         {
             return Enum.GetValues(typeof(ExpressionOperator))
                 .Cast<ExpressionOperator?>()
-                .FirstOrDefault(v => string.Equals(v.GetDescription(), @operator, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(t => string.Equals(t.GetDescription(), @operator, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -192,7 +192,7 @@
         {
             return Enum.GetValues(typeof(ExpressionAggregate))
                 .Cast<ExpressionAggregate?>()
-                .FirstOrDefault(v => string.Equals(v.GetDescription(), @operator, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefault(t => string.Equals(t.GetDescription(), @operator, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
