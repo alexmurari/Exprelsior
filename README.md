@@ -11,6 +11,9 @@
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
     <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=flat-square">
   </a>
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
+    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=flat-square">
+  </a>
 </div>
 
 ## What is Exprelsior?
@@ -135,6 +138,8 @@ The resulting expression is *something like*:
 
 > DateTime
 
+> TimeSpan
+
 > Boolean
 
 > Char
@@ -181,7 +186,7 @@ using Exprelsior.Shared.Extensions;
 var exp1 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "Stan", ExpressionOperator.StartsWith);
 var exp2 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Age), 85, ExpressionOperator.GreaterThanOrEqual);
 
-var fullExp = exp1.Or(exp2);
+var fullExp = exp1.And(exp2);
 
 // Use fullExp normally...
 ```
@@ -191,6 +196,10 @@ var fullExp = exp1.Or(exp2);
 > "**+AND+**" -> "AndAlso" or "&&"
 
 > "**+OR+**" -> "OrElse" or "||"
+
+Usage:
+
+> [query1]+AND+[query2]+OR+[query3]+OR+[query4]...
 
 ###### Extension Methods
   
