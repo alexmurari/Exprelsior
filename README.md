@@ -6,13 +6,16 @@
     A .NET Standard library that dynamically create lambda expressions.
   </p>
   <a href="https://www.nuget.org/packages/Exprelsior">
-    <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=flat-square">
+    <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
-    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=flat-square">
+    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
-    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=flat-square">
+    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
+  </a>
+  <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior">
+    <img src="https://img.shields.io/codefactor/grade/github/alexmurari/exprelsior?style=plastic">
   </a>
 </div>
 
