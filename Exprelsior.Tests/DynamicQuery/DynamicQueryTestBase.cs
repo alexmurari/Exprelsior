@@ -10,7 +10,7 @@
     using Xunit.Abstractions;
 
     /// <summary>
-    ///     Base class for expression builder unit tests.
+    ///     Base class for dynamic query unit tests.
     /// </summary>
     public abstract class DynamicQueryTestBase
     {

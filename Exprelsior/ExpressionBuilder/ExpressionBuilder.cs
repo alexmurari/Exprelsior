@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using Exprelsior.DynamicQuery;
+    using Exprelsior.DynamicQuery.Parser;
     using Exprelsior.ExpressionBuilder.Enums;
     using Exprelsior.ExpressionBuilder.Parser;
     using Exprelsior.Shared.Extensions;
@@ -85,7 +85,7 @@
         }
 
         /// <summary>
-        ///     Builds an <see cref="Expression{T}" /> from the provided <see cref="string" /> object representing an query.
+        ///     Creates an <see cref="Expression{T}" /> from the provided <see cref="string" /> object representing an query.
         /// </summary>
         /// <typeparam name="T">
         ///     The type being queried.
@@ -98,7 +98,33 @@
         /// </returns>
         public static Expression<Func<T, bool>> CreateBinaryFromQuery<T>(string query)
         {
-            return DynamicQueryBuilder.BuildQuery<T>(query.ThrowIfNullOrWhitespace(nameof(query)));
+            Expression<Func<T, bool>> expression = null;
+
+            foreach (var queryInfo in QueryParser.ParseQuery(query.ThrowIfNullOrWhitespace(nameof(query))))
+            {
+                var binaryExpression = CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator);
+
+                if (queryInfo.Aggregate.HasValue)
+                {
+                    switch (queryInfo.Aggregate.Value)
+                    {
+                        case ExpressionAggregate.And:
+                            expression = binaryExpression.And(expression);
+                            break;
+                        case ExpressionAggregate.Or:
+                            expression = binaryExpression.Or(expression);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                {
+                    expression = binaryExpression;
+                }
+            }
+
+            return expression;
         }
 
         /// <summary>

@@ -49,8 +49,10 @@
         /// </returns>
         public static bool IsDateTime(this Type type)
         {
-            if (type.IsNullableType())
-                type = Nullable.GetUnderlyingType(type);
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
 
             return type == typeof(DateTime);
         }
@@ -160,8 +162,10 @@
         /// </returns>
         public static bool IsNumeric(this Type type)
         {
-            if (type.IsNullableType())
-                type = Nullable.GetUnderlyingType(type);
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
 
             return NumericTypes.Contains(type);
         }
@@ -191,8 +195,10 @@
         /// </returns>
         public static bool IsChar(this Type type)
         {
-            if (type.IsNullableType())
-                type = Nullable.GetUnderlyingType(type);
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
 
             return type == typeof(char);
         }
@@ -208,8 +214,10 @@
         /// </returns>
         public static bool IsBoolean(this Type type)
         {
-            if (type.IsNullableType())
-                type = Nullable.GetUnderlyingType(type);
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
 
             return type == typeof(bool);
         }
@@ -225,8 +233,10 @@
         /// </returns>
         public static bool IsGuid(this Type type)
         {
-            if (type.IsNullableType())
-                type = Nullable.GetUnderlyingType(type);
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
 
             return type == typeof(Guid);
         }
@@ -240,9 +250,11 @@
         /// <returns>
         ///     True if the type is a <see cref="Nullable{T}" /> type; otherwise, false.
         /// </returns>
-        public static bool IsNullableType(this Type type)
+        public static (bool IsNullable, Type UnderlyingType) IsNullableType(this Type type)
         {
-            return Nullable.GetUnderlyingType(type) != null;
+            var underlyingType = Nullable.GetUnderlyingType(type);
+
+            return (underlyingType != null, underlyingType);
         }
     }
 }

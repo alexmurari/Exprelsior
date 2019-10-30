@@ -16,7 +16,16 @@
     internal static class QueryParser
     {
         /// <summary>
-        ///     Regular expression that matches the elements (operator, property and values) of a single query.
+        ///     The regular expression that matches the operators that aggregate queries.
+        ///     Splits compound queries into single queries with their aggregate operators.
+        /// </summary>
+        /// <remarks>
+        ///     - Result location on <see cref="Match"/> object: <see cref="Group"/> number 1.
+        /// </remarks>
+        private static readonly Regex QueryAggregatorRegex = new Regex(@"(?<=[\'\]]\s*\)\s*)\+([a-zA-Z]{2,3})\+(?=\s*[A-Za-z]{2,3}\s*\(\s*\')", RegexOptions.Compiled);
+
+        /// <summary>
+        ///     The regular expression that matches the elements (operator, property and values) of a single query.
         /// </summary>
         /// <remarks>
         ///     Explanation:
@@ -41,14 +50,6 @@
             new Regex(
                 @"((?<operator>[A-Za-z]{2,3})(?=(\s*\(\s*))|(?<=^[A-Za-z]{2,3}\s*\(\s*)'(?<property>(?!\.).[a-zA-Z][a-zA-Z0-9._]+)(?<!\.)'\s*(?=(,\s*)))|(?<=(^[a-zA-Z]{2,3}\s*\(\s*\'[a-zA-Z\.]+\'\s*\,\s*))'(?<value>.+?)'\s*(?=\))|((?:\[\s*|\G(?!\A))('(?<arrayValues>.+?)')(?:(?:\s*,\s*(?=[^\]]*?\]))|\s*\]))",
                 RegexOptions.Compiled & RegexOptions.ExplicitCapture);
-
-        /// <summary>
-        ///     Regular expression that matches the operators that aggregate queries.
-        /// </summary>
-        /// <remarks>
-        ///     - Result location on <see cref="Match"/> object: <see cref="Group"/> number 1.
-        /// </remarks>
-        private static readonly Regex QueryAggregatorRegex = new Regex(@"(?<=[\'\]]\s*\)\s*)\+([a-zA-Z]{2,3})\+(?=\s*[A-Za-z]{2,3}\s*\(\s*\')", RegexOptions.Compiled);
 
         /// <summary>
         ///     The query keywords.
@@ -110,7 +111,7 @@
         }
 
         /// <summary>
-        ///     Replaces the keywords in the query values to their actual values.
+        ///     Replaces the keywords in the query values with their actual values.
         /// </summary>
         /// <param name="values">
         ///     The query values to be replaced.

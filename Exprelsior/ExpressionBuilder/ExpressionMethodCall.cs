@@ -12,8 +12,7 @@
     internal static class ExpressionMethodCallBuilder
     {
         /// <summary>
-        ///     Builds an method call expression that represents a call to the '
-        ///     <see cref="Enumerable.Contains{T}(IEnumerable{T}, T)" />' method.
+        ///     Builds an method call expression that represents a call to the '<see cref="Enumerable.Contains{T}(IEnumerable{T}, T)" />' method.
         /// </summary>
         /// <param name="property">The expression representing the instance for the instance method call.</param>
         /// <param name="value">The expression representing the value to be passed as the method argument.</param>
@@ -102,8 +101,7 @@
         }
 
         /// <summary>
-        ///     Builds an method call expression that represents a call to the '
-        ///     <see cref="Enumerable.Contains{T}(IEnumerable{T}, T, IEqualityComparer{T})" />' method.
+        ///     Builds an method call expression that represents a call to the '<see cref="Enumerable.SequenceEqual{T}(IEnumerable{T}, IEnumerable{T})" />' method.
         /// </summary>
         /// <param name="property">
         ///     The expression representing the instance for the instance method call.
@@ -130,8 +128,7 @@
         }
 
         /// <summary>
-        ///     Builds an method call expression that represents a call to the '
-        ///     <see cref="Enumerable.Contains{T}(IEnumerable{T}, T, IEqualityComparer{T})" />' method.
+        ///     Builds an method call expression that represents a call to the '<see cref="Enumerable.Contains{T}(IEnumerable{T}, T, IEqualityComparer{T})" />' method.
         /// </summary>
         /// <param name="property">
         ///     The expression representing the instance for the instance method call.
