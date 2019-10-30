@@ -49,8 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DynamicQuery\" />
-    <Folder Include="ExpressionBuilder\" />
     <Folder Include="Utilities\" />
   </ItemGroup>
 

@@ -285,6 +285,8 @@
                 ValidateBinaryExpressionParametersForBoolean(propertyType, @operator);
             else if (propertyType.IsDateTime())
                 ValidateBinaryExpressionParametersForDateTime(propertyType, @operator);
+            else if (propertyType.IsTimeSpan())
+                ValidateBinaryExpressionParametersForTimeSpan(propertyType, @operator);
             else if (propertyType.IsGuid())
                 ValidateBinaryExpressionParametersForGuid(propertyType, @operator);
             else
@@ -343,6 +345,42 @@
         ///     Exception thrown when the comparison operator value is out of range.
         /// </exception>
         private static void ValidateBinaryExpressionParametersForDateTime(MemberInfo propertyType, ExpressionOperator @operator)
+        {
+            switch (@operator)
+            {
+                case ExpressionOperator.Equal:
+                case ExpressionOperator.NotEqual:
+                case ExpressionOperator.LessThan:
+                case ExpressionOperator.LessThanOrEqual:
+                case ExpressionOperator.GreaterThan:
+                case ExpressionOperator.GreaterThanOrEqual:
+                    break;
+                case ExpressionOperator.Contains:
+                case ExpressionOperator.ContainsOnValue:
+                case ExpressionOperator.StartsWith:
+                case ExpressionOperator.EndsWith:
+                    throw new ArgumentException($"Operator {@operator} isn't valid for the type {propertyType.Name}.", nameof(@operator));
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(@operator), @operator, null);
+            }
+        }
+
+        /// <summary>
+        ///     Validates the provided parameters for building binary expressions for <see cref="TimeSpan" /> type comparisons.
+        /// </summary>
+        /// <param name="propertyType">
+        ///     The property type.
+        /// </param>
+        /// <param name="operator">
+        ///     The comparison operator.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Exception thrown when the comparison operator value is not supported.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Exception thrown when the comparison operator value is out of range.
+        /// </exception>
+        private static void ValidateBinaryExpressionParametersForTimeSpan(MemberInfo propertyType, ExpressionOperator @operator)
         {
             switch (@operator)
             {
