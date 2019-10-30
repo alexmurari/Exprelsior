@@ -1,5 +1,6 @@
 ﻿namespace Exprelsior.Tests.ExpressionBuilder.Char.Contracts
 {
+    using Exprelsior.ExpressionBuilder.Enums;
     using Xunit;
 
     // ReSharper disable InconsistentNaming

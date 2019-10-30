@@ -1,6 +1,7 @@
 ﻿namespace Exprelsior.Tests.DynamicQuery.Guid.Contracts
 {
     using System;
+    using Exprelsior.ExpressionBuilder.Enums;
     using Xunit;
 
     // ReSharper disable InconsistentNaming

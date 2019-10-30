@@ -1,6 +1,7 @@
 ﻿namespace Exprelsior.Tests.DynamicQuery.TimeSpan.Contracts
 {
     using System;
+    using Exprelsior.ExpressionBuilder.Enums;
     using Xunit;
 
     // ReSharper disable InconsistentNaming
