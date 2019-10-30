@@ -58,6 +58,25 @@
         }
 
         /// <summary>
+        ///     Returns a value indicating whether the provided type is a <see cref="TimeSpan" /> type.
+        /// </summary>
+        /// <param name="type">
+        ///     The type to be checked.
+        /// </param>
+        /// <returns>
+        ///     True if the type is a <see cref="TimeSpan" /> type; otherwise, false.
+        /// </returns>
+        public static bool IsTimeSpan(this Type type)
+        {
+            var (isNullable, underlyingType) = type.IsNullableType();
+
+            if (isNullable)
+                type = underlyingType;
+
+            return type == typeof(TimeSpan);
+        }
+
+        /// <summary>
         ///     Returns a value indicating whether the provided type is a generic collection type.
         /// </summary>
         /// <remarks>

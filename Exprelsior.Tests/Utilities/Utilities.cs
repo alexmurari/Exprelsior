@@ -93,6 +93,14 @@
                 .RuleFor(t => t.DateTimeCollection, f => GetRandomItems(f.Date.Soon().Range(f.Date.Soon().AddMonths(2))).ToList())
                 .RuleFor(t => t.NullableDateTimeCollection, f => GetRandomItems(f.Date.Soon().Range(f.Date.Soon().AddMonths(2))).Select(t => t.OrNull(f)).ToList())
 
+                //// TimeSpans
+                .RuleFor(t => t.TimeSpan, f => f.Date.Timespan())
+                .RuleFor(t => t.NullableTimeSpan, f => f.Date.Timespan().OrNull(f))
+                .RuleFor(t => t.TimeSpanArray, f => GetRandomItems(new TimeSpan(0, 2, 0, 9).Range(new TimeSpan(1, 6, 30, 5))).ToArray())
+                .RuleFor(t => t.NullableTimeSpanArray, f => GetRandomItems(new TimeSpan(0, 2, 0, 9).Range(new TimeSpan(1, 6, 30, 5))).Select(t => t.OrNull(f)).ToArray())
+                .RuleFor(t => t.TimeSpanCollection, f => GetRandomItems(new TimeSpan(0, 2, 0, 9).Range(new TimeSpan(1, 6, 30, 5))).ToList())
+                .RuleFor(t => t.NullableTimeSpanCollection, f => GetRandomItems(new TimeSpan(0, 2, 0, 9).Range(new TimeSpan(1, 6, 30, 5))).Select(t => t.OrNull(f)).ToList())
+
                 //// GUIDs
                 .RuleFor(t => t.Guid, f => f.Random.Guid())
                 .RuleFor(t => t.NullableGuid, f => f.Random.Guid().OrNull(f))
@@ -175,6 +183,23 @@
         internal static IEnumerable<DateTime> Range(this DateTime startDate, DateTime endDate)
         {
             return Enumerable.Range(0, (endDate - startDate).Days + 1).Select(d => startDate.AddDays(d));
+        }
+
+        /// <summary>
+        ///     Generates a sequence of <see cref="DateTime"/> objects within a specified range.
+        /// </summary>
+        /// <param name="startTime">
+        ///     The value of the first <see cref="DateTime"/> in the sequence.
+        /// </param>
+        /// <param name="endTime">
+        ///     The value of the last <see cref="DateTime"/> in the sequence.
+        /// </param>
+        /// <returns>
+        ///     The collection containing the range of <see cref="DateTime"/> objects.
+        /// </returns>
+        internal static IEnumerable<TimeSpan> Range(this TimeSpan startTime, TimeSpan endTime)
+        {
+            return Enumerable.Range(0, (endTime - startTime).Hours + 1).Select(d => startTime.Add(new TimeSpan(0, d, 0, 0)));
         }
     }
 }

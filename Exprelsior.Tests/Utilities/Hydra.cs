@@ -229,6 +229,38 @@
         /// </summary>
         public ICollection<DateTime?> NullableDateTimeCollection { get; set; }
 
+        //// TimeSpans
+
+        /// <summary>
+        ///     Gets or sets the date and time.
+        /// </summary>
+        public TimeSpan TimeSpan { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the null allowed date and time.
+        /// </summary>
+        public TimeSpan? NullableTimeSpan { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the date and time array.
+        /// </summary>
+        public TimeSpan[] TimeSpanArray { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the null allowed date and time array.
+        /// </summary>
+        public TimeSpan?[] NullableTimeSpanArray { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the date and time collection.
+        /// </summary>
+        public ICollection<TimeSpan> TimeSpanCollection { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the null allowed date and time collection.
+        /// </summary>
+        public ICollection<TimeSpan?> NullableTimeSpanCollection { get; set; }
+
         //// Booleans
 
         /// <summary>

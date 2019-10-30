@@ -83,6 +83,8 @@
                                     value = ParseObjectToNumber(value, propertyAbsoluteType);
                                 else if (propertyUnderlyingType.IsDateTime())
                                     value = ParseStringToDateTime(value);
+                                else if (propertyUnderlyingType.IsTimeSpan())
+                                    value = ParseStringToTimeSpan(value);
                                 else if (propertyUnderlyingType.IsBoolean())
                                     value = ConvertToBoolean(value);
                                 else if (propertyUnderlyingType.IsGuid())
@@ -123,6 +125,13 @@
                 else if (propertyType.IsDateTime())
                 {
                     resultValue = valueType.IsDateTime() ? Expression.Constant(value) : Expression.Constant(ParseStringToDateTime(value));
+
+                    if (propertyTypeNullable.IsNullable)
+                        resultValue = Expression.Convert(resultValue, propertyType);
+                }
+                else if (propertyType.IsTimeSpan())
+                {
+                    resultValue = valueType.IsTimeSpan() ? Expression.Constant(value) : Expression.Constant(ParseStringToTimeSpan(value));
 
                     if (propertyTypeNullable.IsNullable)
                         resultValue = Expression.Convert(resultValue, propertyType);
@@ -175,6 +184,8 @@
                     value = ParseObjectCollectionToNumber(value, propertyType, propertyAbsoluteType);
                 else if (propertyType.IsGenericCollection(typeof(DateTime)) || propertyAbsoluteType == typeof(DateTime))
                     value = ParseStringCollectionToDateTime(value, isNullable);
+                else if (propertyType.IsGenericCollection(typeof(TimeSpan)) || propertyAbsoluteType == typeof(TimeSpan))
+                    value = ParseStringCollectionToTimeSpan(value, isNullable);
                 else if (propertyType.IsGenericCollection(typeof(bool)) || propertyAbsoluteType == typeof(bool))
                     value = ConvertCollectionToBoolean(value, isNullable);
                 else if (propertyType.IsGenericCollection(typeof(Guid)) || propertyAbsoluteType == typeof(Guid))
@@ -346,6 +357,57 @@
                     return collection.Select(ParseStringToDateTime).ToList();
 
                 return collection.Select(t => ParseStringToDateTime(t).GetValueOrDefault()).ToList();
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Converts the string representation of a date and time to it's <see cref="TimeSpan" /> equivalent.
+        /// </summary>
+        /// <param name="value">
+        ///     The value to be converted.
+        /// </param>
+        /// <returns>
+        ///     The <see cref="TimeSpan" /> representing the converted value.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     The exception thrown when the value cannot be converted.
+        /// </exception>
+        private static TimeSpan? ParseStringToTimeSpan(object value)
+        {
+            if (value == null)
+                return null;
+
+            if (TimeSpan.TryParse(value.ToString(), out var result))
+                return result;
+
+            throw new ArgumentException($"Value '{value}' of type '{value.GetType().Name}' isn't valid for comparing with values of type '{nameof(TimeSpan)}'.", nameof(value));
+        }
+
+        /// <summary>
+        ///     Converts an collection of strings representing a date and time to it's <see cref="TimeSpan" /> equivalents.
+        /// </summary>
+        /// <param name="value">
+        ///     The collection to be converted.
+        /// </param>
+        /// <param name="isNullable">
+        ///     Indicates whether the <see cref="TimeSpan" /> type can be null.
+        /// </param>
+        /// <returns>
+        ///     The object representing the converted collection.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        ///     The exception thrown when the value cannot be converted.
+        /// </exception>
+        private static object ParseStringCollectionToTimeSpan(object value, bool isNullable = false)
+        {
+            if (value is IEnumerable<string> collection)
+            {
+                if (isNullable)
+                    return collection.Select(ParseStringToTimeSpan).ToList();
+
+                return collection.Select(t => ParseStringToTimeSpan(t).GetValueOrDefault()).ToList();
             }
 
             return null;
