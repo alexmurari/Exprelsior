@@ -232,32 +232,32 @@
         //// TimeSpans
 
         /// <summary>
-        ///     Gets or sets the date and time.
+        ///     Gets or sets the time interval.
         /// </summary>
         public TimeSpan TimeSpan { get; set; }
 
         /// <summary>
-        ///     Gets or sets the null allowed date and time.
+        ///     Gets or sets the null allowed time interval.
         /// </summary>
         public TimeSpan? NullableTimeSpan { get; set; }
 
         /// <summary>
-        ///     Gets or sets the date and time array.
+        ///     Gets or sets the time interval array.
         /// </summary>
         public TimeSpan[] TimeSpanArray { get; set; }
 
         /// <summary>
-        ///     Gets or sets the null allowed date and time array.
+        ///     Gets or sets the null allowed time interval array.
         /// </summary>
         public TimeSpan?[] NullableTimeSpanArray { get; set; }
 
         /// <summary>
-        ///     Gets or sets the date and time collection.
+        ///     Gets or sets the time interval collection.
         /// </summary>
         public ICollection<TimeSpan> TimeSpanCollection { get; set; }
 
         /// <summary>
-        ///     Gets or sets the null allowed date and time collection.
+        ///     Gets or sets the null allowed time interval collection.
         /// </summary>
         public ICollection<TimeSpan?> NullableTimeSpanCollection { get; set; }
 

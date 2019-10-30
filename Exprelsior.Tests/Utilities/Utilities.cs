@@ -186,16 +186,16 @@
         }
 
         /// <summary>
-        ///     Generates a sequence of <see cref="DateTime"/> objects within a specified range.
+        ///     Generates a sequence of <see cref="TimeSpan"/> objects within a specified range.
         /// </summary>
         /// <param name="startTime">
-        ///     The value of the first <see cref="DateTime"/> in the sequence.
+        ///     The value of the first <see cref="TimeSpan"/> in the sequence.
         /// </param>
         /// <param name="endTime">
-        ///     The value of the last <see cref="DateTime"/> in the sequence.
+        ///     The value of the last <see cref="TimeSpan"/> in the sequence.
         /// </param>
         /// <returns>
-        ///     The collection containing the range of <see cref="DateTime"/> objects.
+        ///     The collection containing the range of <see cref="TimeSpan"/> objects.
         /// </returns>
         internal static IEnumerable<TimeSpan> Range(this TimeSpan startTime, TimeSpan endTime)
         {
