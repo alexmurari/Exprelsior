@@ -5,17 +5,20 @@
   <p>
     A .NET Standard library that dynamically create lambda expressions.
   </p>
-  <a href="https://www.nuget.org/packages/Exprelsior">
+  <a href="https://www.nuget.org/packages/Exprelsior" target="_blank">
     <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
   </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior" target="_blank">
     <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=plastic">
   </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests" target="_blank">
     <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
   </a>
-  <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior">
+  <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior" target="_blank">
     <img src="https://img.shields.io/codefactor/grade/github/alexmurari/exprelsior?style=plastic">
+  </a>
+  <a href="https://github.com/alexmurari/Exprelsior/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/github/license/alexmurari/exprelsior?style=plastic">
   </a>
 </div>
 
