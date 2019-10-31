@@ -61,34 +61,6 @@
                 <see cref="T:System.Linq.Expressions.Expression`1" /> objects.
             </returns>
         </member>
-        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.AsPath(System.Linq.Expressions.LambdaExpression)">
-            <summary>
-                Converts the property accessor lambda expression to a textual representation of it's path. <br />
-                The textual representation consists of the properties that the expression access flattened and separated by a dot
-                character (".").
-            </summary>
-            <param name="expression">The property selector expression.</param>
-            <returns>The extracted textual representation of the expression's path.</returns>
-        </member>
-        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.TryParsePath(System.Linq.Expressions.Expression,System.String@)">
-            <summary>
-                Recursively parses an expression tree representing a property accessor to extract a textual representation of it's
-                path. <br />
-                The textual representation consists of the properties accessed by the expression tree flattened and separated by a
-                dot character (".").
-            </summary>
-            <param name="expression">The expression tree to parse.</param>
-            <param name="path">The extracted textual representation of the expression's path.</param>
-            <returns>True if the parse operation succeeds; otherwise, false.</returns>
-        </member>
-        <member name="M:Exprelsior.Shared.Extensions.ExpressionExtensions.RemoveConvertOperations(System.Linq.Expressions.Expression)">
-            <summary>
-                Removes all casts or conversion operations from the nodes of the provided <see cref="T:System.Linq.Expressions.Expression" />.
-                Used to prevent type boxing when manipulating expression trees.
-            </summary>
-            <param name="expression">The expression to remove the conversion operations.</param>
-            <returns>The expression without conversion or cast operations.</returns>
-        </member>
         <member name="T:Exprelsior.Shared.Extensions.ExpressionExtensions.RebindParameterVisitor">
             <summary>
                 Visitor that rebinds the parameters of the visited <see cref="T:System.Linq.Expressions.Expression" />.
@@ -272,6 +244,17 @@
             </param>
             <returns>
                 True if the type is a <see cref="T:System.DateTime" /> type; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsTimeSpan(System.Type)">
+            <summary>
+                Returns a value indicating whether the provided type is a <see cref="T:System.TimeSpan" /> type.
+            </summary>
+            <param name="type">
+                The type to be checked.
+            </param>
+            <returns>
+                True if the type is a <see cref="T:System.TimeSpan" /> type; otherwise, false.
             </returns>
         </member>
         <member name="M:Exprelsior.Shared.Extensions.TypeExtensions.IsGenericCollection(System.Type,System.Boolean)">

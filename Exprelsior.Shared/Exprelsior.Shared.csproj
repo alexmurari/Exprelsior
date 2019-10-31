@@ -15,7 +15,7 @@
     <Copyright>Copyright (c) 2019 Alexandre Murari Junior</Copyright>
     <PackageTags>C# .NET .netstandard</PackageTags>
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -23,12 +23,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Exprelsior.Shared.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\icon.png" Pack="true" Visible="false" PackagePath="" />
-    <None Include="..\LICENSE.txt" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 
 </Project>

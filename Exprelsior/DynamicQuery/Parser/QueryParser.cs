@@ -16,13 +16,13 @@
     internal static class QueryParser
     {
         /// <summary>
-        ///     The regular expression that matches the operators that aggregate queries.
-        ///     Splits compound queries into single queries with their aggregate operators.
+        ///     The regular expression that matches the operators that compose queries.
+        ///     Splits composite queries into single queries with their compose operators.
         /// </summary>
         /// <remarks>
         ///     - Result location on <see cref="Match"/> object: <see cref="Group"/> number 1.
         /// </remarks>
-        private static readonly Regex QueryAggregatorRegex = new Regex(@"(?<=[\'\]]\s*\)\s*)\+([a-zA-Z]{2,3})\+(?=\s*[A-Za-z]{2,3}\s*\(\s*\')", RegexOptions.Compiled);
+        private static readonly Regex QueryCompositionRegex = new Regex(@"(?<=[\'\]]\s*\)\s*)\+([a-zA-Z]{2,3})\+(?=\s*[A-Za-z]{2,3}\s*\(\s*\')", RegexOptions.Compiled);
 
         /// <summary>
         ///     The regular expression that matches the elements (operator, property and values) of a single query.
@@ -72,16 +72,16 @@
         /// </returns>
         internal static IEnumerable<QueryInfo> ParseQuery(string query)
         {
-            var operationsAndAggregates = QueryAggregatorRegex.Split(query).ToArray();
-            var operations = operationsAndAggregates.Where((t, i) => i % 2 == 0).ToArray();
-            var aggregates = operationsAndAggregates.Where((t, i) => i % 2 != 0).Select(GetExpressionAggregate).ToArray();
+            var operationsAndCompositions = QueryCompositionRegex.Split(query).ToArray();
+            var operations = operationsAndCompositions.Where((t, i) => i % 2 == 0).ToArray();
+            var compositions = operationsAndCompositions.Where((t, i) => i % 2 != 0).Select(GetExpressionCompose).ToArray();
 
-            if (operations.Length - aggregates.Length != 1)
-                throw new InvalidOperationException("Malformed query: invalid number of operations and aggregates.");
+            if (operations.Length - compositions.Length != 1)
+                throw new InvalidOperationException("Malformed query: invalid number of operations and compositions.");
 
             for (var i = 0; i < operations.Length; i++)
             {
-                var aggregate = i > 0 ? aggregates[i - 1] : null;
+                var composition = i > 0 ? compositions[i - 1] : null;
                 var operation = QueryElementsRegex.Matches(operations[i]).Cast<Match>().Select(t => t.Groups).ToArray();
 
                 var queryOperator = GetExpressionOperator(operation.Select(t => t["operator"].Value).FirstOrDefault(t => !string.IsNullOrWhiteSpace(t)));
@@ -89,15 +89,15 @@
                 var value = (object)operation.Select(t => t["value"].Value).FirstOrDefault(t => !string.IsNullOrWhiteSpace(t))
                     ?? operation.Select(t => t["arrayValues"].Value).Where(t => !string.IsNullOrWhiteSpace(t)).ToArray();
 
-                ValidateQuery(aggregate, queryOperator, property, value, i > 0);
+                ValidateQuery(composition, queryOperator, property, value, i > 0);
 
-                yield return new QueryInfo(aggregate, queryOperator.GetValueOrDefault(), property, ReplaceKeywords(value));
+                yield return new QueryInfo(composition, queryOperator.GetValueOrDefault(), property, ReplaceKeywords(value));
             }
 
-            void ValidateQuery(ExpressionAggregate? aggregate, ExpressionOperator? @operator, string property, object value, bool aggregateRequired)
+            void ValidateQuery(ExpressionCompose? composition, ExpressionOperator? @operator, string property, object value, bool compositionRequired)
             {
-                if (aggregateRequired && !aggregate.HasValue)
-                    throw new InvalidOperationException("Malformed query: invalid aggregate operator.");
+                if (compositionRequired && !composition.HasValue)
+                    throw new InvalidOperationException("Malformed query: invalid composition operator.");
 
                 if (!@operator.HasValue)
                     throw new InvalidOperationException("Malformed query: invalid comparison operator.");
@@ -177,22 +177,22 @@
         }
 
         /// <summary>
-        ///     Gets the <see cref="ExpressionAggregate" /> value identified by the provided <see cref="string" />.
+        ///     Gets the <see cref="ExpressionCompose" /> value identified by the provided <see cref="string" />.
         /// </summary>
         /// <remarks>
-        ///     The <see cref="ExpressionAggregate" /> is identified by the description set in the
+        ///     The <see cref="ExpressionCompose" /> is identified by the description set in the
         ///     <see cref="DescriptionAttribute" />.
         /// </remarks>
         /// <param name="operator">
         ///     The <see cref="string" /> representing the operator value.
         /// </param>
         /// <returns>
-        ///     The <see cref="ExpressionAggregate" /> identified by the provided <see cref="string" />.
+        ///     The <see cref="ExpressionCompose" /> identified by the provided <see cref="string" />.
         /// </returns>
-        private static ExpressionAggregate? GetExpressionAggregate(string @operator)
+        private static ExpressionCompose? GetExpressionCompose(string @operator)
         {
-            return Enum.GetValues(typeof(ExpressionAggregate))
-                .Cast<ExpressionAggregate?>()
+            return Enum.GetValues(typeof(ExpressionCompose))
+                .Cast<ExpressionCompose?>()
                 .FirstOrDefault(t => string.Equals(t.GetDescription(), @operator, StringComparison.OrdinalIgnoreCase));
         }
     }

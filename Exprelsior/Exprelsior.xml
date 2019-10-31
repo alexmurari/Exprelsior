@@ -4,33 +4,23 @@
         <name>Exprelsior</name>
     </assembly>
     <members>
-        <member name="T:Exprelsior.DynamicQuery.DynamicQueryBuilder">
-            <summary>
-                Provides static methods to dynamically build <see cref="T:System.Linq.Expressions.Expression`1" /> objects for data querying.
-            </summary>
-        </member>
-        <member name="M:Exprelsior.DynamicQuery.DynamicQueryBuilder.BuildQuery``1(System.String)">
-            <summary>
-                Parses the provided query as <see cref="T:System.String" /> to it's <see cref="T:System.Linq.Expressions.Expression`1" /> equivalent.
-            </summary>
-            <param name="query">
-                The query.
-            </param>
-            <typeparam name="T">
-                The type being queried.
-            </typeparam>
-            <returns>
-                The <see cref="T:System.Linq.Expressions.Expression`1" /> object representing the query.
-            </returns>
-        </member>
         <member name="T:Exprelsior.DynamicQuery.Parser.QueryParser">
             <summary>
                 Provides methods to parse the string representation of a query to a object representation.
             </summary>
         </member>
+        <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryCompositionRegex">
+            <summary>
+                The regular expression that matches the operators that compose queries.
+                Splits composite queries into single queries with their compose operators.
+            </summary>
+            <remarks>
+                - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> number 1.
+            </remarks>
+        </member>
         <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryElementsRegex">
             <summary>
-                Regular expression that matches the elements (operator, property and values) of a single query.
+                The regular expression that matches the elements (operator, property and values) of a single query.
             </summary>
             <remarks>
                 Explanation:
@@ -52,14 +42,6 @@
                         - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> name: 'arrayValues'.
             </remarks>
         </member>
-        <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryAggregatorRegex">
-            <summary>
-                Regular expression that matches the operators that aggregate queries.
-            </summary>
-            <remarks>
-                - Result location on <see cref="T:System.Text.RegularExpressions.Match"/> object: <see cref="T:System.Text.RegularExpressions.Group"/> number 1.
-            </remarks>
-        </member>
         <member name="F:Exprelsior.DynamicQuery.Parser.QueryParser.QueryKeywords">
             <summary>
                 The query keywords.
@@ -78,7 +60,7 @@
         </member>
         <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.ReplaceKeywords(System.Object)">
             <summary>
-                Replaces the keywords in the query values to their actual values.
+                Replaces the keywords in the query values with their actual values.
             </summary>
             <param name="values">
                 The query values to be replaced.
@@ -105,19 +87,19 @@
                 The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionOperator" /> identified by the provided <see cref="T:System.String" />.
             </returns>
         </member>
-        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.GetExpressionAggregate(System.String)">
+        <member name="M:Exprelsior.DynamicQuery.Parser.QueryParser.GetExpressionCompose(System.String)">
             <summary>
-                Gets the <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> value identified by the provided <see cref="T:System.String" />.
+                Gets the <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose" /> value identified by the provided <see cref="T:System.String" />.
             </summary>
             <remarks>
-                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> is identified by the description set in the
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose" /> is identified by the description set in the
                 <see cref="T:System.ComponentModel.DescriptionAttribute" />.
             </remarks>
             <param name="operator">
                 The <see cref="T:System.String" /> representing the operator value.
             </param>
             <returns>
-                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate" /> identified by the provided <see cref="T:System.String" />.
+                The <see cref="T:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose" /> identified by the provided <see cref="T:System.String" />.
             </returns>
         </member>
         <member name="T:Exprelsior.DynamicQuery.QueryInfo">
@@ -125,12 +107,12 @@
                 Represents an query.
             </summary>
         </member>
-        <member name="M:Exprelsior.DynamicQuery.QueryInfo.#ctor(System.Nullable{Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate},Exprelsior.ExpressionBuilder.Enums.ExpressionOperator,System.String,System.Object)">
+        <member name="M:Exprelsior.DynamicQuery.QueryInfo.#ctor(System.Nullable{Exprelsior.ExpressionBuilder.Enums.ExpressionCompose},Exprelsior.ExpressionBuilder.Enums.ExpressionOperator,System.String,System.Object)">
             <summary>
                 Initializes a new instance of the <see cref="T:Exprelsior.DynamicQuery.QueryInfo"/> class.
             </summary>
-            <param name="aggregate">
-                The aggregate operator.
+            <param name="composition">
+                The composition operator.
             </param>
             <param name="operator">
                 The comparison operator.
@@ -142,9 +124,9 @@
                 The value to be compared.
             </param>
         </member>
-        <member name="P:Exprelsior.DynamicQuery.QueryInfo.Aggregate">
+        <member name="P:Exprelsior.DynamicQuery.QueryInfo.Composition">
             <summary>
-                Gets the aggregate operator.
+                Gets the composition operator.
             </summary>
         </member>
         <member name="P:Exprelsior.DynamicQuery.QueryInfo.Operator">
@@ -217,19 +199,19 @@
                 The "ends with" comparison.
             </summary>
         </member>
-        <member name="T:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate">
+        <member name="T:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose">
             <summary>
-                Expression aggregate operators.
+                Expression composition operators for joining multiple expressions.
             </summary>
         </member>
-        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate.And">
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose.And">
             <summary>
-                The "and" aggregate.
+                The "and" composition.
             </summary>
         </member>
-        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionAggregate.Or">
+        <member name="F:Exprelsior.ExpressionBuilder.Enums.ExpressionCompose.Or">
             <summary>
-                The "or" aggregate.
+                The "or" composition.
             </summary>
         </member>
         <member name="T:Exprelsior.ExpressionBuilder.ExpressionBuilder">
@@ -295,7 +277,7 @@
         </member>
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.CreateBinaryFromQuery``1(System.String)">
             <summary>
-                Builds an <see cref="T:System.Linq.Expressions.Expression`1" /> from the provided <see cref="T:System.String" /> object representing an query.
+                Creates an <see cref="T:System.Linq.Expressions.Expression`1" /> from the provided <see cref="T:System.String" /> object representing an query.
             </summary>
             <typeparam name="T">
                 The type being queried.
@@ -391,6 +373,23 @@
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForDateTime(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
             <summary>
                 Validates the provided parameters for building binary expressions for <see cref="T:System.DateTime" /> type comparisons.
+            </summary>
+            <param name="propertyType">
+                The property type.
+            </param>
+            <param name="operator">
+                The comparison operator.
+            </param>
+            <exception cref="T:System.ArgumentException">
+                Exception thrown when the comparison operator value is not supported.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Exception thrown when the comparison operator value is out of range.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.ExpressionBuilder.ValidateBinaryExpressionParametersForTimeSpan(System.Reflection.MemberInfo,Exprelsior.ExpressionBuilder.Enums.ExpressionOperator)">
+            <summary>
+                Validates the provided parameters for building binary expressions for <see cref="T:System.TimeSpan" /> type comparisons.
             </summary>
             <param name="propertyType">
                 The property type.
@@ -514,8 +513,7 @@
         </member>
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildGenericCollectionContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression)">
             <summary>
-                Builds an method call expression that represents a call to the '
-                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0)" />' method.
+                Builds an method call expression that represents a call to the '<see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0)" />' method.
             </summary>
             <param name="property">The expression representing the instance for the instance method call.</param>
             <param name="value">The expression representing the value to be passed as the method argument.</param>
@@ -566,8 +564,7 @@
         </member>
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildEnumerableSequenceEqualMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Boolean)">
             <summary>
-                Builds an method call expression that represents a call to the '
-                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method.
+                Builds an method call expression that represents a call to the '<see cref="M:System.Linq.Enumerable.SequenceEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})" />' method.
             </summary>
             <param name="property">
                 The expression representing the instance for the instance method call.
@@ -584,8 +581,7 @@
         </member>
         <member name="M:Exprelsior.ExpressionBuilder.ExpressionMethodCallBuilder.BuildEnumerableContainsMethodCall(System.Linq.Expressions.Expression,System.Linq.Expressions.Expression,System.Collections.IEqualityComparer)">
             <summary>
-                Builds an method call expression that represents a call to the '
-                <see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method.
+                Builds an method call expression that represents a call to the '<see cref="M:System.Linq.Enumerable.Contains``1(System.Collections.Generic.IEnumerable{``0},``0,System.Collections.Generic.IEqualityComparer{``0})" />' method.
             </summary>
             <param name="property">
                 The expression representing the instance for the instance method call.
@@ -622,7 +618,7 @@
                 The property accessor expression and parsed value constant expression.
             </returns>
         </member>
-        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseCollectionValues(System.Object,System.Type,System.Type)">
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseCollectionValues(System.Object,System.Type,System.Type,System.Boolean)">
             <summary>
                 Parses the values of an collection of objects to match the type of the provided property.
             </summary>
@@ -633,7 +629,10 @@
                 The property type.
             </param>
             <param name="propertyAbsoluteType">
-                The absolute underlying property type (if it's a null value type, gets the underlying type).
+                The property's absolute type: if <see cref="T:System.Nullable`1"/>, it's the underlying type. The intrinsic type itself.
+            </param>
+            <param name="isNullable">
+                Indicates whether the property type is a <see cref="T:System.Nullable`1"/> type.
             </param>
             <returns>
                 The parsed collection of objects.
@@ -687,7 +686,7 @@
                 The exception thrown when the value cannot be converted.
             </exception>
         </member>
-        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseObjectCollectionToNumber(System.Object,System.Type)">
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseObjectCollectionToNumber(System.Object,System.Type,System.Type)">
             <summary>
                 Converts an collection of objects representing a number to it's numeric equivalents.
             </summary>
@@ -696,6 +695,9 @@
             </param>
             <param name="propertyType">
                 The numeric type that the collection elements must be parsed to.
+            </param>
+            <param name="propertyAbsoluteType">
+                The property's absolute type: if null-able, it's the underlying type. The intrinsic numeric type itself.
             </param>
             <returns>
                 The <see cref="T:System.Object" /> representing the converted value.
@@ -727,6 +729,37 @@
             </param>
             <param name="isNullable">
                 Indicates whether the <see cref="T:System.DateTime" /> type can be null.
+            </param>
+            <returns>
+                The object representing the converted collection.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringToTimeSpan(System.Object)">
+            <summary>
+                Converts the string representation of a date and time to it's <see cref="T:System.TimeSpan" /> equivalent.
+            </summary>
+            <param name="value">
+                The value to be converted.
+            </param>
+            <returns>
+                The <see cref="T:System.TimeSpan" /> representing the converted value.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                The exception thrown when the value cannot be converted.
+            </exception>
+        </member>
+        <member name="M:Exprelsior.ExpressionBuilder.Parser.ExpressionTypeParser.ParseStringCollectionToTimeSpan(System.Object,System.Boolean)">
+            <summary>
+                Converts an collection of strings representing a date and time to it's <see cref="T:System.TimeSpan" /> equivalents.
+            </summary>
+            <param name="value">
+                The collection to be converted.
+            </param>
+            <param name="isNullable">
+                Indicates whether the <see cref="T:System.TimeSpan" /> type can be null.
             </param>
             <returns>
                 The object representing the converted collection.

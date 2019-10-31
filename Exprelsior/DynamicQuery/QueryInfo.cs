@@ -11,8 +11,8 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="QueryInfo"/> class.
         /// </summary>
-        /// <param name="aggregate">
-        ///     The aggregate operator.
+        /// <param name="composition">
+        ///     The composition operator.
         /// </param>
         /// <param name="operator">
         ///     The comparison operator.
@@ -23,18 +23,18 @@
         /// <param name="value">
         ///     The value to be compared.
         /// </param>
-        public QueryInfo(ExpressionAggregate? aggregate, ExpressionOperator @operator, string propertyName, object value)
+        public QueryInfo(ExpressionCompose? composition, ExpressionOperator @operator, string propertyName, object value)
         {
-            Aggregate = aggregate;
+            Composition = composition;
             Operator = @operator;
             PropertyName = propertyName.ThrowIfNullOrWhitespace(nameof(propertyName));
             Value = value;
         }
 
         /// <summary>
-        ///     Gets the aggregate operator.
+        ///     Gets the composition operator.
         /// </summary>
-        public ExpressionAggregate? Aggregate { get; }
+        public ExpressionCompose? Composition { get; }
 
         /// <summary>
         ///     Gets the comparison operator.

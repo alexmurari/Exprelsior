@@ -15,7 +15,7 @@
     <PackageTags>C# .NET .netstandard</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,6 +25,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\Projects\Exprelsior\Exprelsior\Exprelsior.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Exprelsior.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DynamicQuery\" />
@@ -37,7 +41,7 @@
 
   <ItemGroup>
     <None Include="..\icon.png" Pack="true" Visible="false" PackagePath="" />
-    <None Include="..\LICENSE.txt" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 
 </Project>

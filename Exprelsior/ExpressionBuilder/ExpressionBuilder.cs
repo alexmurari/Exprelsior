@@ -104,14 +104,14 @@
             {
                 var binaryExpression = CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator);
 
-                if (queryInfo.Aggregate.HasValue)
+                if (queryInfo.Composition.HasValue)
                 {
-                    switch (queryInfo.Aggregate.Value)
+                    switch (queryInfo.Composition.Value)
                     {
-                        case ExpressionAggregate.And:
+                        case ExpressionCompose.And:
                             expression = binaryExpression.And(expression);
                             break;
-                        case ExpressionAggregate.Or:
+                        case ExpressionCompose.Or:
                             expression = binaryExpression.Or(expression);
                             break;
                         default:

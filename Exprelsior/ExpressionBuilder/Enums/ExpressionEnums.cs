@@ -69,18 +69,18 @@
     }
 
     /// <summary>
-    ///     Expression aggregate operators.
+    ///     Expression composition operators for joining multiple expressions.
     /// </summary>
-    public enum ExpressionAggregate
+    public enum ExpressionCompose
     {
         /// <summary>
-        ///     The "and" aggregate.
+        ///     The "and" composition.
         /// </summary>
         [Description("AND")]
         And,
 
         /// <summary>
-        ///     The "or" aggregate.
+        ///     The "or" composition.
         /// </summary>
         [Description("OR")]
         Or
