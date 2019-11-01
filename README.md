@@ -25,11 +25,10 @@
 ## What is Exprelsior?
 
 Exprelsior is a .NET Standard library that enables .NET developers to create strongly-typed 
-lambda expressions from pure text using it's own query syntax or from the expression builder method.
+binary lambda expressions from pure text using it's own query syntax or from the expression builder method.
 
-The query text is directly converted to lambda expressions, which means that developers 
-can pass any query string by URI to an API HTTP GET method, for example, and it will be 
-directly parsed to an strongly typed lambda expression.
+With support to all major .NET data types, including nullable types, nested properties and it's own query syntax, Exprelsior
+brings the creation of dynamic predicates to a whole new level.
 
 ---
 
@@ -265,7 +264,7 @@ Comprehensive list of the types and operators supported by Exprelsior.
 ### Data Types
 
 | Type | Supported | Signed/Unsigned | Nullable Support |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | string | ✅ | N/A | N/A |
 | bool | ✅ | N/A | ✅ |
 | char | ✅ | N/A | ✅ |
