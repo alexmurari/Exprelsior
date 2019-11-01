@@ -34,22 +34,22 @@ brings the creation of dynamic predicates to a whole new level.
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Usage](#usage)
+1. [Overview](#1-overview)
+2. [Usage](#2-usage)
    1. [Query Syntax Example](#query-syntax-example)
    2. [Expression Builder Example](#expression-builder-example)
-3. [The Query Syntax](#the-query-syntax)
+3. [The Query Syntax](#3-the-query-syntax)
    1. [Query Elements](#query-elements)
    2. [Creating Simple Queries](#simple-queries)
    3. [Creating Composite Queries](#composite-queries)
    4. [Accessing Nested Properties](#accessing-nested-properties)
    5. [Representing Null Values](#representing-null-values)
-4. [Supported Operators and Types](#supported-operators-and-types)
+4. [Supported Operators and Types](#4-supported-operators-and-types)
    1. [Comparison Operators](#comparison-operators)
    2. [Compose Operators](#compose-operators)
    3. [Data Types](#data-types)
    4. [Keywords](#keywords)
-5. [License](#license)
+5. [License](#5-license)
 
 ---
 
@@ -284,6 +284,6 @@ Comprehensive list of the types and operators supported by Exprelsior.
 | --- | --- | --- |
 | null | !\$NULL\$! | null |
 
-## License
+## 5. License
 
 [MIT License (MIT)](./LICENSE)
