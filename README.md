@@ -44,7 +44,7 @@ brings the creation of dynamic predicates to a whole new level.
    3. [Creating Composite Queries](#composite-queries)
    4. [Accessing Nested Properties](#accessing-nested-properties)
    5. [Representing Null Values](#representing-null-values)
-4. [Supported Operators and Types](#4-supported-operators-and-types)
+4. [Supported Operators, Types and Keywords](#4-supported-operators-types-and-keywords)
    1. [Comparison Operators](#comparison-operators)
    2. [Compose Operators](#compose-operators)
    3. [Data Types](#data-types)
