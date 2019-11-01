@@ -1,9 +1,9 @@
-<div align="center">
+﻿<div align="center">
     <a href="https://github.com/alexmurari/Exprelsior/">
     <img alt="Exprelsior" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
   </a>
   <p>
-    A .NET Standard library that dynamically create lambda expressions.
+    <strong>A .NET Standard lambda expression generator for creating dynamic predicates.</strong>
   </p>
   <a href="https://www.nuget.org/packages/Exprelsior">
     <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
@@ -17,6 +17,9 @@
   <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior">
     <img src="https://img.shields.io/codefactor/grade/github/alexmurari/exprelsior?style=plastic">
   </a>
+  <a href="https://github.com/alexmurari/Exprelsior/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/alexmurari/exprelsior?style=plastic">
+  </a>
 </div>
 
 ## What is Exprelsior?
@@ -28,188 +31,260 @@ The query text is directly converted to lambda expressions, which means that dev
 can pass any query string by URI to an API HTTP GET method, for example, and it will be 
 directly parsed to an strongly typed lambda expression.
 
+---
 
-## Let's start with some examples
+## Table of Contents
 
-* #### The class
+1. [Overview](#overview)
+2. [Usage](#usage)
+   1. [Query Syntax Example](#query-syntax-example)
+   2. [Expression Builder Example](#expression-builder-example)
+3. [The Query Syntax](#the-query-syntax)
+   1. [Query Elements](#query-elements)
+   2. [Creating Simple Queries](#simple-queries)
+   3. [Creating Composite Queries](#composite-queries)
+   4. [Accessing Nested Properties](#accessing-nested-properties)
+   5. [Representing Null Values](#representing-null-values)
+4. [Supported Operators and Types](#supported-operators-and-types)
+   1. [Comparison Operators](#comparison-operators)
+   2. [Compose Operators](#compose-operators)
+   3. [Data Types](#data-types)
+   4. [Keywords](#keywords)
+5. [License](#license)
 
-    ```csharp
-    public class Foo
-    {
-        public string Name { get; set; }
-    }
-    ```
-    
-* #### The goal
+---
 
-    Build this expression:
+## 1. Overview
+
+The objective of this library is to build binary lambda expressions in an dynamic manner.
+
+Example:
 
 ```csharp
-    Expression<Func<Foo, bool>> exp = t => t.Name.StartsWith("John");
+Expression<Func<Foo, bool>> exp = t => t.Name == "Bar"; // Just a simple predicate
 ```
 
-* #### Using the *ExpressionBuilder.CreateBinary<T>* method:
+Building the above expression using the ***ExpressionBuilder.CreateBinary\<T>*** method:
 
-    ```csharp
-        var exp = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "John", ExpressionOperator.StartsWith);
-        // result: t => t.Name.StartsWith("John")
-    ```
+```csharp
+var exp = ExpressionBuilder.CreateBinary<Foo>("Name", "Bar", ExpressionOperator.Equal);
+// result: t => t.Name == "Bar"
+```
 
-* #### Using the *ExpressionBuilder.CreateBinaryFromQuery<T>* method:
+Building the above expression using the ***ExpressionBuilder.CreateBinaryFromQuery\<T>*** method:
   
 ```csharp
-        string query = "sw('Name', 'John')";
-        var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
-        // result: t => t.Name.StartsWith("John")
+string query = "eq('Name', 'Bar')";
+var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
+// result: t => t.Name == "Bar"
 ```
+---
 
-* #### Full example of the query syntax with an HTTP GET API method
+## 2. Usage
+
+Usages examples for generating dynamic lambda expressions.
+
+###  Query Syntax Example
 
 ```csharp
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string query)
-        {
-            // query is "sw('Name', 'John')" (without double quotes)
-            var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
-            
-            var result = await FooRepository.GetAsync(exp);
-            
-            return result;
-        }
+[HttpGet]
+public async Task<IActionResult> Get([FromQuery] string query)
+{
+    // query = "gte('Age', '30')" (without double quotes)
+    var exp = ExpressionBuilder.CreateBinaryFromQuery<Foo>(query);
+    
+    // exp = t => t.Age >= 30
+
+    var result = await FooRepository.GetAsync(predicate: exp);
+    
+    return result;
+}
 ```
+  
+### Expression Builder Example
 
-That query could be anything! Any property from "Foo" class with any value (see supported types and operators below).
-It's even possible to pass multiple queries in an single call!
+```csharp
+[HttpGet]
+public async Task<IActionResult> Get([FromQuery] int @operator, [FromQuery] string propertyName, [FromQuery] object value)
+{
+    // @operator = 5 / property = Age / value = 30
+    var exp = ExpressionBuilder.CreateBinary<Foo>(propertyName, value, (ExpressionOperator)@operator);
+    
+    // exp = t => t.Age >= 30
 
-> eq('Name', 'John')+or+eq('Name', 'Chadwick')
+    var result = await FooRepository.GetAsync(predicate: exp);
+    
+    return result;
+}
+```
+---
 
-## Explaining the query syntax
+## 3. The Query Syntax
 
-> eq('Name', 'Stan Lee')
+Query syntax description.
 
-The query syntax is straightforward, it consists of three elements:
+### Query Elements
 
-* The operator -> "**eq**" which, in this case, stands for "**equals**" or "**==**".
+##### Query with single value:
+> eq('Name', 'John')
 
-* The property to be compared -> "**'Name'**" which, in this case, is the "**Name**" property from the "**Foo**" class.
+##### Elements of a single-value query:
+> operator(property, value)
 
-* The value to compare the property -> "**'Stan Lee'**".
+##### Query with collection of values:
+> cov('Name', ['John', 'Johnny', 'Mark', 'Myles', 'Alex'])
 
-The query is then built by the ``` ExpressionBuilder.CreateBinaryFromQuery<Foo>(query) ``` method.
+##### Elements of a multi-value query:
+> operator(property, [collection of values])
 
-The resulting expression is: 
-> (t => t.Name == "Stan Lee")
+##### Elements Description:
 
-*Simple, isn't?*
+> **Operator**: Describes which operation the query performs.
+> 
+> **Property**: The name of the property that the expression will compare. Supports nested properties.
+> 
+> **Value/Collection Of Values**: The effective value that the expression will compare the property with.
+> It can be a single value or a collection of values.
 
-#### What about collection values?
+##### Elements Syntax:
 
-*We support them too!*
+> **Operator**: First query element. No quotes. Precedes the opening parentheses.
+>
+> > Ex. "**eq**('Property', 'Value')".
+>
+> **Property**: First query element inside de parenthesis. Surrounded by single quotes.
+> Procedes the opening parentheses and precedes the comma separating this element from the value element.
+> Consists of simple property name or dot-separated path to the property when nested.
+>
+> > Ex. "eq(**'Property'**, 'Value')".
+> > 
+> > Ex. "eq(**'Property.Property2.Property3'**, 'Value')".
+>
+> **Value (when single)**: Second query element inside the parentheses. Surrounded by single quotes.
+> Procedes the comma separating this element from the property element and precedes the closing parenthesis.
+> Consists of value representations.
+>
+> > Ex. "eq('Property', **'Value'**)".
+>
+> **Value (when multiple)**: Second query element inside the parentheses. Surrounded by square brackets.
+> Procedes the comma separating this element from the property element and precedes the closing parenthesis.
+> Consists of multiple value representations, each one surrounded by single quotes. Resembles an array.
+>
+> > Ex. "eq('Property', **['Value', 'Value2', 'Value3']**)".
 
-> cov('Name', ['Stan Lee', 'Kevin Feige', 'Robert Downey Jr.'])
+### Simple Queries
 
-The resulting expression is *something like*: 
-> t => stringArray.Contains(t.Name, OrdinalIgnoreCaseComparer)
+Simple queries are essentially translated to a single expression:
 
-#### The query operators
+> "eq('Property', 'Value')".
 
-> "**EQ**" -> "EQUAL" or "=="
+Gets translated to:
 
-> "**NE**" -> "NOT EQUAL" or "!="
+> t => t.Property == Value
+  
+### Composite Queries
 
-> "**LT**" -> "LESS THAN" or "<"
+Exprelsior supports query composition, where multiple queries can be chained together, generating
+an composite expression.
 
-> "**LTE**" -> "LESS THAN OR EQUAL" or "<="
+> "eq('Property', 'Value')+**AND**+gt('Property2', 'Value2')".
 
-> "**GT**" -> "GREATER THAN" or ">"
+Gets translated to:
 
-> "**GTE**" -> "GREATER THAN OR EQUAL" or ">="
+> t => t.Property == Value **&&** t.Property2 > Value2
 
-> "**CT**" -> "CONTAINS" or "X => X.Contains(Y)"
+Multiple levels of query composition are supported:
 
-> "**COV**" -> "CONTAINS ON VALUE" or "X => Y.Contains(X)"
+> "eq('Property', 'Value')+**AND**+gt('Property2', 'Value2')+**OR**+cov('Property3', ['Value3', 'Value4', 'Value5'])".
 
-> "**SW**" -> "STARTS WITH" or "X => X.StartsWith("Blah")" (strings only)
+Which gets translated to:
 
-> "**EW**" -> "ENDS WITH" or "X => X.EndsWith("Blah")" (strings only)
+> t => t.Property == Value **&&** t.Property2 > Value2 **||** collection.Contains(t.Property3)
 
-#### Supported types
+##### Composite Query Syntax:
 
-> String
+> **Compose Operator**: Joins two queries together. Surrounded by plus signs.
+> Procedes the previous query closing parentheses and precedes the next query first element.
+>
+> > Ex. "eq('Property', 'Value')+**AND**+ne('Property2', 'Value2')".
 
-> All Numeric Types - Signed and Unsigned
+### Accessing nested properties
 
-> DateTime
+Exprelsior supports nested properties access.
 
-> TimeSpan
+> "eq('Property.Property2', 'Value')"
 
-> Boolean
+Gets translated to:
 
-> Char
+> t => t.Property.Property2 == value
 
-> Guid
+This is specially useful for checking only the date or time part of a DateTime object:
 
-> Nullable types of the above value types.
+> "eq('DateTime.Date', '2019-12-31')"
 
-> Collections of the above types
+Gets translated to *something like*:
 
-#### Accessing nested properties
+> t => t.DateTime.Date == DateTime(2019, 12, 31)
 
-Exprelsior supports accesing nested properties of an object using the dot character (".").
-
-> eq('DateOfBirth.Date', '1922-12-28')
-
-The resulting expression is *something like*: 
-> t => (t.DateOfBirth.Date == 1922-12-28 00:00:00) // Format may vary depending on localization
-
-#### Representing null values
+### Representing null values
 
 Exprelsior supports null values on the query syntax.
 
-> eq('MiddleName', '\$!NULL!\$')
+> "eq('Property', '!\$NULL\$!')"
 
-The resulting expression is: 
-> (t => t.MiddleName == null)
+Gets translated to:
 
-Just remember that null values can only be used with nullable properties.
+> t => t.Property == null
 
-#### I want to join multiple queries together!
-*Got that covered!*
+## 4. Supported Operators, Types and Keywords
 
-> eq('Name', 'Stan Lee')+AND+gte('Age', '85')
+Comprehensive list of the types and operators supported by Exprelsior.
 
-The resulting expression is *something like*: 
-> (t => t.Name == "Stan Lee" && t.Age >= 85)
+### Comparison Operators
 
-The same result can be achieved with the ``` CreateBinary ``` method.
+| Operator | Symbol | Query | Expression Builder |
+| --- | --- | --- | --- |
+| Equal | == | eq | ExpressionOperator.Equal |
+| Not Equal | != | ne | ExpressionOperator.NotEqual |
+| Less Than | < | lt | ExpressionOperator.LessThan |
+| Less Than Or Equal | <= | lte | ExpressionOperator.LessThanOrEqual |
+| Greater Than | > | gt | ExpressionOperator.GreaterThan |
+| Greater Than Or Equal | >= | gte | ExpressionOperator.GreaterThanOrEqual |
+| Contains | X => X.Contains(Y) | ct | ExpressionOperator.Contains |
+| Contains On Value | X => Y.Contains(X) | cov | ExpressionOperator.ContainsOnValue |
+| Starts With | X => X.StartsWith(Y) | sw | ExpressionOperator.StartsWith |
+| Ends With | X => X.EndsWith(Y) | ew | ExpressionOperator.EndsWith |
 
-```csharp
-using Exprelsior.Shared.Extensions;
+### Compose Operators
 
-var exp1 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Name), "Stan", ExpressionOperator.StartsWith);
-var exp2 = ExpressionBuilder.CreateBinary<Foo>(nameof(Foo.Age), 85, ExpressionOperator.GreaterThanOrEqual);
+| Operator | Symbol | Query | Expression Builder |
+| --- | --- | --- | --- |
+| And | && | +AND+ | fullExp = exp1.**And**(exp2) |
+| Or | \|\| | +OR+ | fullExp = exp1.**Or**(exp2) |
 
-var fullExp = exp1.And(exp2);
+### Data Types
 
-// Use fullExp normally...
-```
+| Type | Supported | Signed/Unsigned | Nullable Support |
+| --- | --- | --- |
+| string | ✅ | N/A | N/A |
+| bool | ✅ | N/A | ✅ |
+| char | ✅ | N/A | ✅ |
+| byte | ✅ | ✅ | ✅ |
+| short | ✅ | ✅ | ✅ |
+| int | ✅ | ✅ | ✅ |
+| long | ✅ | ✅ | ✅ |
+| float | ✅ | N/A | ✅ |
+| double | ✅ | N/A | ✅ |
+| decimal | ✅ | N/A | ✅ |
+| DateTime | ✅ | N/A | ✅ |
+| TimeSpan | ✅ | N/A | ✅ |
 
-##### The aggregate operators
+### Keywords
 
-> "**+AND+**" -> "AndAlso" or "&&"
+| Value | Query | Expression Builder |
+| --- | --- | --- |
+| null | !\$NULL\$! | null |
 
-> "**+OR+**" -> "OrElse" or "||"
-
-Usage:
-
-> [query1]+AND+[query2]+OR+[query3]+OR+[query4]...
-
-###### Extension Methods
-  
-> leftExp.And(rightExp);
-
-> leftExp.Or(rightExp);
-
-## Licence
+## License
 
 [MIT License (MIT)](./LICENSE)
