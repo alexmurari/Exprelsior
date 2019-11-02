@@ -71,7 +71,7 @@ before_build:
 #---------------------------------#
 
 artifacts:
- - path: Exprelsior/bin/Release
+  - path: Exprelsior/bin/Release
    name: Exprelsior
    type: zip
 
