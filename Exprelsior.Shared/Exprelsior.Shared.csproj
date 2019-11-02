@@ -5,16 +5,9 @@
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
     <Description>Shared functions library for Exprelsior, a cross-platform .NET Standard library that dynamically generates lambda expressions from pure text.</Description>
     <Product>Exprelsior</Product>
-    <Authors>Alexandre Murari Junior (alexmurari)</Authors>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>alpha-1</VersionSuffix>
-    <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">$(VersionSuffix)-dev</VersionSuffix>
-    <PackageIconUrl></PackageIconUrl>
-    <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <Copyright>Copyright (c) 2019 Alexandre Murari Junior</Copyright>
     <PackageTags>C# .NET .netstandard</PackageTags>
-    <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 

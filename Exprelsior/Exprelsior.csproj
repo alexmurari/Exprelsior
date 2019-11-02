@@ -3,23 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <Authors>Alexandre Murari Junior (alexmurari)</Authors>
     <Description>Core library for Exprelsior, a cross-platform .NET Standard library that dynamically generates lambda expressions from pure text.</Description>
     <Company>Alexandre Murari Junior (alexmurari)</Company>
-    <VersionPrefix>1.0.0</VersionPrefix>
-    <VersionSuffix>alpha-1</VersionSuffix>
-    <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">$(VersionSuffix)-dev</VersionSuffix>
-    <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <Copyright>Copyright (c) 2019 Alexandre Murari Junior</Copyright>
     <PackageTags>C# .NET .netstandard</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

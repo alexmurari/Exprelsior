@@ -1,0 +1,68 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
+version: {build}
+
+# you can use {branch} name in version format too
+# version: 1.0.{build}-{branch}
+
+# branches to build
+branches:
+  only:
+    - master
+
+# Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
+skip_tags: true
+
+# Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
+skip_commits:
+  files:
+    - '**/*.md'
+    - 'license'
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2019
+
+# build cache to preserve files/folders between builds
+cache:
+  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
+  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+# Build settings, not to be confused with "before_build" and "after_build".
+# "project" is relative to the original build directory and not influenced by directory changes in "before_build".
+build:
+  project: Exprelsior.sln
+  # MSBuild verbosity level
+  verbosity: minimal
+
+
+# scripts to run before build
+before_build: >-
+            $props = [xml](Get-Content "Directory.Build.props")
+            $prefix = $props.Project.PropertyGroup.VersionPrefix
+    
+            $avSuffix = @{ $true = $($suffix); $false = $props.Project.PropertyGroup.VersionSuffix }[$suffix -ne ""]
+            $full = @{ $true = "$($prefix)-$($avSuffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($avSuffix))]
+
+            Update-AppveyorBuild -Version $full
+            dotnet restore
