@@ -63,6 +63,6 @@ before_build:
          
         $avSuffix = @{ $true = $($suffix); $false = $props.Project.PropertyGroup.VersionSuffix }[$suffix -ne ""]
         $full = @{ $true = "$($prefix)-$($avSuffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($avSuffix))]
-        Update-AppveyorBuild -Version $full
+        Update-AppveyorBuild -Version "$full Build {build}"
         
         dotnet restore
