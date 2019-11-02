@@ -65,3 +65,15 @@ before_build:
         Update-AppveyorBuild -Version "$full Build-$env:APPVEYOR_BUILD_VERSION"
         
         dotnet restore
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+ - path: Exprelsior/bin/Release
+   name: Exprelsior
+   type: zip
+
+  # pushing all *.nupkg files in build directory recursively
+  - path: '**\*.nupkg'
