@@ -72,8 +72,8 @@ before_build:
 
 artifacts:
   - path: Exprelsior/bin/Release
-   name: Exprelsior
-   type: zip
+    name: Exprelsior
+    type: zip
 
   # pushing all *.nupkg files in build directory recursively
   - path: '**\*.nupkg'
