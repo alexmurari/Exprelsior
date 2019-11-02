@@ -6,7 +6,6 @@
     <Description>Shared functions library for Exprelsior, a cross-platform .NET Standard library that dynamically generates lambda expressions from pure text.</Description>
     <Product>Exprelsior</Product>
     <PackageIcon>icon.png</PackageIcon>
-    <Copyright>Copyright (c) 2019 Alexandre Murari Junior</Copyright>
     <PackageTags>C# .NET .netstandard</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>

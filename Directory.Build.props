@@ -5,6 +5,7 @@
     <Authors>Alexandre Murari Junior (alexmurari)</Authors>
     <_CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</_CurrentYear>
     <Copyright>Copyright (c) 2019 - $(_CurrentYear) Alexandre Murari Junior</Copyright>
+    <Company>Alexandre Murari Junior (alexmurari)</Company>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
