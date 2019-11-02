@@ -60,9 +60,8 @@ before_build:
   - ps: |
         $props = [xml](Get-Content "Directory.Build.props")
         $prefix = $props.Project.PropertyGroup.VersionPrefix
-         
-        $avSuffix = @{ $true = $($suffix); $false = $props.Project.PropertyGroup.VersionSuffix }[$suffix -ne ""]
-        $full = @{ $true = "$($prefix)-$($avSuffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($avSuffix))]
-        Update-AppveyorBuild -Version "$full Build {build}"
+        $suffix = $props.Project.PropertyGroup.VersionSuffix
+        $full = @{ $true = "$($prefix)-$($suffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($suffix))]
+        Update-AppveyorBuild -Version "$full Build-$build"
         
         dotnet restore
