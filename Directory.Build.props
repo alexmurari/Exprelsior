@@ -2,7 +2,6 @@
   <PropertyGroup>
     <VersionPrefix>1.0.0</VersionPrefix>
     <VersionSuffix>alpha-1</VersionSuffix>
-    <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">$(VersionSuffix)-dev</VersionSuffix>
     <Authors>Alexandre Murari Junior (alexmurari)</Authors>
     <_CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</_CurrentYear>
     <Copyright>Copyright (c) 2019 - $(_CurrentYear) Alexandre Murari Junior</Copyright>
