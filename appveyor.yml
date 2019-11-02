@@ -57,12 +57,11 @@ build:
 
 
 # scripts to run before build
-before_build: >-
-            $props = [xml](Get-Content "Directory.Build.props")
-            $prefix = $props.Project.PropertyGroup.VersionPrefix
-    
-            $avSuffix = @{ $true = $($suffix); $false = $props.Project.PropertyGroup.VersionSuffix }[$suffix -ne ""]
-            $full = @{ $true = "$($prefix)-$($avSuffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($avSuffix))]
-
-            Update-AppveyorBuild -Version $full
-            dotnet restore
+before_build:
+  - ps: |
+        $props = [xml](Get-Content "Directory.Build.props")
+        $prefix = $props.Project.PropertyGroup.VersionPrefix 
+        $avSuffix = @{ $true = $($suffix); $false = $props.Project.PropertyGroup.VersionSuffix }[$suffix -ne ""]
+        $full = @{ $true = "$($prefix)-$($avSuffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($avSuffix))]
+        Update-AppveyorBuild -Version $full
+        dotnet restore
