@@ -9,5 +9,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
+    <PackageReleaseNotes>
+    </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

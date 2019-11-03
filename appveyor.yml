@@ -12,6 +12,7 @@ version: '{build}'
 branches:
   only:
     - master
+    - dev
 
 # Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
 skip_tags: false
