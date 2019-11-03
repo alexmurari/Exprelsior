@@ -14,7 +14,7 @@ branches:
     - master
 
 # Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
-skip_tags: true
+skip_tags: false
 
 # Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
 skip_commits:
