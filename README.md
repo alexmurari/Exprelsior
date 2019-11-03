@@ -5,11 +5,8 @@
   <p>
     <strong>A .NET Standard lambda expression generator for creating dynamic predicates.</strong>
   </p>
-  <a href="https://www.nuget.org/packages/Exprelsior">
-    <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
-  </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
-    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=plastic">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/dev/">
+    <img alt="AppVeyor branch" src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/dev?label=build-dev&style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
     <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
