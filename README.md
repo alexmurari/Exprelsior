@@ -8,11 +8,8 @@
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev">
     <img alt="AppVeyor branch" src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/dev?label=build-dev&style=plastic">
   </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
-    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
-  </a>
-  <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior">
-    <img src="https://img.shields.io/codefactor/grade/github/alexmurari/exprelsior?style=plastic">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev/tests">
+    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior/dev?compact_message&label=tests-dev&style=plastic">
   </a>
   <a href="https://github.com/alexmurari/Exprelsior/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/alexmurari/exprelsior?style=plastic">
