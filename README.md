@@ -8,8 +8,8 @@
   <a href="https://www.nuget.org/packages/Exprelsior">
     <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
   </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior">
-    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior.svg?style=plastic">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/master">
+    <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/master?style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
     <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
