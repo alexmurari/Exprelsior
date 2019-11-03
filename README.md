@@ -5,7 +5,7 @@
   <p>
     <strong>A .NET Standard lambda expression generator for creating dynamic predicates.</strong>
   </p>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/dev/">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev">
     <img alt="AppVeyor branch" src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/dev?label=build-dev&style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
