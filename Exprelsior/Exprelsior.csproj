@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <Description>Core library for Exprelsior, a cross-platform .NET Standard library that dynamically generates lambda expressions from pure text.</Description>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true"</GenerateDocumentationFile>
+    <Description>Core library for Exprelsior, a .NET Standard lambda expression generator for creating dynamic predicates.</Description>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>C# .NET .netstandard</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -11,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Exprelsior.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

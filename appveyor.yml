@@ -2,38 +2,28 @@
 #      general configuration      #
 #---------------------------------#
 
-# version format
 version: '{build}'
 
-# you can use {branch} name in version format too
-# version: 1.0.{build}-{branch}
-
-# branches to build
 branches:
   only:
     - master
     - dev
 
-# Do not build on tags (GitHub, Bitbucket, GitLab, Gitea)
 skip_tags: false
 
-# Skipping commits affecting specific files (GitHub only). More details here: /docs/appveyor-yml
 skip_commits:
   files:
     - '**/*.md'
     - 'license'
 
-# Maximum number of concurrent jobs for the project
 max_jobs: 1
 
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
 
-# Build worker image (VM template)
 image: Visual Studio 2019
 
-# build cache to preserve files/folders between builds
 cache:
   - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
   - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
@@ -42,33 +32,21 @@ cache:
 #       build configuration       #
 #---------------------------------#
 
-# build platform, i.e. x86, x64, Any CPU. This setting is optional.
 platform: Any CPU
 
-# build Configuration, i.e. Debug, Release, etc.
 configuration: Release
 
-# Build settings, not to be confused with "before_build" and "after_build".
-# "project" is relative to the original build directory and not influenced by directory changes in "before_build".
 build:
   project: Exprelsior.sln
-  # MSBuild verbosity level
   verbosity: minimal
-
-for:
--
-  branches:
-    except:
-      - master
-
-  build:
-    publish_nuget: false
 
 nuget:
   disable_publish_on_pr: true
 
+#---------------------------------#
+#          build scripts          #
+#---------------------------------#
 
-# scripts to run before build
 before_build:
   - ps: |
         $props = [xml](Get-Content "Directory.Build.props")
@@ -77,6 +55,12 @@ before_build:
         $full = @{ $true = "$($prefix)-$($suffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($suffix))]
         Update-AppveyorBuild -Version "$full Build-$env:APPVEYOR_BUILD_VERSION"
         
+        $isPreRelease = @{ $true = "true"; $false = "false" }[-not ([string]::IsNullOrEmpty($suffix))]
+        Set-AppveyorBuildVariable 'pre_release' $isPreRelease
+        
+        $releaseNotes = $props.Project.PropertyGroup.PackageReleaseNotes
+        Set-AppveyorBuildVariable 'release_notes' $releaseNotes
+        
         dotnet restore
 
 #---------------------------------#
@@ -84,11 +68,10 @@ before_build:
 #---------------------------------#
 
 artifacts:
-  - path: Exprelsior/bin/Release
+  - path: Exprelsior/bin/$(configuration)
     name: Exprelsior
     type: zip
 
-  # pushing all *.nupkg files in build directory recursively
   - path: '**\*.nupkg'
 
   #---------------------------------#
@@ -98,13 +81,18 @@ artifacts:
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: "Exprelsior $(APPVEYOR_REPO_TAG_NAME) Release"
+    description: $(release_notes)
+    draft: false
+    prerelease: $(pre_release)
     auth_token:
       secure: 17uIp5Xz3DUfAUcfU6n/DajZ45rm5HVKrhTYVYJ4Z8XocWZvtSzhfZTfak6P6emy
     on:
+      branch: master
       APPVEYOR_REPO_TAG: true
+
   - provider: NuGet
     api_key:
       secure: pF8W2j/TXfR8dLUpvBIabRDxkz0ye8u+cCQrsWOczf5C6QiyRKWY8M6dvbW1fAcK
     on:
+      branch: master
       APPVEYOR_REPO_TAG: true
