@@ -12,8 +12,8 @@
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/master">
     <img src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/master?style=plastic">
   </a>
-  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
-    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/master/tests">
+    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior/master?compact_message&style=plastic">
   </a>
   <a href="https://app.codacy.com/manual/alexmurari/Exprelsior/dashboard?bid=15099717">
     <img alt="Codacy branch grade" src="https://img.shields.io/codacy/grade/13449ade8973436395314a32a3c5fe6d/master?style=plastic">
