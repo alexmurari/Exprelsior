@@ -1,11 +1,12 @@
-﻿<div align="center">
+﻿﻿<div align="center">
     <a href="https://github.com/alexmurari/Exprelsior/">
     <img alt="Exprelsior" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
   </a>
   <p>
     <strong>A .NET Standard lambda expression generator for creating dynamic predicates.</strong>
   </p>
-  <a href="https://www.nuget.org/packages/Exprelsior">
+  <p>
+    <a href="https://www.nuget.org/packages/Exprelsior">
     <img src="https://img.shields.io/nuget/vpre/Exprelsior.svg?style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/master">
@@ -14,12 +15,24 @@
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/build/tests">
     <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior?compact_message&style=plastic">
   </a>
-  <a href="https://www.codefactor.io/repository/github/alexmurari/exprelsior">
-    <img src="https://img.shields.io/codefactor/grade/github/alexmurari/exprelsior?style=plastic">
+  <a href="https://app.codacy.com/manual/alexmurari/Exprelsior/dashboard?bid=15099717">
+    <img alt="Codacy branch grade" src="https://img.shields.io/codacy/grade/13449ade8973436395314a32a3c5fe6d/master?style=plastic">
   </a>
   <a href="https://github.com/alexmurari/Exprelsior/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/alexmurari/exprelsior?style=plastic">
   </a>
+  </p>
+  <p>
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev">
+    <img alt="AppVeyor branch" src="https://img.shields.io/appveyor/ci/alexmurari/exprelsior/dev?label=build-dev&style=plastic">
+  </a>
+  <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev/tests">
+    <img src="https://img.shields.io/appveyor/tests/alexmurari/exprelsior/dev?compact_message&label=tests-dev&style=plastic">
+  </a>
+  <a href="https://app.codacy.com/manual/alexmurari/Exprelsior/dashboard?bid=15099716">
+    <img alt="Codacy branch grade" src="https://img.shields.io/codacy/grade/13449ade8973436395314a32a3c5fe6d/dev?label=code%20quality-dev&style=plastic">
+  </a>
+  </p>
 </div>
 
 ## What is Exprelsior?
