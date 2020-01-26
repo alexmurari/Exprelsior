@@ -1,4 +1,4 @@
-﻿﻿<div align="center">
+<div align="center">
     <a href="https://github.com/alexmurari/Exprelsior/">
     <img alt="Exprelsior" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
   </a>
