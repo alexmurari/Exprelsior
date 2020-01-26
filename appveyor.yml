@@ -88,12 +88,10 @@ deploy:
     auth_token:
       secure: 17uIp5Xz3DUfAUcfU6n/DajZ45rm5HVKrhTYVYJ4Z8XocWZvtSzhfZTfak6P6emy
     on:
-      branch: /V\d*\.\d*\.\d*/ # TAG branches
       APPVEYOR_REPO_TAG: true
 
   - provider: NuGet
     api_key:
       secure: pF8W2j/TXfR8dLUpvBIabRDxkz0ye8u+cCQrsWOczf5C6QiyRKWY8M6dvbW1fAcK
     on:
-      branch: /V\d*\.\d*\.\d*/ # TAG branches
       APPVEYOR_REPO_TAG: true
