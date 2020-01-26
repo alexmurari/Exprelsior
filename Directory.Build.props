@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
     <PackageReleaseNotes>
-      - First production ready release.
+       - First production ready release.
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
