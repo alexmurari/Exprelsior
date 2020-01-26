@@ -8,6 +8,7 @@ branches:
   only:
     - master
     - dev
+    - V* # TAG branches
 
 skip_tags: false
 
