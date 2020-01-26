@@ -8,7 +8,7 @@ branches:
   only:
     - master
     - dev
-    - V* # TAG branches
+    - /V\d*\.\d*\.\d*/ # TAG branches
 
 skip_tags: false
 
