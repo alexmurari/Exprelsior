@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Linq.Expressions;
     using Exprelsior.ExpressionBuilder.Enums;
+    using Exprelsior.Shared.Extensions;
     using Exprelsior.Tests.Utilities;
     using Xunit.Abstractions;
 
@@ -62,9 +63,9 @@
 
                 IEnumerable<string> strCollection;
 
-                if (valueList.OfType<System.DateTime?>().Any())
+                if (valueList.OfType<DateTime?>().Any())
                 {
-                    strCollection = valueList.Cast<System.DateTime?>().Select(t => string.Concat("'", t?.ToString("O") ?? "$!NULL!$", "'"));
+                    strCollection = valueList.Cast<DateTime?>().Select(t => string.Concat("'", t?.ToString("O") ?? "$!NULL!$", "'"));
                 }
                 else if (valueList.OfType<float?>().Any())
                 {
@@ -79,7 +80,7 @@
             }
             else
             {
-                if (value is System.DateTime dtValue)
+                if (value is DateTime dtValue)
                 {
                     value = string.Concat("'", dtValue.ToString("O"), "'");
                 }
@@ -94,28 +95,48 @@
             switch (@operator)
             {
                 case ExpressionOperator.Equal:
-                    return $"eq('{propertyName}', {value})";
+                    return $"{ExpressionOperator.Equal.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.NotEqual:
-                    return $"ne('{propertyName}', {value})";
+                    return $"{ExpressionOperator.NotEqual.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.LessThan:
-                    return $"lt('{propertyName}', {value})";
+                    return $"{ExpressionOperator.LessThan.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.LessThanOrEqual:
-                    return $"lte('{propertyName}', {value})";
+                    return $"{ExpressionOperator.LessThanOrEqual.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.GreaterThan:
-                    return $"gt('{propertyName}', {value})";
+                    return $"{ExpressionOperator.GreaterThan.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.GreaterThanOrEqual:
-                    return $"gte('{propertyName}', {value})";
+                    return $"{ExpressionOperator.GreaterThanOrEqual.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.Contains:
-                    return $"ct('{propertyName}', {value})";
+                    return $"{ExpressionOperator.Contains.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.ContainsOnValue:
-                    return $"cov('{propertyName}', {value})";
+                    return $"{ExpressionOperator.ContainsOnValue.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.StartsWith:
-                    return $"sw('{propertyName}', {value})";
+                    return $"{ExpressionOperator.StartsWith.GetDescription()}('{propertyName}', {value})";
                 case ExpressionOperator.EndsWith:
-                    return $"ew('{propertyName}', {value})";
+                    return $"{ExpressionOperator.EndsWith.GetDescription()}('{propertyName}', {value})";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(@operator), @operator, null);
             }
+        }
+
+        /// <summary>
+        ///     Composes two queries using the specified operator.
+        /// </summary>
+        /// <param name="leftQuery">
+        ///     The left query.
+        /// </param>
+        /// <param name="rightQuery">
+        ///     The right query.
+        /// </param>
+        /// <param name="composeOperator">
+        ///     The compose operator.
+        /// </param>
+        /// <returns>
+        ///     The <see cref="string"/> representing the composed query.
+        /// </returns>
+        protected string ComposeQuery(string leftQuery, string rightQuery, ExpressionCompose composeOperator)
+        {
+            return string.Concat(leftQuery, $"+{composeOperator.GetDescription()}+", rightQuery);
         }
 
         /// <summary>

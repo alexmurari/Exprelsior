@@ -19,11 +19,6 @@
         private static readonly Faker Faker;
 
         /// <summary>
-        ///     The faker used to generate fake <see cref="Hydra" /> objects.
-        /// </summary>
-        private static readonly Faker<Hydra> HydraFaker;
-
-        /// <summary>
         /// The hydra collection of objects filled with fake data.
         /// </summary>
         private static readonly List<Hydra> HydraCollection;
@@ -35,7 +30,7 @@
         {
             Faker = new Faker();
 
-            HydraFaker = new Faker<Hydra>()
+            var hydraFaker = new Faker<Hydra>()
                 .StrictMode(true)
 
                 //// Strings
@@ -117,7 +112,7 @@
                 .RuleFor(t => t.BooleanCollection, f => GetRandomItems(Enumerable.Range(1, 100)).Select(t => t % 2 == 0).ToList())
                 .RuleFor(t => t.NullableBooleanCollection, f => GetRandomItems(Enumerable.Range(1, 100)).Select(t => (t % 2 != 0).OrNull(f)).ToList());
 
-            HydraCollection = HydraFaker.Generate(2000);
+            HydraCollection = hydraFaker.Generate(2000);
         }
 
         /// <summary>
