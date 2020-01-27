@@ -12,12 +12,9 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Exprelsior.Shared.xml" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Extensions\" />
