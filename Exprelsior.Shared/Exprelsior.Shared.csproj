@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>Shared functions library for Exprelsior, a .NET Standard lambda expression generator for creating dynamic predicates.</Description>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>C# .NET .netstandard</PackageTags>
