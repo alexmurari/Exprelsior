@@ -17,7 +17,7 @@ cache:
   
 environment:
   certificate_pass:
-    secure: vOCLLinDZ51qdMw/T43JH1w4v2bWbdMVfEGCnC2il/c=
+    secure: 4HtCHAFuggxhqnism3hA/sk1r3paygf0KLvQwzy1S+0=
   certificate_container_name:
     secure: errt5JdPUtleU/GDUVJ/bqjHvFlvH3DHUO/Sv7plGIY=
 
