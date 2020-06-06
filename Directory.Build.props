@@ -13,6 +13,8 @@
     <PackageReleaseNotes>
       <!-- Keep the section inside CDATA without indentation -->
       <![CDATA[
+- Assemblies are strong-name signed
+- Other minor code improvements
   ]]>
     </PackageReleaseNotes>
   </PropertyGroup>
