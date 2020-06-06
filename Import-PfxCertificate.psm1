@@ -6,7 +6,7 @@ function Import-PfxCertificate {
 	);
 	process {
 		if(!(Test-Path -Path $pfx)) {
-			Write-Error "Unable to locate PFX file: $pfx";
+			Write-Warning "Unable to locate PFX file: $pfx";
 			return;
 		}
 
