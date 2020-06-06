@@ -10,12 +10,10 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
+    <!-- Keep package release notes section without indentation -->
     <PackageReleaseNotes>
-      <!-- Keep the section inside CDATA without indentation -->
-      <![CDATA[
 - Assemblies are strong-name signed
 - Other minor code improvements
-  ]]>
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>

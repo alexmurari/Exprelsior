@@ -76,6 +76,8 @@ artifacts:
 
   - path: Exprelsior/bin/$(configuration)/Package/*.nupkg
 
+  - path: Exprelsior.Shared/bin/$(configuration)/Package/*.nupkg
+
 #---------------------------------#
 #      deploy configuration       #
 #---------------------------------#
