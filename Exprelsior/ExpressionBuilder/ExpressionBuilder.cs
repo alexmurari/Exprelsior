@@ -98,9 +98,11 @@
         /// </returns>
         public static Expression<Func<T, bool>> CreateBinaryFromQuery<T>(string query)
         {
+            query.ThrowIfNullOrWhitespace(nameof(query));
+
             Expression<Func<T, bool>> expression = null;
 
-            foreach (var queryInfo in QueryParser.ParseQuery(query.ThrowIfNullOrWhitespace(nameof(query))))
+            foreach (var queryInfo in QueryParser.ParseQuery(query))
             {
                 var binaryExpression = CreateBinary<T>(queryInfo.PropertyName, queryInfo.Value, queryInfo.Operator);
 
@@ -115,7 +117,7 @@
                             expression = binaryExpression.Or(expression);
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            throw new ArgumentOutOfRangeException(nameof(query), "Invalid composition operator defined in the query.");
                     }
                 }
                 else

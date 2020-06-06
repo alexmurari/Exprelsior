@@ -52,12 +52,9 @@
                     return (resultProperty, Expression.Convert(Expression.Constant(null), propertyUnderlyingType));
                 case IEnumerable valueCollection:
                 {
-                    if (propertyUnderlyingType.IsValueType && !propertyUnderlyingTypeNullable.IsNullable)
+                    if (propertyUnderlyingType.IsValueType && !propertyUnderlyingTypeNullable.IsNullable && valueCollection.Cast<object>().Any(t => t == null))
                     {
-                        if (valueCollection.Cast<object>().Any(t => t == null))
-                        {
-                            throw new InvalidOperationException($"Invalid comparison: provided a null value for comparing with a non-nullable type. Type: {propertyType.Name}.");
-                        }
+                        throw new InvalidOperationException($"Invalid comparison: provided a null value for comparing with a non-nullable type. Type: {propertyType.Name}.");
                     }
 
                     break;
@@ -208,10 +205,7 @@
         /// </exception>
         private static bool? ConvertToBoolean(object value)
         {
-            if (value == null)
-                return null;
-
-            return Convert.ToBoolean(value);
+            return value == null ? (bool?)null : Convert.ToBoolean(value);
         }
 
         /// <summary>
@@ -233,10 +227,7 @@
         {
             if (value is IEnumerable<object> collection)
             {
-                if (isNullable)
-                    return collection.Select(ConvertToBoolean).ToList();
-
-                return collection.Select(t => ConvertToBoolean(t).GetValueOrDefault()).ToList();
+                return isNullable ? (object)collection.Select(ConvertToBoolean).ToList() : collection.Select(t => ConvertToBoolean(t).GetValueOrDefault()).ToList();
             }
 
             return value;
@@ -353,10 +344,7 @@
         {
             if (value is IEnumerable<string> collection)
             {
-                if (isNullable)
-                    return collection.Select(ParseStringToDateTime).ToList();
-
-                return collection.Select(t => ParseStringToDateTime(t).GetValueOrDefault()).ToList();
+                return isNullable ? (object)collection.Select(ParseStringToDateTime).ToList() : collection.Select(t => ParseStringToDateTime(t).GetValueOrDefault()).ToList();
             }
 
             return null;
@@ -404,10 +392,7 @@
         {
             if (value is IEnumerable<string> collection)
             {
-                if (isNullable)
-                    return collection.Select(ParseStringToTimeSpan).ToList();
-
-                return collection.Select(t => ParseStringToTimeSpan(t).GetValueOrDefault()).ToList();
+                return isNullable ? (object)collection.Select(ParseStringToTimeSpan).ToList() : collection.Select(t => ParseStringToTimeSpan(t).GetValueOrDefault()).ToList();
             }
 
             return null;
@@ -455,10 +440,7 @@
         {
             if (value is IEnumerable<string> collection)
             {
-                if (isNullable)
-                    return collection.Select(ParseStringToGuid).ToList();
-
-                return collection.Select(t => ParseStringToGuid(t).GetValueOrDefault()).ToList();
+                return isNullable ? (object)collection.Select(ParseStringToGuid).ToList() : collection.Select(t => ParseStringToGuid(t).GetValueOrDefault()).ToList();
             }
 
             return null;
@@ -506,10 +488,7 @@
         {
             if (value is IEnumerable<string> collection)
             {
-                if (isNullable)
-                    return collection.Select(ParseStringToChar).ToList();
-
-                return collection.Select(t => ParseStringToChar(t).GetValueOrDefault()).ToList();
+                return isNullable ? (object)collection.Select(ParseStringToChar).ToList() : collection.Select(t => ParseStringToChar(t).GetValueOrDefault()).ToList();
             }
 
             return null;

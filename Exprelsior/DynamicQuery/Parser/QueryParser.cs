@@ -133,7 +133,6 @@
                         foreach (var queryKeyword in QueryKeywords.Where(queryKeyword => stringArray[i].IndexOf(queryKeyword.Key, StringComparison.OrdinalIgnoreCase) != -1))
                         {
                             stringArray.SetValue(queryKeyword.Value, i);
-                            break;
                         }
                     }
 
@@ -145,7 +144,6 @@
                     foreach (var queryKeyword in QueryKeywords.Where(queryKeyword => stringValue.IndexOf(queryKeyword.Key, StringComparison.OrdinalIgnoreCase) != -1))
                     {
                         stringValue = (string)queryKeyword.Value;
-                        break;
                     }
 
                     return stringValue;
