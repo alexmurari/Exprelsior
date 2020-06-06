@@ -1,90 +1,91 @@
-#---------------------------------#
-#      general configuration      #
-#---------------------------------#
+#---------------------------------------------#
+#       build/environment configuration       #
+#---------------------------------------------#
 
 version: '{build}'
 
-branches:
-  only:
-    - master
-    - dev
-    - /V\d*\.\d*\.\d*/ # TAG branches
+build:
+  project: Exprelsior.sln
+  verbosity: minimal
 
-skip_tags: false
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+
+cache:
+  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
+  
+environment:
+  certificate_pass:
+    secure: vOCLLinDZ51qdMw/T43JH1w4v2bWbdMVfEGCnC2il/c=
+  certificate_container_name:
+    secure: errt5JdPUtleU/GDUVJ/bqjHvFlvH3DHUO/Sv7plGIY=
+
+#-------------------------------------#
+#       pre-build configuration       #
+#-------------------------------------#
+
+before_build:
+
+  # Extract version, release notes, pre-release flag.
+  - ps: |
+        $props = ([xml](Get-Content "Directory.Build.props")).Project.PropertyGroup
+        $vPrefix = $props.VersionPrefix
+        $vSuffix = $props.VersionSuffix
+        $releaseNotes = if ($props.PackageReleaseNotes.GetType() -eq [System.Xml.XmlElement]) { $props.PackageReleaseNotes.InnerText } else { $props.PackageReleaseNotes }
+        
+        $env:fullVersion = @{ $true = "$($vPrefix)-$($vSuffix)"; $false = $($vPrefix) }[-not ([string]::IsNullOrEmpty($vSuffix))]
+        $env:isPreRelease = @{ $true = "true"; $false = "false" }[-not ([string]::IsNullOrEmpty($vSuffix))]
+        $env:releaseNotes = @{ $true = $releaseNotes.Replace("`n", '\n').TrimEnd().Trim('\n'); $false = "$env:fullVersion release!" }[-not ([string]::IsNullOrEmpty($releaseNotes))]
+        
+        Update-AppveyorBuild -Version "$env:fullVersion Build-$env:APPVEYOR_BUILD_VERSION"
+
+  # Import PFX file for strong naming assemblies.
+  - ps: |
+        Import-Module "$env:APPVEYOR_BUILD_FOLDER\Import-PfxCertificate.psm1";
+        Import-PfxCertificate -pfx "$env:APPVEYOR_BUILD_FOLDER\ExprelsiorKey.pfx" -password $env:certificate_pass -containerName $env:certificate_container_name;
+  
+  - ps: dotnet restore
+
+#-----------------------------------------#
+#       build trigger configuration       #
+#-----------------------------------------#
 
 skip_commits:
   files:
     - '**/*.md'
     - 'license'
 
-max_jobs: 1
+skip_tags: false
 
-#---------------------------------#
-#    environment configuration    #
-#---------------------------------#
-
-image: Visual Studio 2019
-
-cache:
-  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
-  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
-
-#---------------------------------#
-#       build configuration       #
-#---------------------------------#
-
-platform: Any CPU
-
-configuration: Release
-
-build:
-  project: Exprelsior.sln
-  verbosity: minimal
+#-----------------------------------#
+#       publish configuration       #
+#-----------------------------------#
 
 nuget:
   disable_publish_on_pr: true
-
-#---------------------------------#
-#          build scripts          #
-#---------------------------------#
-
-before_build:
-  - ps: |
-        $props = [xml](Get-Content "Directory.Build.props")
-        $prefix = $props.Project.PropertyGroup.VersionPrefix
-        $suffix = $props.Project.PropertyGroup.VersionSuffix
-        $full = @{ $true = "$($prefix)-$($suffix)"; $false = $($prefix) }[-not ([string]::IsNullOrEmpty($suffix))]
-        Update-AppveyorBuild -Version "$full Build-$env:APPVEYOR_BUILD_VERSION"
-        
-        $isPreRelease = @{ $true = "true"; $false = "false" }[-not ([string]::IsNullOrEmpty($suffix))]
-        Set-AppveyorBuildVariable 'pre_release' $isPreRelease
-        
-        $releaseNotes = $props.Project.PropertyGroup.PackageReleaseNotes
-        Set-AppveyorBuildVariable 'release_notes' $releaseNotes
-        
-        dotnet restore
 
 #---------------------------------#
 #      artifacts configuration    #
 #---------------------------------#
 
 artifacts:
-  - path: Exprelsior/bin/$(configuration)
-    name: Exprelsior
+  - path: Exprelsior/bin/$(configuration)/Binaries
+    name: Exprelsior.$(fullVersion)
     type: zip
 
-  - path: '**\*.nupkg'
+  - path: Exprelsior/bin/$(configuration)/Package/*.nupkg
 
-  #---------------------------------#
-  #      deploy configuration       #
-  #---------------------------------#
+#---------------------------------#
+#      deploy configuration       #
+#---------------------------------#
 
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
-    description: $(release_notes)
+    description: $(releaseNotes)
     draft: false
-    prerelease: $(pre_release)
+    prerelease: $(isPreRelease)
     auth_token:
       secure: 17uIp5Xz3DUfAUcfU6n/DajZ45rm5HVKrhTYVYJ4Z8XocWZvtSzhfZTfak6P6emy
     on:

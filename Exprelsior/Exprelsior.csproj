@@ -2,18 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
     <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>Core library for Exprelsior, a .NET Standard lambda expression generator for creating dynamic predicates.</Description>
+    <OutputPath>bin\$(Configuration)\Binaries</OutputPath>
+    <PackageOutputPath>bin\$(Configuration)\Package</PackageOutputPath>
+    <Description>A .NET Standard lambda expression generator for creating dynamic predicates.</Description>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>C# .NET .netstandard</PackageTags>
+    <PackageTags>C# .NET .netstandard expression predicate dynamicpredicates</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>none</DebugType>
-    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

@@ -11,7 +11,9 @@
     <RepositoryUrl>https://github.com/alexmurari/Exprelsior/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
     <PackageReleaseNotes>
-       - First production ready release.
+      <!-- Keep the section inside CDATA without indentation -->
+      <![CDATA[
+  ]]>
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
