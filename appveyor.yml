@@ -19,7 +19,7 @@ environment:
   certificate_pass:
     secure: 4HtCHAFuggxhqnism3hA/sk1r3paygf0KLvQwzy1S+0=
   certificate_container_name:
-    secure: errt5JdPUtleU/GDUVJ/bqjHvFlvH3DHUO/Sv7plGIY=
+    secure: CEDPYyDEmpw2yxtLGjryfesP1SSi8LtCDKf6FN6sDC4=
 
 #-------------------------------------#
 #       pre-build configuration       #
