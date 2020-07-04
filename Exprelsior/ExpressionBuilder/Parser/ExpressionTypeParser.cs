@@ -34,25 +34,25 @@
             Expression resultValue;
 
             var propertyType = property.Type;
-            var propertyTypeNullable = propertyType.IsNullableType();
-            var propertyUnderlyingType = propertyType.IsGenericCollection() ? propertyType.IsArray ? propertyType.GetElementType() : propertyType.GetGenericArguments()[0] : propertyType;
-            var propertyUnderlyingTypeNullable = propertyUnderlyingType.IsNullableType();
+            var (isNullableType, _) = propertyType.IsNullableType();
+            var propertyUnderlyingType = propertyType.IsGenericCollection() ? ExtractGenericCollectionType(propertyType) : propertyType;
+            var (isNullableUnderlyingType, underlyingType) = propertyUnderlyingType.IsNullableType();
 
             if (propertyUnderlyingType == null)
                 throw new InvalidOperationException();
 
-            var propertyAbsoluteType = propertyUnderlyingTypeNullable.IsNullable ? propertyUnderlyingTypeNullable.UnderlyingType : propertyUnderlyingType;
+            var propertyAbsoluteType = isNullableUnderlyingType ? underlyingType : propertyUnderlyingType;
             var valueType = value?.GetType();
 
             switch (value)
             {
-                case null when propertyType.IsValueType && !propertyTypeNullable.IsNullable:
+                case null when propertyType.IsValueType && !isNullableType:
                     throw new InvalidOperationException($"Invalid comparison: provided a null value for comparing with a non-nullable type. Type: {propertyType.Name}.");
                 case null:
                     return (resultProperty, Expression.Convert(Expression.Constant(null), propertyUnderlyingType));
                 case IEnumerable valueCollection:
                 {
-                    if (propertyUnderlyingType.IsValueType && !propertyUnderlyingTypeNullable.IsNullable && valueCollection.Cast<object>().Any(t => t == null))
+                    if (propertyUnderlyingType.IsValueType && !isNullableUnderlyingType && valueCollection.Cast<object>().Any(t => t == null))
                     {
                         throw new InvalidOperationException($"Invalid comparison: provided a null value for comparing with a non-nullable type. Type: {propertyType.Name}.");
                     }
@@ -63,7 +63,7 @@
 
             if (@operator == ExpressionOperator.ContainsOnValue)
             {
-                resultValue = Expression.Constant(ParseCollectionValues(value, propertyType, propertyAbsoluteType, propertyTypeNullable.IsNullable));
+                resultValue = Expression.Constant(ParseCollectionValues(value, propertyType, propertyAbsoluteType, isNullableType));
             }
             else
             {
@@ -88,14 +88,13 @@
                                     value = ParseStringToGuid(value);
                         }
                         else
-                            value = ParseCollectionValues(value, propertyUnderlyingType, propertyAbsoluteType, propertyUnderlyingTypeNullable.IsNullable);
+                            value = ParseCollectionValues(value, propertyUnderlyingType, propertyAbsoluteType, isNullableUnderlyingType);
 
                         valueType = value?.GetType();
 
-                        if (!valueType.IsGenericCollection(propertyUnderlyingType) && propertyUnderlyingTypeNullable.IsNullable)
-                            resultValue = Expression.Convert(Expression.Constant(value), propertyUnderlyingType);
-                        else
-                            resultValue = Expression.Constant(value);
+                        resultValue = !valueType.IsGenericCollection(propertyUnderlyingType) && isNullableUnderlyingType
+                                          ? (Expression)Expression.Convert(Expression.Constant(value), propertyUnderlyingType)
+                                          : Expression.Constant(value);
                     }
                     else
                         resultValue = Expression.Constant(value);
@@ -109,42 +108,42 @@
                 {
                     resultValue = valueType.IsChar() ? Expression.Constant(value) : Expression.Constant(ParseStringToChar(value));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else if (propertyType.IsNumeric())
                 {
                     resultValue = valueType.IsNumeric() ? Expression.Constant(value) : Expression.Constant(ParseObjectToNumber(value, propertyAbsoluteType));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else if (propertyType.IsDateTime())
                 {
                     resultValue = valueType.IsDateTime() ? Expression.Constant(value) : Expression.Constant(ParseStringToDateTime(value));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else if (propertyType.IsTimeSpan())
                 {
                     resultValue = valueType.IsTimeSpan() ? Expression.Constant(value) : Expression.Constant(ParseStringToTimeSpan(value));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else if (propertyType.IsBoolean())
                 {
                     resultValue = valueType.IsBoolean() ? Expression.Constant(value) : Expression.Constant(ConvertToBoolean(value));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else if (propertyType.IsGuid())
                 {
                     resultValue = valueType.IsGuid() ? Expression.Constant(value) : Expression.Constant(ParseStringToGuid(value));
 
-                    if (propertyTypeNullable.IsNullable)
+                    if (isNullableType)
                         resultValue = Expression.Convert(resultValue, propertyType);
                 }
                 else
@@ -152,6 +151,11 @@
             }
 
             return (resultProperty, resultValue);
+
+            Type ExtractGenericCollectionType(Type genericCollectionType)
+            {
+                return genericCollectionType.IsArray ? genericCollectionType.GetElementType() : genericCollectionType.GetGenericArguments()[0];
+            }
         }
 
         /// <summary>
@@ -225,12 +229,14 @@
         /// </exception>
         private static object ConvertCollectionToBoolean(object value, bool isNullable = false)
         {
-            if (value is IEnumerable<object> collection)
+            switch (value)
             {
-                return isNullable ? (object)collection.Select(ConvertToBoolean).ToList() : collection.Select(t => ConvertToBoolean(t).GetValueOrDefault()).ToList();
-            }
+                case IEnumerable<object> collection:
+                    return isNullable ? (object)collection.Select(ConvertToBoolean).ToList() : collection.Select(t => ConvertToBoolean(t).GetValueOrDefault()).ToList();
 
-            return value;
+                default:
+                    return value;
+            }
         }
 
         /// <summary>
@@ -342,12 +348,14 @@
         /// </exception>
         private static object ParseStringCollectionToDateTime(object value, bool isNullable = false)
         {
-            if (value is IEnumerable<string> collection)
+            switch (value)
             {
-                return isNullable ? (object)collection.Select(ParseStringToDateTime).ToList() : collection.Select(t => ParseStringToDateTime(t).GetValueOrDefault()).ToList();
-            }
+                case IEnumerable<string> collection:
+                    return isNullable ? (object)collection.Select(ParseStringToDateTime).ToList() : collection.Select(t => ParseStringToDateTime(t).GetValueOrDefault()).ToList();
 
-            return null;
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -390,12 +398,14 @@
         /// </exception>
         private static object ParseStringCollectionToTimeSpan(object value, bool isNullable = false)
         {
-            if (value is IEnumerable<string> collection)
+            switch (value)
             {
-                return isNullable ? (object)collection.Select(ParseStringToTimeSpan).ToList() : collection.Select(t => ParseStringToTimeSpan(t).GetValueOrDefault()).ToList();
-            }
+                case IEnumerable<string> collection:
+                    return isNullable ? (object)collection.Select(ParseStringToTimeSpan).ToList() : collection.Select(t => ParseStringToTimeSpan(t).GetValueOrDefault()).ToList();
 
-            return null;
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -438,12 +448,14 @@
         /// </exception>
         private static object ParseStringCollectionToGuid(object value, bool isNullable = false)
         {
-            if (value is IEnumerable<string> collection)
+            switch (value)
             {
-                return isNullable ? (object)collection.Select(ParseStringToGuid).ToList() : collection.Select(t => ParseStringToGuid(t).GetValueOrDefault()).ToList();
-            }
+                case IEnumerable<string> collection:
+                    return isNullable ? (object)collection.Select(ParseStringToGuid).ToList() : collection.Select(t => ParseStringToGuid(t).GetValueOrDefault()).ToList();
 
-            return null;
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -486,12 +498,14 @@
         /// </exception>
         private static object ParseStringCollectionToChar(object value, bool isNullable = false)
         {
-            if (value is IEnumerable<string> collection)
+            switch (value)
             {
-                return isNullable ? (object)collection.Select(ParseStringToChar).ToList() : collection.Select(t => ParseStringToChar(t).GetValueOrDefault()).ToList();
-            }
+                case IEnumerable<string> collection:
+                    return isNullable ? (object)collection.Select(ParseStringToChar).ToList() : collection.Select(t => ParseStringToChar(t).GetValueOrDefault()).ToList();
 
-            return null;
+                default:
+                    return null;
+            }
         }
     }
 }

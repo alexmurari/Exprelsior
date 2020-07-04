@@ -8,7 +8,7 @@
     <PackageOutputPath>bin\$(Configuration)\Package</PackageOutputPath>
     <Description>A .NET Standard lambda expression generator for creating dynamic predicates.</Description>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>C# .NET .netstandard expression predicate dynamicpredicates</PackageTags>
+    <PackageTags>C# .NET .netstandard expression predicate expression-builder predicate-builder dynamic-predicate</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <SignAssembly>true</SignAssembly>

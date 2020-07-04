@@ -10,24 +10,24 @@
     using Exprelsior.Shared.Extensions;
 
     /// <summary>
-    ///     Provides static methods to create <see cref="Expression{TDelegate}" /> instances.
+    ///     Provides static methods to create <see cref="Expression{TDelegate}" /> instances representing comparison operations and property accessors.
     /// </summary>
     public static class ExpressionBuilder
     {
         /// <summary>
-        ///     Creates a lambda expression that represents an accessor to a property from an object of type <typeparamref name="T" />.
+        ///     Creates a lambda expression that represents accessing a property of an object of type <typeparamref name="T"/>.
         /// </summary>
-        /// <param name="propertyNameOrPath">
-        ///     The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
-        /// </param>
         /// <typeparam name="T">
         ///     The type that contains the property to be accessed.
         /// </typeparam>
+        /// <param name="propertyNameOrPath">
+        ///     The name or the path to the property.
+        /// </param>
         /// <typeparam name="TResult">
         ///     The type of the accessed property used as the delegate return type.
         /// </typeparam>
         /// <returns>
-        ///     The built <see cref="Expression{TDelegate}" /> instance representing the property accessor.
+        ///     A <see cref="Expression{TDelegate}"/> representing the property accessor.
         /// </returns>
         public static Expression<Func<T, TResult>> CreateAccessor<T, TResult>(string propertyNameOrPath)
         {
@@ -40,15 +40,14 @@
         }
 
         /// <summary>
-        ///     Creates a binary lambda expression that compares the value of an property from an object of
-        ///     type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+        ///     Creates a binary lambda expression that represents a comparison operation between a property
+        ///     of <typeparamref name="T"/> and the provided value using the specified comparison operator.
         /// </summary>
         /// <typeparam name="T">
         ///     The type that contains the property to be compared.
         /// </typeparam>
         /// <param name="propertyNameOrPath">
-        ///     The name or the path to access the property to be compared composed of simple dot-separated property access
-        ///     expressions.
+        ///     The name or the path to the property.
         /// </param>
         /// <param name="value">
         ///     The value to compare the property.
@@ -56,15 +55,15 @@
         /// <param name="operator">
         ///     The comparison operator.
         /// </param>
-        /// <returns>The built <see cref="Expression{TDelegate}" /> instance representing the binary operation.</returns>
+        /// <returns>A <see cref="Expression{TDelegate}"/> representing the comparison operation.</returns>
         public static Expression<Func<T, bool>> CreateBinary<T>(string propertyNameOrPath, object value, ExpressionOperator @operator)
         {
             return BuildBinaryExpression<T>(propertyNameOrPath, value, @operator);
         }
 
         /// <summary>
-        ///     Creates a binary lambda expression that compares the value of an property from an object of
-        ///     type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+        ///     Creates a binary lambda expression that represents a comparison operation between a property
+        ///     of <typeparamref name="T"/> and the provided value using the specified comparison operator.
         /// </summary>
         /// <typeparam name="T">
         ///     The type that contains the property to be compared.
@@ -78,24 +77,22 @@
         /// <param name="operator">
         ///     The comparison operator.
         /// </param>
-        /// <returns>The built <see cref="Expression{TDelegate}" /> instance representing the binary operation.</returns>
+        /// <returns>A <see cref="Expression{TDelegate}"/> representing the comparison operation.</returns>
         public static Expression<Func<T, bool>> CreateBinary<T>(PropertyInfo propertyInfo, object value, ExpressionOperator @operator)
         {
             return BuildBinaryExpression<T>(propertyInfo.Name, value, @operator);
         }
 
         /// <summary>
-        ///     Creates an <see cref="Expression{T}" /> from the provided <see cref="string" /> object representing an query.
+        ///     Creates a binary lambda expression that represents a comparison operation from the provided textual representation of the operation.
         /// </summary>
         /// <typeparam name="T">
-        ///     The type being queried.
+        ///     The type that contains the property to be compared.
         /// </typeparam>
         /// <param name="query">
-        ///     The string representing the query.
+        ///     The textual representation of the comparison operation.
         /// </param>
-        /// <returns>
-        ///     The <see cref="Expression{T}" /> object representing the query.
-        /// </returns>
+        /// <returns>A <see cref="Expression{TDelegate}"/> representing the comparison operation.</returns>
         public static Expression<Func<T, bool>> CreateBinaryFromQuery<T>(string query)
         {
             query.ThrowIfNullOrWhitespace(nameof(query));
@@ -130,18 +127,17 @@
         }
 
         /// <summary>
-        ///     Creates a <see cref="MemberExpression" /> that represents accessing a property from an object of type
-        ///     <typeparamref name="T" />.
+        ///     Creates a <see cref="MemberExpression" /> that represents accessing a property of an object of type <typeparamref name="T" />.
         /// </summary>
         /// <param name="propertyNameOrPath">
-        ///     The name or the path to the property to be accessed composed of simple dot-separated property access expressions.
+        ///     The name or the path to the property.
         /// </param>
         /// <typeparam name="T">
         ///     The type that contains the property to be accessed.
         /// </typeparam>
         /// <returns>
         ///     The <see cref="ParameterExpression" /> representing a parameter of the type that contains
-        ///     the accessed property and the <see cref="MemberExpression" /> representing the accessor to the property.
+        ///     the accessed property and the <see cref="MemberExpression" /> representing the property accessor.
         /// </returns>
         private static (ParameterExpression Parameter, MemberExpression Accessor) BuildAccessor<T>(string propertyNameOrPath)
         {
@@ -156,15 +152,14 @@
         }
 
         /// <summary>
-        ///     Creates a binary lambda expression that compares the value of an property from an object of
-        ///     type <typeparamref name="T" /> with the provided value using the specified comparison operator.
+        ///     Creates a binary lambda expression that represents a comparison operation between a property
+        ///     of <typeparamref name="T"/> and the provided value using the specified comparison operator.
         /// </summary>
         /// <typeparam name="T">
         ///     The type with the property to be compared.
         /// </typeparam>
         /// <param name="propertyNameOrPath">
-        ///     The name or the path to access the property to be compared composed of simple dot-separated property access
-        ///     expressions.
+        ///     The name or the path to the property.
         /// </param>
         /// <param name="value">
         ///     The value to compare the property.
@@ -172,7 +167,7 @@
         /// <param name="operator">
         ///     The comparison operator.
         /// </param>
-        /// <returns>The built <see cref="Expression{TDelegate}" /> instance representing the binary operation.</returns>
+        /// <returns>A <see cref="Expression{TDelegate}"/> representing the comparison operation.</returns>
         private static Expression<Func<T, bool>> BuildBinaryExpression<T>(string propertyNameOrPath, object value, ExpressionOperator @operator)
         {
             propertyNameOrPath.ThrowIfNullOrWhitespace(nameof(propertyNameOrPath));
