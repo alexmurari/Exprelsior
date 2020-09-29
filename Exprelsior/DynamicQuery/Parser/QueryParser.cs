@@ -48,7 +48,7 @@
         /// </remarks>
         private static readonly Regex QueryElementsRegex =
             new Regex(
-                @"((?<operator>[A-Za-z]{2,3})(?=(\s*\(\s*))|(?<=^[A-Za-z]{2,3}\s*\(\s*)'(?<property>(?!\.).[a-zA-Z][a-zA-Z0-9._]+)(?<!\.)'\s*(?=(,\s*)))|(?<=(^[a-zA-Z]{2,3}\s*\(\s*\'[a-zA-Z\.]+\'\s*\,\s*))'(?<value>.+?)'\s*(?=\))|((?:\[\s*|\G(?!\A))('(?<arrayValues>.+?)')(?:(?:\s*,\s*(?=[^\]]*?\]))|\s*\]))",
+                @"((?<operator>[A-Za-z]{2,3})(?=(\s*\(\s*))|(?<=^[A-Za-z]{2,3}\s*\(\s*)'(?<property>(?!\.).[a-zA-Z0-9._]*)(?<!\.)'\s*(?=(,\s*)))|(?<=(^[a-zA-Z]{2,3}\s*\(\s*\'[a-zA-Z\.]+\'\s*\,\s*))'(?<value>.+?)'\s*(?=\))|((?:\[\s*|\G(?!\A))('(?<arrayValues>.+?)')(?:(?:\s*,\s*(?=[^\]]*?\]))|\s*\]))",
                 RegexOptions.Compiled & RegexOptions.ExplicitCapture);
 
         /// <summary>

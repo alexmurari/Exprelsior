@@ -3,10 +3,10 @@
     <img alt="Exprelsior" width="400" src="https://user-images.githubusercontent.com/11204378/67624226-37b9ec80-f804-11e9-9751-ec3d361163a3.png">
   </a>
   <p>
-    <strong>A .NET Standard lambda expression generator for creating dynamic predicates.</strong>
+    <strong>A .NET Standard lambda expression generator for building dynamic predicates.</strong>
   </p>
   <p>
-  <a href="https://www.nuget.org/packages/Exprelsior">
+  <a href="https://www.nuget.org/packages/Exprelsior/latest">
     <img alt="Nuget" src="https://img.shields.io/nuget/v/Exprelsior?style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/master">
@@ -23,7 +23,7 @@
   </a>
   </p>
   <p>
-  <a href="https://www.nuget.org/packages/Exprelsior">
+  <a href="https://www.nuget.org/packages/Exprelsior/absoluteLatest">
     <img alt="Nuget (with prereleases)" src="https://img.shields.io/nuget/vpre/Exprelsior?label=nuget-dev&style=plastic">
   </a>
   <a href="https://ci.appveyor.com/project/alexmurari/exprelsior/branch/dev">
@@ -40,8 +40,8 @@
 
 ## What is Exprelsior?
 
-Exprelsior is a .NET Standard library that enables .NET developers to create strongly-typed 
-binary lambda expressions from pure text using it's own query syntax or from the expression builder method.
+Exprelsior is a .NET Standard library that enables .NET developers to dynamically create strongly-typed 
+binary lambda expressions from pure text using it's own query syntax.
 
 With support to all major .NET data types, including nullable types, nested properties and it's own query syntax, Exprelsior
 brings the creation of dynamic predicates to a whole new level.
@@ -54,6 +54,7 @@ brings the creation of dynamic predicates to a whole new level.
 2. [Usage](#2-usage)
    1. [Query Syntax Example](#query-syntax-example)
    2. [Expression Builder Example](#expression-builder-example)
+   3. [Property Accessor Example](#property-accessor-example)
 3. [The Query Syntax](#3-the-query-syntax)
    1. [Query Elements](#query-elements)
    2. [Creating Simple Queries](#simple-queries)
@@ -71,7 +72,7 @@ brings the creation of dynamic predicates to a whole new level.
 
 ## 1. Overview
 
-The objective of this library is to build binary lambda expressions in an dynamic manner.
+The objective of this library is to build binary lambda expressions in a dynamic manner.
 
 Example:
 
@@ -132,6 +133,23 @@ public async Task<IActionResult> Get([FromQuery] int @operator, [FromQuery] stri
     return result;
 }
 ```
+
+### Property Accessor Example
+
+```csharp
+[HttpGet]
+public async Task<IActionResult> Get()
+{
+    var accessor = ExpressionBuilder.CreateAccessor<Foo>("DateOfBirth.Date");
+
+    // accessor = (Expression<Func<Foo, object>>) t => t.DateOfBirth.Date
+
+    var result = await FooRepository.Query.OrderBy(accessor).ToList();
+
+    return result;
+}
+```
+
 ---
 
 ## 3. The Query Syntax

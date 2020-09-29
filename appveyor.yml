@@ -42,8 +42,7 @@ before_build:
 
   # Import PFX file for strong naming assemblies.
   - ps: |
-        Import-Module "$env:APPVEYOR_BUILD_FOLDER\Import-PfxCertificate.psm1";
-        Import-PfxCertificate -pfx "$env:APPVEYOR_BUILD_FOLDER\ExprelsiorKey.pfx" -password $env:certificate_pass -containerName $env:certificate_container_name;
+        Start-Process -FilePath "$env:APPVEYOR_BUILD_FOLDER\SnInstallPfx.exe" -ArgumentList "$env:APPVEYOR_BUILD_FOLDER\ExprelsiorKey.pfx $env:certificate_pass" -NoNewWindow
   
   - ps: dotnet restore
 

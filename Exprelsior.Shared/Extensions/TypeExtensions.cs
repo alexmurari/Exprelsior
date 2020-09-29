@@ -13,7 +13,7 @@
     public static class TypeExtensions
     {
         /// <summary>
-        /// The numeric types.
+        ///     The numeric types.
         /// </summary>
         public static readonly Type[] NumericTypes = 
         {
@@ -24,11 +24,10 @@
         ///     Returns a value indicating whether the provided type is a collection type.
         /// </summary>
         /// <remarks>
-        ///     Although <see cref="string" /> implements <see cref="IEnumerable{T}" />, it is not considered a collection type by
-        ///     this method.
+        ///     Although <see cref="string" /> implements <see cref="IEnumerable{T}" />, it is not considered a collection type by this method.
         /// </remarks>
         /// <param name="type">The type to be checked.</param>
-        /// <returns>True if it is a collection type; otherwise, false.</returns>
+        /// <returns><c>True</c> if it is a collection type; otherwise, <c>false</c>.</returns>
         public static bool IsCollection(this Type type)
         {
             if (type.IsString())
@@ -45,7 +44,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="DateTime" /> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="DateTime" /> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsDateTime(this Type type)
         {
@@ -64,7 +63,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="TimeSpan" /> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="TimeSpan" /> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsTimeSpan(this Type type)
         {
@@ -86,10 +85,10 @@
         ///     The type to be checked.
         /// </param>
         /// <param name="includeArrays">
-        ///     Informs whether <see cref="Array"/> objects should be considered generic collection types by this method.
+        ///     The value that indicates whether <see cref="Array"/> objects should be considered generic collection types by this method.
         /// </param>
         /// <returns>
-        ///     True if the type is a generic collection; otherwise, false.
+        ///     <c>True</c> if the type is a generic collection; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGenericCollection(this Type type, bool includeArrays = true)
         {
@@ -101,8 +100,7 @@
         }
 
         /// <summary>
-        ///     Returns a value indicating whether the provided type is a generic collection and the generic type parameter is the
-        ///     same as the provided type.
+        ///     Returns a value indicating whether the provided type is a generic collection and the generic type parameter is the same as the provided type.
         /// </summary>
         /// <remarks>
         ///     Although <see cref="string" /> implements <see cref="IEnumerable{T}" />, it is not considered a collection type by this method.
@@ -114,10 +112,10 @@
         ///     The generic type argument of the collection.
         /// </param>
         /// <param name="includeArrays">
-        ///     Informs whether <see cref="Array"/> objects should be considered generic collection types by this method.
+        ///     The value that indicates whether <see cref="Array"/> objects should be considered generic collection types by this method.
         /// </param>
         /// <returns>
-        ///     True if the type is a generic collection of the provided generic type argument; otherwise, false.
+        ///     <c>True</c> if the type is a generic collection of the provided generic type argument; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGenericCollection(this Type type, Type genericTypeArgument, bool includeArrays = true)
         {
@@ -132,8 +130,7 @@
         ///     Returns a value indicating whether the provided type is a generic collection and the generic type parameter is included in he specified type list.
         /// </summary>
         /// <remarks>
-        ///     Although <see cref="string" /> implements <see cref="IEnumerable{T}" />, it is not considered a collection type by
-        ///     this method.
+        ///     Although <see cref="string" /> implements <see cref="IEnumerable{T}" />, it is not considered a collection type by this method.
         /// </remarks>
         /// <param name="type">
         ///     The type to be checked.
@@ -142,10 +139,10 @@
         ///     The collection of generic type arguments of the collection.
         /// </param>
         /// <param name="includeArrays">
-        ///     Informs whether <see cref="Array"/> objects should be considered generic collection types by this method.
+        ///     The value that indicates whether <see cref="Array"/> objects should be considered generic collection types by this method.
         /// </param>
         /// <returns>
-        ///     True if the type is a generic collection of the provided generic type argument; otherwise, false.
+        ///     <c>True</c> if the type is a generic collection of the provided generic type argument; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGenericCollection(this Type type, Type[] genericTypeArguments, bool includeArrays = true)
         {
@@ -163,7 +160,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a non-generic <see cref="IList" />; otherwise, false.
+        ///     <c>True</c> if the type is a non-generic <see cref="IList" />; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsNonGenericIList(this Type type)
         {
@@ -177,7 +174,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a numeric type; otherwise, false.
+        ///     <c>True</c> if the type is a numeric type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsNumeric(this Type type)
         {
@@ -196,7 +193,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="string"/> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="string"/> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsString(this Type type)
         {
@@ -210,7 +207,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="char" /> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="char" /> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsChar(this Type type)
         {
@@ -229,7 +226,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="bool" /> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="bool" /> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsBoolean(this Type type)
         {
@@ -248,7 +245,7 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="Guid" /> type; otherwise, false.
+        ///     <c>True</c> if the type is a <see cref="Guid" /> type; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsGuid(this Type type)
         {
@@ -267,7 +264,8 @@
         ///     The type to be checked.
         /// </param>
         /// <returns>
-        ///     True if the type is a <see cref="Nullable{T}" /> type; otherwise, false.
+        ///     A tuple consisting of a value indicating whether the provided type is a <see cref="Nullable{T}" /> type
+        ///     and the type argument of the <see cref="Nullable{T}" /> representing the underlying type.
         /// </returns>
         public static (bool IsNullable, Type UnderlyingType) IsNullableType(this Type type)
         {
