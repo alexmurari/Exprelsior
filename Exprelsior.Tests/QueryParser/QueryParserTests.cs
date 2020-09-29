@@ -1,7 +1,6 @@
 ﻿namespace Exprelsior.Tests.QueryParser
 {
     using System.Linq;
-    using Exprelsior.DynamicQuery.Parser;
     using Xunit;
 
     /// <summary>
@@ -23,7 +22,7 @@
             var query = $"eq('{propertyName}', '1')";
 
             // Act
-            var queryElements = QueryParser.ParseQuery(query).ToList();
+            var queryElements = Exprelsior.DynamicQuery.Parser.QueryParser.ParseQuery(query).ToList();
 
             // Assert
             Assert.NotEmpty(queryElements);
