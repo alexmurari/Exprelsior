@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <VersionPrefix>2.0.1</VersionPrefix>
+    <VersionPrefix>2.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <Product>Exprelsior</Product>
     <Authors>Alexandre Murari Junior (alexmurari)</Authors>
@@ -12,7 +12,6 @@
     <PackageProjectUrl>https://github.com/alexmurari/Exprelsior/</PackageProjectUrl>
     <!-- Keep package release notes section without indentation -->
     <PackageReleaseNotes>
-      - Fixed query parser not working with short name properties.
     </PackageReleaseNotes>
   </PropertyGroup>
 </Project>
