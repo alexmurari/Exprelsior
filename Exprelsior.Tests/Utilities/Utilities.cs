@@ -34,8 +34,8 @@
                 .StrictMode(true)
 
                 //// Strings
-                .RuleFor(t => t.FirstName, f => f.Name.FirstName())
-                .RuleFor(t => t.LastName, f => f.Name.LastName())
+                .RuleFor(t => t.FirstName, f => string.Concat(f.Name.Prefix(), " ", f.Name.FirstName() + f.Random.Number(5000)))
+                .RuleFor(t => t.LastName, f => string.Concat(f.Name.LastName() + f.Random.Number(5000), " ", f.Name.Suffix()))
                 .RuleFor(t => t.FullName, (f, p) => string.Concat(p.FirstName, " ", p.LastName))
                 .RuleFor(t => t.StringArray, f => f.Random.WordsArray(10))
                 .RuleFor(t => t.StringCollection, f => f.Random.WordsArray(10).ToList())
@@ -43,42 +43,42 @@
                 //// Chars
                 .RuleFor(t => t.Char, f => f.Random.Char())
                 .RuleFor(t => t.NullableChar, f => f.Random.Char().OrNull(f))
-                .RuleFor(t => t.CharArray, f => f.Random.Chars(count: 20).ToArray())
-                .RuleFor(t => t.NullableCharArray, f => f.Random.Chars(count: 20).Select(t => t.OrNull(f)).ToArray())
-                .RuleFor(t => t.CharCollection, f => f.Random.Chars(count: 20).ToList())
-                .RuleFor(t => t.NullableCharCollection, f => f.Random.Chars(count: 20).Select(t => t.OrNull(f)).ToList())
+                .RuleFor(t => t.CharArray, f => f.Random.Chars(count: 5).ToArray())
+                .RuleFor(t => t.NullableCharArray, f => f.Random.Chars(count: 5).Select(t => t.OrNull(f)).ToArray())
+                .RuleFor(t => t.CharCollection, f => f.Random.Chars(count: 5).ToList())
+                .RuleFor(t => t.NullableCharCollection, f => f.Random.Chars(count: 5).Select(t => t.OrNull(f)).ToList())
 
                 //// Integers
                 .RuleFor(t => t.Integer, f => f.Random.Int())
                 .RuleFor(t => t.NullableInteger, f => f.Random.Int().OrNull(f))
-                .RuleFor(t => t.IntegerArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).ToArray())
-                .RuleFor(t => t.NullableIntegerArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t.OrNull(f)).ToArray())
-                .RuleFor(t => t.IntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).ToList())
-                .RuleFor(t => t.NullableIntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t.OrNull(f)).ToList())
+                .RuleFor(t => t.IntegerArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).ToArray())
+                .RuleFor(t => t.NullableIntegerArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t.OrNull(f)).ToArray())
+                .RuleFor(t => t.IntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).ToList())
+                .RuleFor(t => t.NullableIntegerCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t.OrNull(f)).ToList())
 
                 //// Floats
                 .RuleFor(t => t.Float, f => (float)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableFloat, f => ((float)f.Random.Int() / 3).OrNull(f))
-                .RuleFor(t => t.FloatArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3f).ToArray())
-                .RuleFor(t => t.NullableFloatArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3f).OrNull(f)).ToArray())
-                .RuleFor(t => t.FloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3f).ToList())
-                .RuleFor(t => t.NullableFloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3f).OrNull(f)).ToList())
+                .RuleFor(t => t.FloatArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3f).ToArray())
+                .RuleFor(t => t.NullableFloatArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3f).OrNull(f)).ToArray())
+                .RuleFor(t => t.FloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3f).ToList())
+                .RuleFor(t => t.NullableFloatCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3f).OrNull(f)).ToList())
 
                 //// Doubles
                 .RuleFor(t => t.Double, f => (double)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableDouble, f => ((double)f.Random.Int() / 3).OrNull(f))
-                .RuleFor(t => t.DoubleArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3d).ToArray())
-                .RuleFor(t => t.NullableDoubleArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3d).OrNull(f)).ToArray())
-                .RuleFor(t => t.DoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3d).ToList())
-                .RuleFor(t => t.NullableDoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3d).OrNull(f)).ToList())
+                .RuleFor(t => t.DoubleArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3d).ToArray())
+                .RuleFor(t => t.NullableDoubleArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3d).OrNull(f)).ToArray())
+                .RuleFor(t => t.DoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3d).ToList())
+                .RuleFor(t => t.NullableDoubleCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3d).OrNull(f)).ToList())
 
                 //// Decimals
                 .RuleFor(t => t.Decimal, f => (decimal)f.Random.Int() / 3)
                 .RuleFor(t => t.NullableDecimal, f => ((decimal)f.Random.Int() / 3).OrNull(f))
-                .RuleFor(t => t.DecimalArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3m).ToArray())
-                .RuleFor(t => t.NullableDecimalArray, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3m).OrNull(f)).ToArray())
-                .RuleFor(t => t.DecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => t / 3m).ToList())
-                .RuleFor(t => t.NullableDecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000)).Select(t => (t / 3m).OrNull(f)).ToList())
+                .RuleFor(t => t.DecimalArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3m).ToArray())
+                .RuleFor(t => t.NullableDecimalArray, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3m).OrNull(f)).ToArray())
+                .RuleFor(t => t.DecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => t / 3m).ToList())
+                .RuleFor(t => t.NullableDecimalCollection, f => GetRandomItems(Enumerable.Range(-2500, 5000), 50).Select(t => (t / 3m).OrNull(f)).ToList())
 
                 //// DateTimes
                 .RuleFor(t => t.DateTime, f => f.Date.Past())
