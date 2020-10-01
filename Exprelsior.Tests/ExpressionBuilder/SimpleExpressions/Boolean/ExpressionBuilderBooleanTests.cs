@@ -81,7 +81,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomBooleans.Contains(t.Boolean));
-            Assert.DoesNotContain(result, t => randomBooleans.Contains(t.Boolean) == false);
+            Assert.DoesNotContain(result, t => !randomBooleans.Contains(t.Boolean));
         }
 
         // Boolean Array
@@ -102,7 +102,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
-            Assert.DoesNotContain(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
         }
 
         /// <summary>
@@ -120,7 +120,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray) == false);
+            Assert.Contains(result, t => !t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
             Assert.DoesNotContain(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
         }
 
@@ -140,7 +140,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
-            Assert.DoesNotContain(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
         }
 
         /// <summary>
@@ -158,7 +158,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray) == false);
+            Assert.Contains(result, t => !t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
             Assert.DoesNotContain(result, t => t.BooleanArray.SequenceEqual(randomHydra.BooleanArray));
         }
 
@@ -178,7 +178,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanArray.Contains(randomBoolean));
-            Assert.DoesNotContain(result, t => t.BooleanArray.Contains(randomBoolean) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanArray.Contains(randomBoolean));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
-            Assert.DoesNotContain(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
         }
 
         /// <summary>
@@ -215,7 +215,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection) == false);
+            Assert.Contains(result, t => !t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
             Assert.DoesNotContain(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
         }
 
@@ -235,7 +235,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
-            Assert.DoesNotContain(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
         }
 
         /// <summary>
@@ -253,7 +253,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection) == false);
+            Assert.Contains(result, t => !t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
             Assert.DoesNotContain(result, t => t.BooleanCollection.SequenceEqual(randomHydra.BooleanCollection));
         }
 
@@ -273,7 +273,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.BooleanCollection.Contains(randomBoolean));
-            Assert.DoesNotContain(result, t => t.BooleanCollection.Contains(randomBoolean) == false);
+            Assert.DoesNotContain(result, t => !t.BooleanCollection.Contains(randomBoolean));
         }
     }
 }

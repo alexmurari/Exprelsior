@@ -158,7 +158,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomTimeSpans.Contains(t.NullableTimeSpan));
-            Assert.DoesNotContain(result, t => randomTimeSpans.Contains(t.NullableTimeSpan) == false);
+            Assert.DoesNotContain(result, t => !randomTimeSpans.Contains(t.NullableTimeSpan));
         }
 
         // TimeSpan Array
@@ -179,7 +179,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray) == false);
+            Assert.Contains(result, t => !t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
             Assert.DoesNotContain(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
         }
 
@@ -217,7 +217,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
         }
 
         /// <summary>
@@ -235,7 +235,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray) == false);
+            Assert.Contains(result, t => !t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
             Assert.DoesNotContain(result, t => t.NullableTimeSpanArray.SequenceEqual(randomHydra.NullableTimeSpanArray));
         }
 
@@ -255,7 +255,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanArray.Contains(randomTimeSpan));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanArray.Contains(randomTimeSpan) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanArray.Contains(randomTimeSpan));
         }
 
         /// <summary>
@@ -274,7 +274,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
         }
 
         /// <summary>
@@ -292,7 +292,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection) == false);
+            Assert.Contains(result, t => !t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
             Assert.DoesNotContain(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
         }
 
@@ -312,7 +312,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
         }
 
         /// <summary>
@@ -330,7 +330,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection) == false);
+            Assert.Contains(result, t => !t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
             Assert.DoesNotContain(result, t => t.NullableTimeSpanCollection.SequenceEqual(randomHydra.NullableTimeSpanCollection));
         }
 
@@ -350,7 +350,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableTimeSpanCollection.Contains(randomTimeSpan));
-            Assert.DoesNotContain(result, t => t.NullableTimeSpanCollection.Contains(randomTimeSpan) == false);
+            Assert.DoesNotContain(result, t => !t.NullableTimeSpanCollection.Contains(randomTimeSpan));
         }
     }
 }

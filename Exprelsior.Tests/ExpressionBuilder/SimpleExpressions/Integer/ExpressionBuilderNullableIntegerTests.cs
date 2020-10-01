@@ -157,7 +157,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomIntegers.Contains(t.NullableInteger));
-            Assert.DoesNotContain(result, t => randomIntegers.Contains(t.NullableInteger) == false);
+            Assert.DoesNotContain(result, t => !randomIntegers.Contains(t.NullableInteger));
         }
 
         // Integer Array
@@ -178,7 +178,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
-            Assert.DoesNotContain(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
         }
 
         /// <summary>
@@ -196,7 +196,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray) == false);
+            Assert.Contains(result, t => !t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
             Assert.DoesNotContain(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
         }
 
@@ -216,7 +216,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
-            Assert.DoesNotContain(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
         }
 
         /// <summary>
@@ -234,7 +234,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray) == false);
+            Assert.Contains(result, t => !t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
             Assert.DoesNotContain(result, t => t.NullableIntegerArray.SequenceEqual(randomHydra.NullableIntegerArray));
         }
 
@@ -254,7 +254,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerArray.Contains(randomInteger));
-            Assert.DoesNotContain(result, t => t.NullableIntegerArray.Contains(randomInteger) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerArray.Contains(randomInteger));
         }
 
         /// <summary>
@@ -273,7 +273,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
-            Assert.DoesNotContain(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
         }
 
         /// <summary>
@@ -291,7 +291,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection) == false);
+            Assert.Contains(result, t => !t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
             Assert.DoesNotContain(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
         }
 
@@ -311,7 +311,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
-            Assert.DoesNotContain(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
         }
 
         /// <summary>
@@ -329,7 +329,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection) == false);
+            Assert.Contains(result, t => !t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
             Assert.DoesNotContain(result, t => t.NullableIntegerCollection.SequenceEqual(randomHydra.NullableIntegerCollection));
         }
 
@@ -349,7 +349,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableIntegerCollection.Contains(randomInteger));
-            Assert.DoesNotContain(result, t => t.NullableIntegerCollection.Contains(randomInteger) == false);
+            Assert.DoesNotContain(result, t => !t.NullableIntegerCollection.Contains(randomInteger));
         }
     }
 }

@@ -158,7 +158,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomFloats.Contains(t.Float));
-            Assert.DoesNotContain(result, t => randomFloats.Contains(t.Float) == false);
+            Assert.DoesNotContain(result, t => !randomFloats.Contains(t.Float));
         }
 
         // Float Array
@@ -179,7 +179,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray));
-            Assert.DoesNotContain(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray) == false);
+            Assert.DoesNotContain(result, t => !t.FloatArray.SequenceEqual(randomHydra.FloatArray));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray) == false);
+            Assert.Contains(result, t => !t.FloatArray.SequenceEqual(randomHydra.FloatArray));
             Assert.DoesNotContain(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray));
         }
 
@@ -217,7 +217,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray));
-            Assert.DoesNotContain(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray) == false);
+            Assert.DoesNotContain(result, t => !t.FloatArray.SequenceEqual(randomHydra.FloatArray));
         }
 
         /// <summary>
@@ -235,7 +235,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray) == false);
+            Assert.Contains(result, t => !t.FloatArray.SequenceEqual(randomHydra.FloatArray));
             Assert.DoesNotContain(result, t => t.FloatArray.SequenceEqual(randomHydra.FloatArray));
         }
 
@@ -255,7 +255,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatArray.Contains(randomFloat));
-            Assert.DoesNotContain(result, t => t.FloatArray.Contains(randomFloat) == false);
+            Assert.DoesNotContain(result, t => !t.FloatArray.Contains(randomFloat));
         }
 
         /// <summary>
@@ -274,7 +274,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
-            Assert.DoesNotContain(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection) == false);
+            Assert.DoesNotContain(result, t => !t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
         }
 
         /// <summary>
@@ -292,7 +292,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection) == false);
+            Assert.Contains(result, t => !t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
             Assert.DoesNotContain(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
         }
 
@@ -312,7 +312,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
-            Assert.DoesNotContain(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection) == false);
+            Assert.DoesNotContain(result, t => !t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
         }
 
         /// <summary>
@@ -330,7 +330,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection) == false);
+            Assert.Contains(result, t => !t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
             Assert.DoesNotContain(result, t => t.FloatCollection.SequenceEqual(randomHydra.FloatCollection));
         }
 
@@ -350,7 +350,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FloatCollection.Contains(randomFloat));
-            Assert.DoesNotContain(result, t => t.FloatCollection.Contains(randomFloat) == false);
+            Assert.DoesNotContain(result, t => !t.FloatCollection.Contains(randomFloat));
         }
     }
 }
