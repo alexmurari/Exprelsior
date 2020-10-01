@@ -157,7 +157,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomDecimals.Contains(t.NullableDecimal));
-            Assert.DoesNotContain(result, t => randomDecimals.Contains(t.NullableDecimal) == false);
+            Assert.DoesNotContain(result, t => !randomDecimals.Contains(t.NullableDecimal));
         }
 
         // Decimal Array
@@ -178,7 +178,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
-            Assert.DoesNotContain(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
         }
 
         /// <summary>
@@ -196,7 +196,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray) == false);
+            Assert.Contains(result, t => !t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
             Assert.DoesNotContain(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
         }
 
@@ -216,7 +216,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
-            Assert.DoesNotContain(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
         }
 
         /// <summary>
@@ -234,7 +234,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray) == false);
+            Assert.Contains(result, t => !t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
             Assert.DoesNotContain(result, t => t.NullableDecimalArray.SequenceEqual(randomHydra.NullableDecimalArray));
         }
 
@@ -254,7 +254,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalArray.Contains(randomDecimal));
-            Assert.DoesNotContain(result, t => t.NullableDecimalArray.Contains(randomDecimal) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalArray.Contains(randomDecimal));
         }
 
         /// <summary>
@@ -273,7 +273,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
-            Assert.DoesNotContain(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
         }
 
         /// <summary>
@@ -291,7 +291,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection) == false);
+            Assert.Contains(result, t => !t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
             Assert.DoesNotContain(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
         }
 
@@ -311,7 +311,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
-            Assert.DoesNotContain(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
         }
 
         /// <summary>
@@ -329,7 +329,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection) == false);
+            Assert.Contains(result, t => !t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
             Assert.DoesNotContain(result, t => t.NullableDecimalCollection.SequenceEqual(randomHydra.NullableDecimalCollection));
         }
 
@@ -349,7 +349,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableDecimalCollection.Contains(randomDecimal));
-            Assert.DoesNotContain(result, t => t.NullableDecimalCollection.Contains(randomDecimal) == false);
+            Assert.DoesNotContain(result, t => !t.NullableDecimalCollection.Contains(randomDecimal));
         }
     }
 }

@@ -79,7 +79,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FullName.StartsWith(randomString));
-            Assert.DoesNotContain(result, t => t.FullName.StartsWith(randomString) == false);
+            Assert.DoesNotContain(result, t => !t.FullName.StartsWith(randomString));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.FullName.EndsWith(randomString));
-            Assert.DoesNotContain(result, t => t.FullName.EndsWith(randomString) == false);
+            Assert.DoesNotContain(result, t => !t.FullName.EndsWith(randomString));
         }
 
         /// <summary>
@@ -117,7 +117,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomString.Contains(t.FirstName));
-            Assert.DoesNotContain(result, t => randomString.Contains(t.FirstName) == false);
+            Assert.DoesNotContain(result, t => !randomString.Contains(t.FirstName));
         }
 
         /// <summary>
@@ -136,7 +136,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomStrings.Contains(t.FullName));
-            Assert.DoesNotContain(result, t => randomStrings.Contains(t.FullName) == false);
+            Assert.DoesNotContain(result, t => !randomStrings.Contains(t.FullName));
         }
 
         // String Array
@@ -157,7 +157,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray));
-            Assert.DoesNotContain(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray) == false);
+            Assert.DoesNotContain(result, t => !t.StringArray.SequenceEqual(randomHydra.StringArray));
         }
 
         /// <summary>
@@ -175,7 +175,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray) == false);
+            Assert.Contains(result, t => !t.StringArray.SequenceEqual(randomHydra.StringArray));
             Assert.DoesNotContain(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray));
         }
 
@@ -195,7 +195,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray));
-            Assert.DoesNotContain(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray) == false);
+            Assert.DoesNotContain(result, t => !t.StringArray.SequenceEqual(randomHydra.StringArray));
         }
 
         /// <summary>
@@ -213,7 +213,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray) == false);
+            Assert.Contains(result, t => !t.StringArray.SequenceEqual(randomHydra.StringArray));
             Assert.DoesNotContain(result, t => t.StringArray.SequenceEqual(randomHydra.StringArray));
         }
 
@@ -233,7 +233,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringArray.Contains(randomString));
-            Assert.DoesNotContain(result, t => t.StringArray.Contains(randomString) == false);
+            Assert.DoesNotContain(result, t => !t.StringArray.Contains(randomString));
         }
 
         /// <summary>
@@ -252,7 +252,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection));
-            Assert.DoesNotContain(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection) == false);
+            Assert.DoesNotContain(result, t => !t.StringCollection.SequenceEqual(randomHydra.StringCollection));
         }
 
         /// <summary>
@@ -270,7 +270,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection) == false);
+            Assert.Contains(result, t => !t.StringCollection.SequenceEqual(randomHydra.StringCollection));
             Assert.DoesNotContain(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection));
         }
 
@@ -290,7 +290,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection));
-            Assert.DoesNotContain(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection) == false);
+            Assert.DoesNotContain(result, t => !t.StringCollection.SequenceEqual(randomHydra.StringCollection));
         }
 
         /// <summary>
@@ -308,7 +308,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection) == false);
+            Assert.Contains(result, t => !t.StringCollection.SequenceEqual(randomHydra.StringCollection));
             Assert.DoesNotContain(result, t => t.StringCollection.SequenceEqual(randomHydra.StringCollection));
         }
 
@@ -328,7 +328,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.StringCollection.Contains(randomString));
-            Assert.DoesNotContain(result, t => t.StringCollection.Contains(randomString) == false);
+            Assert.DoesNotContain(result, t => !t.StringCollection.Contains(randomString));
         }
     }
 }

@@ -82,7 +82,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomGuids.Contains(t.NullableGuid));
-            Assert.DoesNotContain(result, t => randomGuids.Contains(t.NullableGuid) == false);
+            Assert.DoesNotContain(result, t => !randomGuids.Contains(t.NullableGuid));
         }
 
         // Guid Array
@@ -103,7 +103,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
-            Assert.DoesNotContain(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
         }
 
         /// <summary>
@@ -121,7 +121,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray) == false);
+            Assert.Contains(result, t => !t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
             Assert.DoesNotContain(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
         }
 
@@ -141,7 +141,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
-            Assert.DoesNotContain(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
         }
 
         /// <summary>
@@ -159,7 +159,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray) == false);
+            Assert.Contains(result, t => !t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
             Assert.DoesNotContain(result, t => t.NullableGuidArray.SequenceEqual(randomHydra.NullableGuidArray));
         }
 
@@ -179,7 +179,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidArray.Contains(randomGuid));
-            Assert.DoesNotContain(result, t => t.NullableGuidArray.Contains(randomGuid) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidArray.Contains(randomGuid));
         }
 
         /// <summary>
@@ -198,7 +198,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
-            Assert.DoesNotContain(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
         }
 
         /// <summary>
@@ -216,7 +216,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection) == false);
+            Assert.Contains(result, t => !t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
             Assert.DoesNotContain(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
         }
 
@@ -236,7 +236,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
-            Assert.DoesNotContain(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
         }
 
         /// <summary>
@@ -254,7 +254,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection) == false);
+            Assert.Contains(result, t => !t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
             Assert.DoesNotContain(result, t => t.NullableGuidCollection.SequenceEqual(randomHydra.NullableGuidCollection));
         }
 
@@ -274,7 +274,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.NullableGuidCollection.Contains(randomGuid));
-            Assert.DoesNotContain(result, t => t.NullableGuidCollection.Contains(randomGuid) == false);
+            Assert.DoesNotContain(result, t => !t.NullableGuidCollection.Contains(randomGuid));
         }
     }
 }

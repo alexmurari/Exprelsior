@@ -158,7 +158,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => randomDateTimes.Contains(t.DateTime));
-            Assert.DoesNotContain(result, t => randomDateTimes.Contains(t.DateTime) == false);
+            Assert.DoesNotContain(result, t => !randomDateTimes.Contains(t.DateTime));
         }
 
         // DateTime Array
@@ -179,7 +179,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
-            Assert.DoesNotContain(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
         }
 
         /// <summary>
@@ -197,7 +197,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray) == false);
+            Assert.Contains(result, t => !t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
             Assert.DoesNotContain(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
         }
 
@@ -217,7 +217,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
-            Assert.DoesNotContain(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
         }
 
         /// <summary>
@@ -235,7 +235,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray) == false);
+            Assert.Contains(result, t => !t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
             Assert.DoesNotContain(result, t => t.DateTimeArray.SequenceEqual(randomHydra.DateTimeArray));
         }
 
@@ -255,7 +255,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeArray.Contains(randomDateTime));
-            Assert.DoesNotContain(result, t => t.DateTimeArray.Contains(randomDateTime) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeArray.Contains(randomDateTime));
         }
 
         /// <summary>
@@ -274,7 +274,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
-            Assert.DoesNotContain(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
         }
 
         /// <summary>
@@ -292,7 +292,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection) == false);
+            Assert.Contains(result, t => !t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
             Assert.DoesNotContain(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
         }
 
@@ -312,7 +312,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
-            Assert.DoesNotContain(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
         }
 
         /// <summary>
@@ -330,7 +330,7 @@
 
             // Assert
             Assert.NotEmpty(result);
-            Assert.Contains(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection) == false);
+            Assert.Contains(result, t => !t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
             Assert.DoesNotContain(result, t => t.DateTimeCollection.SequenceEqual(randomHydra.DateTimeCollection));
         }
 
@@ -350,7 +350,7 @@
             // Assert
             Assert.NotEmpty(result);
             Assert.Contains(result, t => t.DateTimeCollection.Contains(randomDateTime));
-            Assert.DoesNotContain(result, t => t.DateTimeCollection.Contains(randomDateTime) == false);
+            Assert.DoesNotContain(result, t => !t.DateTimeCollection.Contains(randomDateTime));
         }
     }
 }
