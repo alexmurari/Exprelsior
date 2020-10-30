@@ -28,8 +28,16 @@
         /// </returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
         {
-            var leftExprBody = new RebindParameterVisitor(right.Parameters[0], left.Parameters[0]).Visit(right.Body);
-            return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left.Body, leftExprBody ?? throw new InvalidOperationException()), left.Parameters);
+            Expression<Func<T, bool>> all = t => true;
+
+            if (left == all)
+                return right;
+
+            if (right == all)
+                return left;
+
+            var rightExprBody = new RebindParameterVisitor(right.Parameters[0], left.Parameters[0]).Visit(right.Body);
+            return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left.Body, rightExprBody ?? throw new InvalidOperationException()), left.Parameters);
         }
 
         /// <summary>
@@ -50,8 +58,13 @@
         /// </returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left, Expression<Func<T, bool>> right)
         {
-            var leftExprBody = new RebindParameterVisitor(right.Parameters[0], left.Parameters[0]).Visit(right.Body);
-            return Expression.Lambda<Func<T, bool>>(Expression.OrElse(left.Body, leftExprBody ?? throw new InvalidOperationException()), left.Parameters);
+            Expression<Func<T, bool>> all = t => true;
+
+            if (left == all || right == all)
+                return all;
+
+            var rightExprBody = new RebindParameterVisitor(right.Parameters[0], left.Parameters[0]).Visit(right.Body);
+            return Expression.Lambda<Func<T, bool>>(Expression.OrElse(left.Body, rightExprBody ?? throw new InvalidOperationException()), left.Parameters);
         }
 
         /// <summary>
