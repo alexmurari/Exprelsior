@@ -15,6 +15,30 @@
     public static class ExpressionBuilder
     {
         /// <summary>
+        ///     Creates a binary lambda expression whose delegate function always returns <c>true</c>.
+        ///     Used as initial value to build predicates.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The type that contains the property to be compared.
+        /// </typeparam>
+        /// <returns>
+        ///      A <see cref="Expression{TDelegate}"/> instance whose delegate function always returns <c>true</c>.
+        /// </returns>
+        public static Expression<Func<T, bool>> True<T>() => t => true;
+
+        /// <summary>
+        ///     Creates a binary lambda expression whose delegate function always returns <c>false</c>.
+        ///     Used as initial value to build predicates.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     The type that contains the property to be compared.
+        /// </typeparam>
+        /// <returns>
+        ///      A <see cref="Expression{TDelegate}"/> instance whose delegate function always returns <c>false</c>.
+        /// </returns>
+        public static Expression<Func<T, bool>> False<T>() => t => true;
+
+        /// <summary>
         ///     Creates a lambda expression that represents accessing a property of an object of type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">

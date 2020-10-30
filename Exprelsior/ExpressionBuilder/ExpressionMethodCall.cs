@@ -33,7 +33,7 @@
         /// <returns>The call to the method.</returns>
         internal static MethodCallExpression BuildGenericStringCollectionContainsMethodCall(Expression property, Expression value)
         {
-            return BuildEnumerableContainsMethodCall(property, value, StringComparer.OrdinalIgnoreCase);
+            return BuildEnumerableContainsMethodCall(property, value, null);
         }
 
         /// <summary>
