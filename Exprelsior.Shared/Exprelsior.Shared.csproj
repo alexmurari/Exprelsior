@@ -25,4 +25,8 @@
     <None Include="..\LICENSE" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Neleus.LambdaCompare" Version="1.0.3" />
+  </ItemGroup>
+
 </Project>
