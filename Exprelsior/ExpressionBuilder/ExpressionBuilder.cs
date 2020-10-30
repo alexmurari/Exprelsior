@@ -36,7 +36,7 @@
         /// <returns>
         ///      A <see cref="Expression{TDelegate}"/> instance whose delegate function always returns <c>false</c>.
         /// </returns>
-        public static Expression<Func<T, bool>> False<T>() => t => true;
+        public static Expression<Func<T, bool>> False<T>() => t => false;
 
         /// <summary>
         ///     Creates a lambda expression that represents accessing a property of an object of type <typeparamref name="T"/>.

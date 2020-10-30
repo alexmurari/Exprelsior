@@ -3,6 +3,7 @@
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq.Expressions;
+    using Neleus.LambdaCompare;
 
     /// <summary>
     ///     Provides extension methods to the <see cref="Expression" /> class.
@@ -30,10 +31,10 @@
         {
             Expression<Func<T, bool>> all = t => true;
 
-            if (left == all)
+            if (Lambda.ExpressionsEqual(left, all))
                 return right;
 
-            if (right == all)
+            if (Lambda.ExpressionsEqual(right, all))
                 return left;
 
             var rightExprBody = new RebindParameterVisitor(right.Parameters[0], left.Parameters[0]).Visit(right.Body);
