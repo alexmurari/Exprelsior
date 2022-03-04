@@ -8,7 +8,7 @@ build:
   project: Exprelsior.sln
   verbosity: minimal
 
-image: Visual Studio 2019
+image: Visual Studio 2022
 configuration: Release
 platform: Any CPU
 
