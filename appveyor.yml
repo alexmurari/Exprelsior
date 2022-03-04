@@ -39,10 +39,6 @@ before_build:
         $env:releaseNotes = @{ $true = $releaseNotes.Replace("`n", '\n').TrimEnd().Trim('\n'); $false = "$env:fullVersion release!" }[-not ([string]::IsNullOrEmpty($releaseNotes))]
         
         Update-AppveyorBuild -Version "$env:fullVersion Build-$env:APPVEYOR_BUILD_VERSION"
-
-  # Import PFX file for strong naming assemblies.
-  - ps: |
-        Start-Process -FilePath "$env:APPVEYOR_BUILD_FOLDER\SnInstallPfx.exe" -ArgumentList "$env:APPVEYOR_BUILD_FOLDER\ExprelsiorKey.pfx $env:certificate_pass" -NoNewWindow
   
   - ps: dotnet restore
 

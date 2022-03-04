@@ -89,20 +89,20 @@
         }
 
         /// <summary>
-        ///     Generates a sequence of <see cref="TimeSpan"/> objects within a specified range.
+        ///     Generates a sequence of <see cref="TimeSpan"/> objects within a specified range of hours.
         /// </summary>
         /// <param name="startTime">
-        ///     The value of the first <see cref="TimeSpan"/> in the sequence.
+        ///     The hour value of the first <see cref="TimeSpan"/> in the sequence.
         /// </param>
         /// <param name="endTime">
-        ///     The value of the last <see cref="TimeSpan"/> in the sequence.
+        ///     The hour value of the last <see cref="TimeSpan"/> in the sequence.
         /// </param>
         /// <returns>
         ///     The collection containing the range of <see cref="TimeSpan"/> objects.
         /// </returns>
         internal static IEnumerable<TimeSpan> Range(this TimeSpan startTime, TimeSpan endTime)
         {
-            return Enumerable.Range(0, (endTime - startTime).Hours + 1).Select(d => startTime.Add(new TimeSpan(0, d, 0, 0)));
+            return Enumerable.Range(0, (endTime - startTime).Hours + 1).Select(d => startTime.Add(TimeSpan.FromHours(d)));
         }
 
         /// <summary>
