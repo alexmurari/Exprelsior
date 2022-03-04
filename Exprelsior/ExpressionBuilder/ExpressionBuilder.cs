@@ -167,7 +167,7 @@
         {
             propertyNameOrPath.ThrowIfNullOrWhitespace(nameof(propertyNameOrPath));
 
-            var param = Expression.Parameter(typeof(T));
+            var param = Expression.Parameter(typeof(T), "accessor");
             var accessor = propertyNameOrPath.Split('.').Aggregate<string, MemberExpression>(
                 null,
                 (current, property) => Expression.Property((Expression)current ?? param, property.Trim()));
